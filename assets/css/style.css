@@ -27,3 +27,11 @@ h6 {
   font-family: "Nunito", sans-serif;
 }
 
+.logo img {
+  width: 130px !important;
+}
+
+.logo-login img {
+  width: 180px !important;
+}
+

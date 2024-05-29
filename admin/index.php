@@ -64,7 +64,7 @@ if (isset($_SESSION['admin'])) {
             <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
-                <a href="dashboard.php" class="logo1 d-flex align-items-center w-auto ">
+                <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
                   <img src="../assets/img/logo.png" alt="shopsphere-logo">
                 </a>
               </div>
