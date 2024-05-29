@@ -67,7 +67,7 @@ if (isset($_SESSION['admin'])) {
                 <a href="dashboard.php" class="logo1 d-flex align-items-center w-auto ">
                   <img src="../assets/img/logo.png" alt="shopsphere-logo">
                 </a>
-              </div><!-- End Logo -->
+              </div>
 
               <div class="card mb-3">
 
@@ -123,7 +123,7 @@ if (isset($_SESSION['admin'])) {
       </section>
 
     </div>
-  </main><!-- End #main -->
+  </main>
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/main.js"></script>
