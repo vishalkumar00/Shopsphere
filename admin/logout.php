@@ -1,11 +1,18 @@
 <?php
-// session started if not then redirect back to index (login)
 session_start();
 
-// destroys the session
+// Unset all of the session variables
+$_SESSION = array();
+
+// Destroy the session.
 session_destroy();
 
-// redirect admin to login (index)
+// If the remember me cookie exists, remove it
+if (isset($_COOKIE['remember_admin'])) {
+    setcookie('remember_admin', '', time() - 3600, "/");
+}
+
+// Redirect to login page
 header("Location: index.php");
 exit();
 ?>
