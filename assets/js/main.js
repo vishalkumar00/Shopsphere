@@ -1,6 +1,28 @@
-
 (function() {
   "use strict";
+  
+  const select = (el, all = false) => {
+    el = el.trim()
+    if (all) {
+      return [...document.querySelectorAll(el)]
+    } else {
+      return document.querySelector(el)
+    }
+  }
+
+  const on = (type, el, listener, all = false) => {
+    if (all) {
+      select(el, all).forEach(e => e.addEventListener(type, listener))
+    } else {
+      select(el, all).addEventListener(type, listener)
+    }
+  }
+
+  /**
+   * Add toggle-sidebar class to body by default
+   */
+  select('body').classList.add('toggle-sidebar');
+
   /**
    * Sidebar toggle
    */
@@ -9,5 +31,4 @@
       select('body').classList.toggle('toggle-sidebar')
     })
   }
-
-})
+})();

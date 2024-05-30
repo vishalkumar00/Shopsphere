@@ -22,6 +22,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Nunito", sans-serif;
 }
 
+.logo {
+  width: 220px;
+}
+
 .logo img {
   width: 130px !important;
 }
@@ -150,4 +154,59 @@ h1, h2, h3, h4, h5, h6 {
 
 .header .nav-profile {
   color: #012970;
+}
+
+.sidebar {
+  width: 250px;
+  position: fixed;
+  top: 60px;
+  left: -250px; /* Hidden by default */
+  height: 100%;
+  background: #fff;
+  transition: all 0.3s;
+  z-index: 996;
+  padding: 20px;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+}
+
+.sidebar ul {
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar ul li {
+  margin-bottom: 20px;
+}
+
+.sidebar ul li a {
+  display: flex;
+  align-items: center;
+  font-size: 1rem;
+  color: #012970;
+}
+
+.sidebar ul li a i {
+  margin-right: 10px;
+  font-size: 1.25rem;
+}
+
+.toggle-sidebar .sidebar {
+  left: 0; 
+}
+
+.toggle-sidebar .main-admin, .footer {
+  margin-left: 250px; 
+}
+
+.sidebar .nav-item a{
+  padding: 10px 0;
+}
+
+.sidebar .nav-item.active a {
+  color: #4154f1;
+  background: #f6f9ff; 
+}
+
+.header .toggle-sidebar-btn {
+  cursor: pointer;
 }

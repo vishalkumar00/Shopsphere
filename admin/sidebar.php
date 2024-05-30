@@ -1,7 +1,7 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="dashboard.php">
         <i class="bx bxs-dashboard fs-5"></i>
         <span>Dashboard</span>
