@@ -19,7 +19,7 @@ if (!isset($_SESSION['admin'])) {
 <body>
   <?php include 'sidebar.php'; ?>
 
-  <main id="main" class="main">
+  <main id="main-admin" class="main-admin">
 
     <div class="pagetitle">
       <h1>Dashboard</h1>

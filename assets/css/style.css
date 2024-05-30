@@ -18,12 +18,7 @@ a:hover {
   text-decoration: none;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: "Nunito", sans-serif;
 }
 
@@ -35,3 +30,124 @@ h6 {
   width: 180px !important;
 }
 
+#main-admin {
+  margin-top: 60px !important;
+  padding: 20px 30px !important;
+  transition: all 0.3s !important;
+}
+
+.header {
+  transition: all 0.5s;
+  z-index: 997;
+  height: 60px;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  background-color: #fff;
+  padding-left: 20px;
+}
+
+.header .toggle-sidebar-btn {
+  font-size: 32px;
+  padding-left: 10px;
+  cursor: pointer;
+  color: #012970;
+}
+
+.header .search-bar {
+  min-width: 360px;
+  padding: 0 20px;
+}
+
+.nav-item-icon {
+  padding: 0 20px;
+}
+
+.nav-item .nav-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  color: #012970;
+}
+
+.nav-item .badge-number {
+  position: absolute;
+  top: 0;
+  right: 13px;
+  background-color: #ff4b5c;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+
+.dropdown {
+  list-style: none;
+}
+
+.dropdown-menu.notifications {
+  width: 300px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.dropdown-menu.notifications .notification-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  /* border-bottom: 1px solid #eee; */
+}
+
+.dropdown-menu.notifications .notification-item i {
+  font-size: 1.5rem;
+  margin-right: 10px;
+}
+
+.dropdown-menu.notifications .notification-item h4 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.dropdown-menu.notifications .notification-item p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #777;
+}
+
+.nav-profile {
+  display: flex;
+  align-items: center;
+}
+
+.nav-profile .dropdown-toggle::after {
+  display: none;
+}
+
+.dropdown-menu.profile {
+  width: 200px;
+}
+
+.dropdown-menu.profile .dropdown-item {
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-menu.profile .dropdown-item i {
+  font-size: 1.25rem;
+  margin-right: 10px;
+  color: #444;
+}
+
+.header .dropdown-menu-arrow::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  right: 20px;
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #fff transparent transparent;
+}
+
+.header .nav-profile {
+  color: #012970;
+}

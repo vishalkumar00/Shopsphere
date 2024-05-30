@@ -3,26 +3,50 @@ session_start();
 
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Get form data
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+  // Get form data
+  $username = trim($_POST['username']);
+  $password = trim($_POST['password']);
+  $remember = isset($_POST['remember']);
 
-    // Check if the username and password are 'admin'
-    if ($username === 'admin' && $password === 'admin') {
-        // Start the session and redirect to dashboard.php
-        $_SESSION['admin'] = $username;
-        header("Location: dashboard.php");
-        exit();
-    } else {
-        // Invalid credentials
-        $error_message = "Invalid username or password";
-    }
+  // Validate the form data
+  if (empty($username) || empty($password)) {
+      $error_message = "Please fill out both fields.";
+  } else {
+      // Check if the username and password are 'admin'
+      if ($username === 'admin' && $password === 'admin') {
+          // Start the session and redirect to dashboard.php
+          $_SESSION['admin'] = $username;
+
+          // Set the remember me cookie if the checkbox is selected
+          if ($remember) {
+              setcookie('remember_admin', $username, time() + (86400 * 30), "/"); // 86400 = 1 day
+          } else {
+              // If the checkbox is not selected, ensure the cookie is removed
+              if (isset($_COOKIE['remember_admin'])) {
+                  setcookie('remember_admin', '', time() - 3600, "/");
+              }
+          }
+
+          header("Location: dashboard.php");
+          exit();
+      } else {
+          // Invalid credentials
+          $error_message = "Invalid username or password";
+      }
+  }
 }
 
 // Redirect to dashboard if already logged in
 if (isset($_SESSION['admin'])) {
-    header("Location: dashboard.php");
-    exit();
+  header("Location: dashboard.php");
+  exit();
+}
+
+// Check for the remember me cookie
+if (isset($_COOKIE['remember_admin'])) {
+  $remembered_username = $_COOKIE['remember_admin'];
+} else {
+  $remembered_username = '';
 }
 ?>
 
@@ -33,13 +57,13 @@ if (isset($_SESSION['admin'])) {
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard</title>
+  <title>Login - Admin</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
   <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="../assets/img/favicon.png" rel="icon">
+  <link href="../assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -87,23 +111,21 @@ if (isset($_SESSION['admin'])) {
                   <form class="row g-3 needs-validation" action="index.php" method="post">
 
                     <div class="col-12">
-                      <label for="yourUsername" class="form-label">Username</label>
-                      <div class="input-group has-validation">
+                      <label for="username" class="form-label">Username</label>
+                      <div class="input-group">
                         <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="yourUsername" required>
-                        <div class="invalid-feedback">Please enter your username.</div>
+                        <input type="text" name="username" class="form-control" id="username" value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>">
                       </div>
                     </div>
 
                     <div class="col-12">
-                      <label for="yourPassword" class="form-label">Password</label>
-                      <input type="password" name="password" class="form-control" id="yourPassword" required>
-                      <div class="invalid-feedback">Please enter your password!</div>
+                      <label for="password" class="form-label">Password</label>
+                      <input type="password" name="password" class="form-control" id="password" value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
                     </div>
 
                     <div class="col-12">
                       <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                        <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe" <?php if ($remembered_username) echo 'checked'; ?>>
                         <label class="form-check-label" for="rememberMe">Remember me</label>
                       </div>
                     </div>
