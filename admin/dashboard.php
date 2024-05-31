@@ -8,15 +8,8 @@ if (!isset($_SESSION['admin'])) {
 }
 
 ?>
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
   <?php include 'header.php'; ?>
-</head>
 
-<body>
   <?php include 'sidebar.php'; ?>
 
   <main id="main-admin" class="main-admin">
@@ -292,9 +285,5 @@ if (!isset($_SESSION['admin'])) {
 
   </main>
 
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>ShopSphere</span></strong>. All Rights Reserved
-    </div>
-  </footer>
+
+  <?php include 'footer.php'; ?>

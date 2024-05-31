@@ -37,11 +37,6 @@
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center m-0">
-        <li class="nav-item-icon d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li>
 
         <li class="nav-item dropdown">
           <a class="nav-link nav-icon d-flex align-items-center" href="#" data-bs-toggle="dropdown">
@@ -134,9 +129,7 @@
     </nav>
   </header><!-- End Header -->
 
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-  <script src="../assets/js/main.js"></script>
 
 </body>
 

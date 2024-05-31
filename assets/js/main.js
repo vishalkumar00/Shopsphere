@@ -1,6 +1,6 @@
 (function() {
   "use strict";
-  
+
   const select = (el, all = false) => {
     el = el.trim()
     if (all) {
@@ -19,16 +19,28 @@
   }
 
   /**
-   * Add toggle-sidebar class to body by default
-   */
-  select('body').classList.add('toggle-sidebar');
-
-  /**
    * Sidebar toggle
    */
   if (select('.toggle-sidebar-btn')) {
     on('click', '.toggle-sidebar-btn', function(e) {
-      select('body').classList.toggle('toggle-sidebar')
+      select('body').classList.toggle('toggle-sidebar');
     })
   }
+
+  /**
+   * Initialize sidebar state based on screen width
+   */
+  const initializeSidebar = () => {
+    if (window.innerWidth >= 1200) {
+      select('body').classList.remove('toggle-sidebar');
+    } else {
+      select('body').classList.add('toggle-sidebar');
+    }
+  }
+
+  // Run on page load
+  initializeSidebar();
+
+  // Run on window resize
+  window.addEventListener('resize', initializeSidebar);
 })();
