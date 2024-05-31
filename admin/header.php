@@ -115,8 +115,8 @@
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Admin</h6>
+            <li class="dropdown-header text-center">
+              <h6 class="fw-bold">Admin</h6>
               <span>ShopSphere</span>
             </li>
             <li>

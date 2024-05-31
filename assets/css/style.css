@@ -61,10 +61,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 20px;
 }
 
-.nav-item-icon {
-  padding: 0 20px;
-}
-
 .nav-item .nav-icon {
   position: relative;
   display: flex;
@@ -75,8 +71,8 @@ h1, h2, h3, h4, h5, h6 {
 
 .nav-item .badge-number {
   position: absolute;
-  top: 0;
-  right: 13px;
+  top: 8px;
+  right: 22px;
   background-color: #ff4b5c;
   color: white;
   border-radius: 50%;
@@ -98,7 +94,6 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   padding: 10px;
-  /* border-bottom: 1px solid #eee; */
 }
 
 .dropdown-menu.notifications .notification-item i {
@@ -160,7 +155,7 @@ h1, h2, h3, h4, h5, h6 {
   width: 250px;
   position: fixed;
   top: 60px;
-  left: -250px; /* Hidden by default */
+  left: -250px;
   height: 100%;
   background: #fff;
   transition: all 0.3s;
@@ -196,10 +191,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .toggle-sidebar .main-admin, .footer {
   margin-left: 250px; 
-}
-
-.sidebar .nav-item a{
-  padding: 10px 0;
+  padding: 20px 0;
+  font-size: 14px;
+  transition: all 0.3s;
+  border-top: 1px solid #cddfff;
 }
 
 .sidebar .nav-item.active a {
@@ -207,6 +202,128 @@ h1, h2, h3, h4, h5, h6 {
   background: #f6f9ff; 
 }
 
+.sidebar-nav .nav-link:hover {
+  color: #4154f1;
+  background: #f6f9ff;
+  transition: 0.3s;
+}
+
+.nav-link {
+  padding: 10px 10px;
+}
+
 .header .toggle-sidebar-btn {
   cursor: pointer;
+}
+
+.pagetitle {
+  margin-bottom: 10px;
+}
+
+.pagetitle h1 {
+  font-size: 24px;
+  margin-bottom: 0;
+  font-weight: 600;
+  color: #012970;
+}
+
+.dashboard .info-card {
+  padding-bottom: 10px;
+}
+
+.card {
+  margin-bottom: 30px;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.card-body {
+  padding: 0 15px 15px 15px;
+}
+
+.card-body {
+  flex: 1 1 auto;
+}
+
+.card-title {
+  padding: 20px 0 15px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #012970;
+  font-family: "Poppins", sans-serif;
+}
+
+.dashboard .sales-card .card-icon {
+  color: #4154f1;
+  background: #f6f6fe;
+}
+
+.dashboard .card-icon {
+  font-size: 32px;
+  line-height: 0;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.dashboard .info-card h6 {
+  font-size: 28px;
+  color: #012970;
+  font-weight: 700;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard .revenue-card .card-icon {
+  color: #2eca6a;
+  background: #e0f8e9;
+}
+
+.dashboard .customers-card .card-icon {
+  color: #ff771d;
+  background: #ffecdf;
+}
+
+.dashboard .top-selling img {
+  border-radius: 5px;
+  max-width: 60px;
+}
+
+.dashboard .top-selling .table tbody td {
+  vertical-align: middle;
+}
+
+.dashboard .activity {
+  font-size: 14px;
+}
+
+.activity-item .ann-mins {
+  color: #888;
+  position: relative;
+  flex-shrink: 0;
+  flex-grow: 0;
+  min-width: 64px;
+}
+
+ .footer .copyright {
+  text-align: center;
+  color: #012970;
+}
+
+.dashboard .activity .activity-item .activity-badge {
+  margin-top: 3px;
+  /* z-index: 1; */
+  font-size: 11px;
+  line-height: 0;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 3px solid #fff;
+  flex-grow: 0;
+}
+
+.dashboard .activity .activity-item .activity-content {
+  padding-left: 10px;
+  padding-bottom: 20px;
 }
