@@ -1,8 +1,8 @@
 <?php
 session_start();
+include '../database/conn.php'; 
 
 if (!isset($_SESSION['admin'])) {
-    // Not logged in, redirect to login page
     header("Location: index.php");
     exit();
 }

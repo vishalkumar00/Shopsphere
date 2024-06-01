@@ -281,11 +281,6 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffecdf;
 }
 
-/* table {
-  caption-side: bottom;
-  border-collapse: collapse;
-} */
-
 .dashboard .top-selling img {
   border-radius: 5px;
   max-width: 60px;
@@ -314,7 +309,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .dashboard .activity .activity-item .activity-badge {
   margin-top: 3px;
-  /* z-index: 1; */
   font-size: 11px;
   line-height: 0;
   border-radius: 50%;
@@ -374,6 +368,14 @@ h1, h2, h3, h4, h5, h6 {
 .category-delete-btn {
   padding: .25rem .5rem;
   font-size: .875rem;
+}
+
+.register-form-card {
+  width: 550px;
+}
+
+.card-register-body {
+  padding: 0 30px 20px 30px;
 }
 
 @media (max-width: 1199px) {
