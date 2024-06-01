@@ -7,8 +7,8 @@
         <span>Dashboard</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/ad_category.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="ad_category.php">
         <i class="bx bx-category-alt fs-5"></i>
         <span>Category</span>
       </a>

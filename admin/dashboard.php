@@ -16,8 +16,6 @@ if (!isset($_SESSION['admin'])) {
 
     <div class="pagetitle">
       <h1>Dashboard</h1>
-      <nav>
-      </nav>
     </div>
 
     <section class="section dashboard">

@@ -212,7 +212,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .pagetitle {
-  margin-bottom: 10px;
+  margin-bottom: 14px;
 }
 
 .pagetitle h1 {
@@ -281,6 +281,11 @@ h1, h2, h3, h4, h5, h6 {
   background: #ffecdf;
 }
 
+/* table {
+  caption-side: bottom;
+  border-collapse: collapse;
+} */
+
 .dashboard .top-selling img {
   border-radius: 5px;
   max-width: 60px;
@@ -321,6 +326,54 @@ h1, h2, h3, h4, h5, h6 {
 .dashboard .activity .activity-item .activity-content {
   padding-left: 10px;
   padding-bottom: 20px;
+}
+
+/* Category Page Styles */
+.category-card {
+  margin-bottom: 20px;
+}
+
+.category-card .card-body h5 {
+  margin-bottom: 10px;
+}
+
+.category-label {
+  text-align: right;
+}
+
+.category-input {
+  width: 100%;
+}
+
+.category-table {
+  margin-top: 20px;
+  border-collapse: collapse;
+}
+
+.category-table th,
+.category-table td {
+  text-align: start;
+  vertical-align: middle;
+  border: none; 
+}
+
+.category-table th {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.category-table td {
+  border-bottom: 1px solid #dee2e6; 
+}
+
+.category-btn {
+  padding: .5rem 1rem;
+  font-size: 1rem;
+}
+
+.category-edit-btn,
+.category-delete-btn {
+  padding: .25rem .5rem;
+  font-size: .875rem;
 }
 
 @media (max-width: 1199px) {
