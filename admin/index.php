@@ -89,7 +89,7 @@ if (isset($_COOKIE['remember_admin'])) {
 
               <div class="d-flex justify-content-center py-4">
                 <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
-                  <img src="../assets/img/logo.png" alt="shopsphere-logo">
+                  <img src="../assets/img/logo.png" alt="ShopSphere-logo">
                 </a>
               </div>
 

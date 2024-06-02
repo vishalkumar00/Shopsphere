@@ -164,6 +164,7 @@ CREATE TABLE `sellers` (
   `province` varchar(100) NOT NULL,
   `postal_code` varchar(20) NOT NULL,
   `business_email` varchar(255) DEFAULT NULL,
+  `password` varchar(255) NOT NULL,
   `contact_number` varchar(15) NOT NULL,
   `tax_id` varchar(50) DEFAULT NULL,
   `bank_account_number` varchar(50) DEFAULT NULL,

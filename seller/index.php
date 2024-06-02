@@ -1,3 +1,53 @@
+<?php
+session_start();
+include '../database/conn.php';
+
+$error_message = '';
+$slrEmail = '';
+$password = '';
+$remembered_username = false;
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $slrEmail = $_POST['slrEmail'];
+  $password = $_POST['password'];
+
+  if (isset($_POST['remember'])) {
+    $remembered_username = true;
+  }
+
+  if (empty($slrEmail) || empty($password)) {
+    $error_message = "Please fill out both fields.";
+  } else {
+    // Validate credentials against the database if fields are not empty
+    $sql = "SELECT seller_id, business_email, password FROM sellers WHERE business_email = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('s', $slrEmail);
+    $stmt->execute();
+    $result = $stmt->get_result();
+
+    if ($result->num_rows > 0) {
+      $row = $result->fetch_assoc();
+      $hashed_password = $row['password'];
+
+      // Verify hashed password
+      if (password_verify($password, $hashed_password)) {
+        // Successful login
+        $_SESSION['seller_id'] = $row['seller_id'];
+        $_SESSION['seller_email'] = $row['business_email'];
+        header("Location: dashboard.php");
+        exit;
+      } else {
+        // Invalid password
+        $error_message = "Invalid email or password";
+      }
+    } else {
+      // Invalid email
+      $error_message = "Invalid email or password";
+    }
+  }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,7 +77,7 @@
 
 <body>
 
-<main>
+  <main>
     <div class="container">
 
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
@@ -37,7 +87,7 @@
 
               <div class="d-flex justify-content-center py-4">
                 <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
-                  <img src="../assets/img/logo.png" alt="shopsphere-logo">
+                  <img src="../assets/img/logo.png" alt="ShopSphere-logo">
                 </a>
               </div>
 
@@ -50,7 +100,7 @@
                     <p class="text-center small">Enter your username & password to login</p>
                   </div>
 
-                  <?php if (isset($error_message)): ?>
+                  <?php if (!empty($error_message)) : ?>
                     <div class="alert alert-danger" role="alert">
                       <?php echo $error_message; ?>
                     </div>
@@ -59,10 +109,10 @@
                   <form class="row g-3 needs-validation" action="index.php" method="post">
 
                     <div class="col-12">
-                      <label for="username" class="form-label">Username</label>
+                      <label for="slrEmail" class="form-label">Seller Email</label>
                       <div class="input-group">
-                        <span class="input-group-text" id="inputGroupPrepend">@</span>
-                        <input type="text" name="username" class="form-control" id="username" value="<?php echo isset($username) ? htmlspecialchars($username) : ''; ?>">
+                        <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-envelope'></i></span>
+                        <input type="text" name="slrEmail" class="form-control" id="slrEmail" value="<?php echo isset($slrEmail) ? htmlspecialchars($slrEmail) : ''; ?>">
                       </div>
                     </div>
 
@@ -83,7 +133,7 @@
                     <div class="col-12">
                       <button class="btn btn-primary w-100" type="submit">Login</button>
                     </div>
-                    <div class="col-12">
+                    <div class="col-12 text-center">
                       <p class="small mb-0">Don't have account? <a href="slr_register.php">Create an account</a></p>
                     </div>
                   </form>
@@ -100,8 +150,8 @@
     </div>
   </main>
 
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/main.js"></script>
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="../assets/js/main.js"></script>
 
 </body>
 
