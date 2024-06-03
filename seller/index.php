@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $error_message = "Please fill out both fields.";
   } else {
     // Validate credentials against the database if fields are not empty
-    $sql = "SELECT seller_id, business_email, password FROM sellers WHERE business_email = ?";
+    $sql = "SELECT seller_id, business_email, password, store_name FROM sellers WHERE business_email = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param('s', $slrEmail);
     $stmt->execute();
@@ -33,7 +33,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
       if (password_verify($password, $hashed_password)) {
         // Successful login
         $_SESSION['seller_id'] = $row['seller_id'];
-        $_SESSION['seller_email'] = $row['business_email'];
+        $_SESSION['business_email'] = $row['business_email'];
+        $_SESSION['store_name'] = $row['store_name']; 
         header("Location: dashboard.php");
         exit;
       } else {

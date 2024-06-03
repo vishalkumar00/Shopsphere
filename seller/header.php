@@ -2,10 +2,15 @@
 session_start();
 include '../database/conn.php'; 
 
-if (!isset($_SESSION['admin'])) {
+// Check if the seller is logged in
+if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
     header("Location: index.php");
     exit();
 }
+
+// Fetch the store name and email from session
+$store_name = $_SESSION['store_name'];
+$business_email = $_SESSION['business_email'];
 
 ?>
 
@@ -116,14 +121,14 @@ if (!isset($_SESSION['admin'])) {
         <li class="nav-item-icon dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
             <i class="ri-admin-line fs-4"></i>
-            <span class="d-none d-md-block dropdown-toggle ps-1 fw-bold">Admin</span>
+            <span class="d-none d-md-block dropdown-toggle ps-1 fw-bold"><?php echo htmlspecialchars($store_name); ?></span>
             <i class="bi bi-chevron-down fs-6"></i>
           </a>
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header text-center">
-              <h6 class="fw-bold">Admin</h6>
-              <span>ShopSphere</span>
+              <h6 class="fw-bold"><?php echo htmlspecialchars($store_name); ?></h6>
+              <span><?php echo htmlspecialchars($business_email); ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
@@ -139,6 +144,7 @@ if (!isset($_SESSION['admin'])) {
       </ul>
     </nav>
   </header><!-- End Header -->
+
 
 
 
