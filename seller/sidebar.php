@@ -1,22 +1,16 @@
 <!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/dashboard.php') !== false) ? 'active' : ''; ?>">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/dashboard.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="dashboard.php">
         <i class="bx bxs-dashboard fs-5"></i>
         <span>Dashboard</span>
       </a>
     </li>
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/ad_category.php') !== false) ? 'active' : ''; ?>">
-      <a class="nav-link" href="ad_category.php">
-        <i class="bx bx-category-alt fs-5"></i>
-        <span>Category</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="bx bx-list-ul fs-5"></i>
-        <span>Product List</span>
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/ad_products.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="ad_products.php">
+        <i class='bx bx-box'></i>
+        <span>Products</span>
       </a>
     </li>
     <li class="nav-item">
@@ -27,14 +21,20 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">
+        <i class='bx bx-wallet'></i>
+        <span>Revenue</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">
         <i class="bx bxs-inbox fs-5"></i>
-        <span>Category Req.</span>
+        <span>Feedbacks</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">
         <i class="bx bxs-user-detail fs-5"></i>
-        <span>Sellers' List</span>
+        <span>Proile</span>
       </a>
     </li>
     <li class="nav-item">
@@ -43,11 +43,11 @@
         <span>Announcements</span>
       </a>
     </li>
-    <li class="nav-item">
+    <!-- <li class="nav-item">
       <a class="nav-link" href="#">
         <i class="bx bxs-bank fs-5"></i>
         <span>Payments</span>
       </a>
-    </li>
+    </li> -->
   </ul>
 </aside>

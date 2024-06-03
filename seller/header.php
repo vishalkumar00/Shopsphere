@@ -21,7 +21,7 @@ $business_email = $_SESSION['business_email'];
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Admin - ShopSphere</title>
+  <title>Seller - ShopSphere</title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
