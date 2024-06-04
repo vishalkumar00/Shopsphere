@@ -323,11 +323,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                                 </div>
                             </div>
-
-                            <div class="credits">
-                                Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-                            </div>
-
                         </div>
                     </div>
                 </div>

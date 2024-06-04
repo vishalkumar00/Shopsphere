@@ -1,6 +1,11 @@
 <?php
 session_start();
 
+if (isset($_SESSION['admin'])) {
+  header("Location: dashboard.php");
+  exit();
+}
+
 // Check if the form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
   // Get form data
