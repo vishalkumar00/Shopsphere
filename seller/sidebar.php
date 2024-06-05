@@ -1,4 +1,3 @@
-<!-- ======= Sidebar ======= -->
 <aside id="sidebar" class="sidebar">
   <ul class="sidebar-nav" id="sidebar-nav">
     <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/dashboard.php') !== false) ? 'active' : ''; ?>">

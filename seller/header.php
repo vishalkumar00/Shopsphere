@@ -11,14 +11,12 @@ if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
 // Fetch the store name and email from session
 $store_name = $_SESSION['store_name'];
 $business_email = $_SESSION['business_email'];
-
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
+  <!-- <meta charset="utf-8"> -->
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Seller - ShopSphere</title>
@@ -144,9 +142,6 @@ $business_email = $_SESSION['business_email'];
       </ul>
     </nav>
   </header><!-- End Header -->
-
-
-
 
 </body>
 
