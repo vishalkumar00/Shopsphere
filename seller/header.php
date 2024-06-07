@@ -1,5 +1,4 @@
-<?php
-session_start();
+<?php 
 include '../database/conn.php'; 
 
 // Check if the seller is logged in
@@ -16,7 +15,7 @@ $business_email = $_SESSION['business_email'];
 <html lang="en">
 
 <head>
-  <!-- <meta charset="utf-8"> -->
+  <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
   <title>Seller - ShopSphere</title>
@@ -141,7 +140,7 @@ $business_email = $_SESSION['business_email'];
         </li>
       </ul>
     </nav>
-  </header><!-- End Header -->
+  </header>
 
 </body>
 

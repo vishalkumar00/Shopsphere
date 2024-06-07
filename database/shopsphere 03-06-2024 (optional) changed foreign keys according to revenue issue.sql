@@ -130,12 +130,6 @@ CREATE TABLE `products` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `products`
---
-
-INSERT INTO `products` (`product_id`, `seller_id`, `category_id`, `product_name`, `description`, `price`, `quantity`, `length`, `width`, `height`, `weight`, `created_at`, `updated_at`) VALUES
-(2, 1, 1, 'Dummy Product', 'This is a description for a dummy product.', 19.99, 10, 10.00, 5.00, 3.00, 1.50, '2024-06-01 00:23:05', '2024-06-01 00:23:05');
 
 -- --------------------------------------------------------
 

@@ -1,6 +1,5 @@
 <?php
-include 'header.php';
-include 'sidebar.php';
+session_start();
 include '../database/conn.php';
 
 // Initialize variables to hold form data
@@ -19,10 +18,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productWeight = $_POST['productWeight'];
 
     // Store product details into `products` table
-    $insertProductSQL = "INSERT INTO products (seller_id, category_id, product_name, description, length, width, height, weight, created_at, updated_at)
-                         VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
+    $insertProductSQL = "INSERT INTO products (seller_id, category_id, product_name, description, length, width, height, weight, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)";
     $stmt = $conn->prepare($insertProductSQL);
-    $stmt->bind_param("iisddddd", $_SESSION['seller_id'], $productCategory, $productName, $productDesc, $productLength, $productWidth, $productHeight, $productWeight);
+    $stmt->bind_param("iissdddd", $_SESSION['seller_id'], $productCategory, $productName, $productDesc, $productLength, $productWidth, $productHeight, $productWeight);
     $stmt->execute();
     $product_id = $stmt->insert_id;
     $stmt->close();
@@ -32,20 +30,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $productSizes = $_POST['productSize'];
     $productPrices = $_POST['productPrice'];
     $productQuantities = $_POST['productQuantity'];
+    $productImages = $_FILES['productImage'];
 
     // Store each product variant into `product_variants` table
-    $insertVariantSQL = "INSERT INTO product_variants (product_id, color_id, size_id, quantity, price) VALUES (?, ?, ?, ?, ?)";
+    $insertVariantSQL = "INSERT INTO product_variants (product_id, color_id, size_id, quantity, price, product_image) VALUES (?, ?, ?, ?, ?, ?)";
     $stmt = $conn->prepare($insertVariantSQL);
 
     for ($i = 0; $i < count($productColors); $i++) {
-        $stmt->bind_param("iiidi", $product_id, $productColors[$i], $productSizes[$i], $productQuantities[$i], $productPrices[$i]);
-        $stmt->execute();
+        $productImageName = basename($productImages['name'][$i]);
+        $targetFilePath = "../uploads/" . $productImageName;
+
+        if (move_uploaded_file($productImages['tmp_name'][$i], $targetFilePath)) {
+            $stmt->bind_param("iiidis", $product_id, $productColors[$i], $productSizes[$i], $productQuantities[$i], $productPrices[$i], $productImageName);
+            $stmt->execute();
+        }
     }
 
     $stmt->close();
-
-
-    // echo "<script>window.location.href = 'dashboard.php';</script>";
     header("Location: dashboard.php");
     exit();
 }
@@ -61,7 +62,12 @@ $result_colors = $conn->query($sql_colors);
 // Fetch sizes for variant dropdowns
 $sql_sizes = "SELECT * FROM sizes ORDER BY size_name";
 $result_sizes = $conn->query($sql_sizes);
+
+include 'header.php';
+include 'sidebar.php';
 ?>
+
+
 
 <main id="main-admin" class="main-admin">
 
@@ -69,8 +75,8 @@ $result_sizes = $conn->query($sql_sizes);
         <div class="col-lg-8">
             <div class="card category-card">
                 <div class="card-body">
-                    <h5 class="card-title text-center fs-3">Create Product</h5>
-                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                    <h5 class="card-title text-center mt-2 fs-3">Create Product</h5>
+                    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
 
                         <div class="row mb-3">
                             <label for="productName" class="col-sm-3 col-form-label category-label">Product Name</label>
@@ -151,6 +157,11 @@ $result_sizes = $conn->query($sql_sizes);
                                         <div class="col-sm-6">
                                             <label class="col-form-label category-label">Quantity</label>
                                             <input type="text" class="form-control category-input" name="productQuantity[]" required>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <label for="productImage[]" class="col-form-label">Image:</label>
+                                            <input type="file" name="productImage[]" accept="image/*" onchange="previewImage(event, this)">
+                                            <img id="imagePreview" src="" alt="Image Preview" style="display:none; width: 100px; height: 100px; margin-top: 10px;">
                                         </div>
                                     </div>
                                 </div>
@@ -246,7 +257,7 @@ $result_sizes = $conn->query($sql_sizes);
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-10 offset-sm-2">
+                    <div class="col-sm-10 offset-sm-2 mb-3">
                         <div class="row">
                             <div class="col-sm-6">
                                 <label class="col-form-label category-label">Price</label>
@@ -256,9 +267,13 @@ $result_sizes = $conn->query($sql_sizes);
                                 <label class="col-form-label category-label">Quantity</label>
                                 <input type="text" class="form-control category-input" name="productQuantity[]" required>
                             </div>
-                        </div>
+                            <div class="d-flex align-items-center">
+                                <label for="productImage[]" class="col-form-label">Image:</label>
+                                <input type="file" name="productImage[]" accept="image/*" onchange="previewImage(event, this)">
+                                <img id="imagePreview" src="" alt="Image Preview" style="display:none; width: 100px; height: 100px; margin: 10px 0;">
+                            </div>
                     </div>
-                    <div class="text-end mt-2">
+                    <div class="text-end">
                         <button type="button" class="btn btn-danger remove-variant-btn">Remove</button>
                     </div>
                 </div>
@@ -273,6 +288,19 @@ $result_sizes = $conn->query($sql_sizes);
             }
         });
     });
+
+    function previewImage(event, input) {
+        const file = input.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = input.nextElementSibling;
+                img.src = e.target.result;
+                img.style.display = 'block';
+            };
+            reader.readAsDataURL(file);
+        }
+    }
 </script>
 
 <?php include 'footer.php'; ?>
