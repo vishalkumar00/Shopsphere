@@ -23,11 +23,12 @@ include 'header.php'; ?>
             <div class="card info-card sales-card">
 
               <div class="card-body">
-                <h5 class="card-title">Sales</h5>
+                <h5 class="card-title">Orders</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="bi bi-cart"></i>
+                    <!-- <i class="ri-box-3-line "></i>  -->
+                    <i class="bi bi-box"></i>
                   </div>
                   <div class="ps-3">
                     <h6>145</h6>
@@ -68,7 +69,7 @@ include 'header.php'; ?>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                    <i class="ri-box-3-line"></i>
+                    <i class="bi bi-cart"></i>
                   </div>
                   <div class="ps-3">
                     <h6>1244</h6>

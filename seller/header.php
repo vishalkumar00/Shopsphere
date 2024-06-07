@@ -117,7 +117,7 @@ $business_email = $_SESSION['business_email'];
 
         <li class="nav-item-icon dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <i class="ri-admin-line fs-4"></i>
+            <i class="ri-user-star-line fs-4"></i>
             <span class="d-none d-md-block dropdown-toggle ps-1 fw-bold"><?php echo htmlspecialchars($store_name); ?></span>
             <i class="bi bi-chevron-down fs-6"></i>
           </a>

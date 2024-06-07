@@ -340,7 +340,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .category-table {
-  margin-top: 20px;
+  /* margin-top: 10px; */
   border-collapse: collapse;
 }
 

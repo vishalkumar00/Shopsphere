@@ -8,7 +8,8 @@
     </li>
     <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_products.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="ad_products.php">
-        <i class='bx bx-box'></i>
+        <!-- <i class='bx bx-box'></i> -->
+        <i class='bx bx-closet'></i>
         <span>Products</span>
       </a>
     </li>
