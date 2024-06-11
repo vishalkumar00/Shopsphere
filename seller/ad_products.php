@@ -117,7 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $stmt->close();
-        header("Location: dashboard.php");
+        header("Location: slr_products.php?created=1");
         exit();
     }
 }
@@ -460,7 +460,7 @@ include 'sidebar.php';
         variantFieldsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-variant-btn')) {
                 e.target.closest('.variant-fields').remove();
-                updateRemoveButtonVisibility(); // Update remove button visibility after removal
+                updateRemoveButtonVisibility(); 
             }
         });
     });
