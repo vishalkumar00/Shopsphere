@@ -1,9 +1,9 @@
 <?php 
 session_start();
 
-include 'header.php'; ?>
+include 'header.php'; 
 
-<?php include 'sidebar.php'; ?>
+include 'sidebar.php'; ?>
 
 <main id="main-admin" class="main-admin">
 

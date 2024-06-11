@@ -149,7 +149,7 @@ include 'sidebar.php';
 <main id="main-admin" class="main-admin">
 
     <div class="row d-flex justify-content-center">
-        <div class="col-lg-8">
+        <div class="col-lg-10">
             <div class="card category-card">
                 <div class="card-body">
                     <h5 class="card-title text-center mt-2 fs-3">List Product</h5>
@@ -298,25 +298,24 @@ include 'sidebar.php';
                             </div>
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="productLength" class="col-sm-5 col-form-label category-label">Length (cm)</label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
+                        <div class="row mb-3 me-auto">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-5 d-flex">
+                                <label for="productLength" class="col-form-label pd-ld-label">Length (cm)</label>
+                                <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-rulers"></i></span>
-                                    <input type="text" class="form-control category-input" name="productLength" id="productLength" value="<?php echo htmlspecialchars($productLength); ?>">
+                                    <input type="text" class="form-control " name="productLength" id="productLength" value="<?php echo htmlspecialchars($productLength); ?>">
                                 </div>
                                 <?php if (isset($errors['productLength'])) : ?>
                                     <div class="text-danger"><?php echo $errors['productLength']; ?></div>
                                 <?php endif; ?>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="productWidth" class="col-sm-5 col-form-label category-label">Width (cm)</label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
+                            <div class="col-sm-5 d-flex">
+                                <label for="productWidth" class="col-form-label pd-ld-label">Width (cm)</label>
+                                <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-rulers"></i></span>
-                                    <input type="text" class="form-control category-input" name="productWidth" id="productWidth" value="<?php echo htmlspecialchars($productWidth); ?>">
+                                    <input type="text" class="form-control" name="productWidth" id="productWidth" value="<?php echo htmlspecialchars($productWidth); ?>">
                                 </div>
                                 <?php if (isset($errors['productWidth'])) : ?>
                                     <div class="text-danger"><?php echo $errors['productWidth']; ?></div>
@@ -325,29 +324,28 @@ include 'sidebar.php';
                         </div>
 
                         <div class="row mb-3">
-                            <label for="productHeight" class="col-sm-5 col-form-label category-label">Height (cm)</label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
+                        <div class="col-sm-2"></div>
+                            <div class="col-sm-5 d-flex">
+                                <label for="productHeight" class="col-form-label pd-ld-label">Height (cm)</label>
+                                <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-box2-fill"></i></span>
-                                    <input type="text" class="form-control category-input" name="productHeight" id="productHeight" value="<?php echo htmlspecialchars($productHeight); ?>">
+                                    <input type="text" class="form-control" name="productHeight" id="productHeight" value="<?php echo htmlspecialchars($productHeight); ?>">
                                 </div>
                                 <?php if (isset($errors['productHeight'])) : ?>
                                     <div class="text-danger"><?php echo $errors['productHeight']; ?></div>
                                 <?php endif; ?>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                            <label for="productWeight" class="col-sm-5 col-form-label category-label">Weight (kg)</label>
-                            <div class="col-sm-7">
-                                <div class="input-group">
-                                    <span class="input-group-text"><i class="ri-weight-fill"></i></span>
-                                    <input type="text" class="form-control category-input" name="productWeight" id="productWeight" value="<?php echo htmlspecialchars($productWeight); ?>">
+                                <div class="col-sm-5 d-flex">
+                                <label for="productWeight" class="col-form-label pd-ld-label">Weight (kg)</label>
+                                    <div class="input-group grp-fields">
+                                        <span class="input-group-text"><i class="ri-weight-fill"></i></span>
+                                        <input type="text" class="form-control" name="productWeight" id="productWeight" value="<?php echo htmlspecialchars($productWeight); ?>">
+                                    </div>
+                                    <?php if (isset($errors['productWeight'])) : ?>
+                                        <div class="text-danger"><?php echo $errors['productWeight']; ?></div>
+                                    <?php endif; ?>
                                 </div>
-                                <?php if (isset($errors['productWeight'])) : ?>
-                                    <div class="text-danger"><?php echo $errors['productWeight']; ?></div>
-                                <?php endif; ?>
-                            </div>
                         </div>
 
                         <div class="row mb-3">

@@ -378,6 +378,14 @@ h1, h2, h3, h4, h5, h6 {
   padding: 0 30px 20px 30px;
 }
 
+.grp-fields {
+  height: fit-content;
+}
+
+.pd-ld-label {
+  padding-top: 0;
+}
+
 @media (max-width: 1199px) {
   #main-admin {
     padding: 20px;
