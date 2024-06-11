@@ -127,7 +127,7 @@ $result = $conn->query($sql);
   <div class="col-lg-6">
     <div class="card category-card">
       <div class="card-body">
-        <h5 class="card-title"><?php echo !empty($categoryId) ? 'Edit Category' : 'Add New Category'; ?></h5>
+        <h5 class="card-title category-card-title"><?php echo !empty($categoryId) ? 'Edit Category' : 'Add New Category'; ?></h5>
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
           <div class="row mb-3">
             <label for="categoryName" class="col-sm-5 col-form-label category-label">Category Name</label>
@@ -155,8 +155,8 @@ $result = $conn->query($sql);
   <div class="col-lg-6">
     <div class="card category-card">
       <div class="card-body">
-        <h5 class="card-title">Existing Categories</h5>
-        <div class="table-responsive category-table-responsive">
+        <h5 class="card-title category-card-title">Existing Categories</h5>
+        <div class="table-responsive">
           <table class="table category-table table-borderless">
             <thead>
               <tr>

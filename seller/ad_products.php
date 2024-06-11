@@ -298,10 +298,9 @@ include 'sidebar.php';
                             </div>
                         </div>
 
-                        <div class="row mb-3 me-auto">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-5 d-flex">
-                                <label for="productLength" class="col-form-label pd-ld-label">Length (cm)</label>
+                        <div class="row mb-3">
+                            <div class="col-md-6 col-lg-3 col">
+                                <label for="productLength" class="col-form-label category-label">Length (cm)</label>
                                 <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-rulers"></i></span>
                                     <input type="text" class="form-control " name="productLength" id="productLength" value="<?php echo htmlspecialchars($productLength); ?>">
@@ -311,8 +310,8 @@ include 'sidebar.php';
                                 <?php endif; ?>
                             </div>
 
-                            <div class="col-sm-5 d-flex">
-                                <label for="productWidth" class="col-form-label pd-ld-label">Width (cm)</label>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="productWidth" class="col-form-label category-label">Width (cm)</label>
                                 <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-rulers"></i></span>
                                     <input type="text" class="form-control" name="productWidth" id="productWidth" value="<?php echo htmlspecialchars($productWidth); ?>">
@@ -321,12 +320,9 @@ include 'sidebar.php';
                                     <div class="text-danger"><?php echo $errors['productWidth']; ?></div>
                                 <?php endif; ?>
                             </div>
-                        </div>
 
-                        <div class="row mb-3">
-                        <div class="col-sm-2"></div>
-                            <div class="col-sm-5 d-flex">
-                                <label for="productHeight" class="col-form-label pd-ld-label">Height (cm)</label>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="productHeight" class="col-form-label category-label">Height (cm)</label>
                                 <div class="input-group grp-fields">
                                     <span class="input-group-text"><i class="bi bi-box2-fill"></i></span>
                                     <input type="text" class="form-control" name="productHeight" id="productHeight" value="<?php echo htmlspecialchars($productHeight); ?>">
@@ -336,22 +332,22 @@ include 'sidebar.php';
                                 <?php endif; ?>
                             </div>
 
-                                <div class="col-sm-5 d-flex">
-                                <label for="productWeight" class="col-form-label pd-ld-label">Weight (kg)</label>
-                                    <div class="input-group grp-fields">
-                                        <span class="input-group-text"><i class="ri-weight-fill"></i></span>
-                                        <input type="text" class="form-control" name="productWeight" id="productWeight" value="<?php echo htmlspecialchars($productWeight); ?>">
-                                    </div>
-                                    <?php if (isset($errors['productWeight'])) : ?>
-                                        <div class="text-danger"><?php echo $errors['productWeight']; ?></div>
-                                    <?php endif; ?>
+                            <div class="col-md-6 col-lg-3">
+                                <label for="productWeight" class="col-form-label category-label">Weight (kg)</label>
+                                <div class="input-group grp-fields">
+                                    <span class="input-group-text"><i class="ri-weight-fill"></i></span>
+                                    <input type="text" class="form-control" name="productWeight" id="productWeight" value="<?php echo htmlspecialchars($productWeight); ?>">
                                 </div>
+                                <?php if (isset($errors['productWeight'])) : ?>
+                                    <div class="text-danger"><?php echo $errors['productWeight']; ?></div>
+                                <?php endif; ?>
+                            </div>
                         </div>
 
                         <div class="row mb-3">
                             <div class="col-sm-5"></div>
                             <div class="col-sm-7">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                                <button type="submit" class="btn btn-primary">Add Item</button>
                             </div>
                         </div>
                     </form>
@@ -460,7 +456,7 @@ include 'sidebar.php';
         variantFieldsContainer.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-variant-btn')) {
                 e.target.closest('.variant-fields').remove();
-                updateRemoveButtonVisibility(); 
+                updateRemoveButtonVisibility();
             }
         });
     });

@@ -90,7 +90,7 @@ if (isset($_COOKIE['remember_admin'])) {
       <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
         <div class="container">
           <div class="row justify-content-center">
-            <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
+            <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
               <div class="d-flex justify-content-center py-4">
                 <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
@@ -156,7 +156,7 @@ if (isset($_COOKIE['remember_admin'])) {
   </main>
 
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/main.js"></script>
+  <!-- <script src="../assets/js/main.js"></script> -->
 
 </body>
 

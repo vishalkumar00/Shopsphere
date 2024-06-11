@@ -359,7 +359,7 @@ include 'sidebar.php';
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-sm-9 offset-sm-3">
+                            <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Update Product</button>
                                 <a href="dashboard.php" class="btn btn-secondary">Cancel</a>
                             </div>

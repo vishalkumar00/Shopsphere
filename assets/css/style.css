@@ -150,13 +150,14 @@ h1, h2, h3, h4, h5, h6 {
   width: 250px;
   position: fixed;
   top: 60px;
-  left: 0; /* Visible by default */
-  height: 100%;
+  left: 0;
+  bottom: 0; 
   background: #fff;
-  transition: all 0.3s;
-  z-index: 996;
   padding: 20px;
+  overflow-y: auto; 
   box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  z-index: 996;
+  transition: all 0.3s;
 }
 
 .sidebar ul {
@@ -378,10 +379,6 @@ h1, h2, h3, h4, h5, h6 {
   font-size: .875rem;
 }
 
-.register-form-card {
-  width: 750px;
-}
-
 .card-register-body {
   padding: 0 30px 20px 30px;
 }
@@ -395,42 +392,48 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 @media (max-width: 1199px) {
-  #main-admin {
-    padding: 20px;
-  }
-
-  .sidebar {
-    left: -250px;
-  }
-
   .toggle-sidebar .sidebar {
-    left: 1;
+    transform: translateX(-250px); 
+  }
+
+  .toggle-sidebar #main-admin, 
+  .toggle-sidebar #footer {
+    margin-left: 0; 
   }
 }
 
 @media (min-width: 1200px) {
-
   .sidebar {
     left: 0; 
   }
 
   #main-admin,
   #footer {
-    margin-left: 250px;
+    margin-left: 250px; 
+  }
+
+  .toggle-sidebar .sidebar {
+    transform: translateX(-250px); 
   }
 
   .toggle-sidebar #main-admin,
   .toggle-sidebar #footer {
-    margin-left: 0;
-  }
-
-  .toggle-sidebar .sidebar {
-    left: -250px;
+    margin-left: 0; 
   }
 }
 
 @media (max-width: 992px) {
   .logo {
     width: auto;
+  }
+
+  .category-card-title {
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .category-label {
+    text-align: left;
   }
 }
