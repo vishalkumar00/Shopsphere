@@ -13,8 +13,8 @@
         <span>Category</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/ad_products.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="ad_products.php">
         <i class="bx bx-list-ul fs-5"></i>
         <span>Product List</span>
       </a>

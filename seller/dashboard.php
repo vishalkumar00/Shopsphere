@@ -1,9 +1,46 @@
-<?php 
+<?php
 session_start();
 
-include 'header.php'; 
+include 'header.php';
 
-include 'sidebar.php'; ?>
+include 'sidebar.php';
+
+$sellerId = $_SESSION['seller_id'];
+
+// Fetch products and their variants for the current seller from the database
+$query = "SELECT 
+                p.product_id, p.product_name, p.description, 
+                p.length, p.width, p.height, p.weight,
+                c.category_name, 
+                v.variant_id, v.quantity, v.price, v.product_image,
+                clr.color_name, 
+                sz.size_name
+              FROM products p
+              LEFT JOIN categories c ON p.category_id = c.category_id
+              LEFT JOIN product_variants v ON p.product_id = v.product_id
+              LEFT JOIN colors clr ON v.color_id = clr.color_id
+              LEFT JOIN sizes sz ON v.size_id = sz.size_id
+              WHERE p.seller_id = ?";
+
+$stmt = $conn->prepare($query);
+$stmt->bind_param("i", $sellerId);
+$stmt->execute();
+$result = $stmt->get_result();
+$stmt->close();
+
+// Fetch total number of variants for the current seller
+$variantCountQuery = "SELECT COUNT(*) AS total_variants 
+                          FROM product_variants v 
+                          JOIN products p ON v.product_id = p.product_id 
+                          WHERE p.seller_id = ?";
+$variantStmt = $conn->prepare($variantCountQuery);
+$variantStmt->bind_param("i", $sellerId);
+$variantStmt->execute();
+$variantResult = $variantStmt->get_result();
+$variantCount = $variantResult->fetch_assoc()['total_variants'];
+$variantStmt->close();
+
+?>
 
 <main id="main-admin" class="main-admin">
 
@@ -59,20 +96,20 @@ include 'sidebar.php'; ?>
             </div>
           </div>
 
-          <!-- Customers Card -->
+          <!-- Products Card -->
           <div class="col-xxl-4 col-xl-12">
 
             <div class="card info-card customers-card">
 
               <div class="card-body">
-                <h5 class="card-title">Products</h5>
+                <h5 class="card-title">Products & Variants</h5>
 
                 <div class="d-flex align-items-center">
                   <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                     <i class="bi bi-cart"></i>
                   </div>
                   <div class="ps-3">
-                    <h6>1244</h6>
+                    <h6><?php echo htmlspecialchars($variantCount); ?></h6>
                   </div>
                 </div>
 
