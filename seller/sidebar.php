@@ -31,8 +31,8 @@
         <span>Feedbacks</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_profile.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="slr_profile.php">
         <i class="bx bxs-user-detail fs-5"></i>
         <span>Proile</span>
       </a>
