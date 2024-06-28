@@ -11,6 +11,7 @@ if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
 $store_name = $_SESSION['store_name'];
 $business_email = $_SESSION['business_email'];
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 

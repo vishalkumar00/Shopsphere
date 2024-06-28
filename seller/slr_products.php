@@ -24,11 +24,16 @@ if (isset($_SESSION['seller_id'])) {
               LEFT JOIN sizes sz ON v.size_id = sz.size_id
               WHERE p.seller_id = ?";
 
-    $stmt = $conn->prepare($query);
-    $stmt->bind_param("i", $sellerId);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $stmt->close();
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("i", $sellerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $stmt->close();
+    } else {
+        // Log error and handle it gracefully
+        error_log("Prepare failed: (" . $conn->errno . ") " . $conn->error);
+        die("An error occurred while fetching products. Please try again later.");
+    }
 } else {
     // Redirect to login or handle session not set
     header("Location: login.php");
