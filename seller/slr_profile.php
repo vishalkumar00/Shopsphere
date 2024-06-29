@@ -4,12 +4,37 @@ include '../database/conn.php';
 
 include 'sidebar.php';
 
+// Fetch seller information if not a form submission
+if ($_SERVER["REQUEST_METHOD"] != "POST" && isset($_SESSION['seller_id'])) {
+    $sellerId = $_SESSION['seller_id'];
+
+    // Fetch seller information
+    $query = "SELECT * FROM sellers WHERE seller_id = ?";
+    if ($stmt = $conn->prepare($query)) {
+        $stmt->bind_param("i", $sellerId);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $seller = $result->fetch_assoc();
+        $stmt->close();
+    } else {
+        error_log("Prepare failed: (" . $conn->errno . ") " . $conn->error);
+        die("An error occurred while fetching seller information. Please try again later.");
+    }
+
+    // Set form variables from database if not a POST request
+    $address = $seller['address'];
+    $city = $seller['city'];
+    $province = $seller['province'];
+    $postalCode = $seller['postal_code'];
+    $contactNumber = $seller['contact_number'];
+}
+
 // Define variables to store form data and validation errors
 $address = $city = $province = $postalCode = $contactNumber = "";
 $addressErr = $cityErr = $provinceErr = $postalCodeErr = $contactNumberErr = "";
 
 // Handle form submission
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
     // Validate and sanitize form inputs
     $address = htmlspecialchars(trim($_POST["address"] ?? ""));
     $city = htmlspecialchars(trim($_POST["city"] ?? ""));
@@ -17,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $postalCode = htmlspecialchars(trim($_POST["postal_code"] ?? ""));
     $contactNumber = htmlspecialchars(trim($_POST["contact_number"] ?? ""));
 
-    // Validation
     if (empty($address)) {
         $addressErr = "Address is required";
     }
@@ -62,31 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Fetch seller information if not a form submission
-if ($_SERVER["REQUEST_METHOD"] != "POST" && isset($_SESSION['seller_id'])) {
-    $sellerId = $_SESSION['seller_id'];
-
-    // Fetch seller information
-    $query = "SELECT * FROM sellers WHERE seller_id = ?";
-    if ($stmt = $conn->prepare($query)) {
-        $stmt->bind_param("i", $sellerId);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $seller = $result->fetch_assoc();
-        $stmt->close();
-    } else {
-        error_log("Prepare failed: (" . $conn->errno . ") " . $conn->error);
-        die("An error occurred while fetching seller information. Please try again later.");
-    }
-
-    // Set form variables from database if not a POST request
-    $address = $seller['address'];
-    $city = $seller['city'];
-    $province = $seller['province'];
-    $postalCode = $seller['postal_code'];
-    $contactNumber = $seller['contact_number'];
-}
-
 include 'header.php';
 ?>
 
@@ -95,6 +94,7 @@ include 'header.php';
         <div class="row mb-3">
             <div class="col-lg-12 d-flex justify-content-between align-items-center">
                 <h3 class="slr-product-page-title">Profile</h3>
+                <a href="change_password.php" class="btn btn-primary">Change Password</a>
             </div>
         </div>
         <div class="card category-card">
@@ -155,7 +155,7 @@ include 'header.php';
                                 <span class="text-danger"><?php echo $contactNumberErr; ?></span>
                             </div>
                             <div class="text-center">
-                                <button type="submit" class="btn btn-primary">Update</button>
+                                <button type="submit" class="btn btn-primary" name="update_profile">Update</button>
                             </div>
                         </form>
                     </div>

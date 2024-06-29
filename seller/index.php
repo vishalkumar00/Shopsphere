@@ -143,8 +143,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                     <div class="col-12">
                                         <button class="btn btn-primary w-100" type="submit">Login</button>
                                     </div>
-                                    <div class="col-12 text-center">
-                                        <p class="small mb-0">Don't have account? <a href="slr_register.php">Create an account</a></p>
+                                    <div class="text-center">
+                                        <a href="request_reset.php" class="small">Forgot password?</a>
+                                    </div>
+                                    <hr>
+                                    <div class="col-12 text-center mt-0">
+                                        <a class="btn btn-success" href="slr_register.php">Create an account</a>
                                     </div>
                                 </form>
 
