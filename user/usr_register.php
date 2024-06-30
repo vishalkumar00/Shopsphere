@@ -1,3 +1,79 @@
+<?php
+include '../database/conn.php';
+
+$first_name = $last_name = $email = $mobile_number = $password = $confirm_password = "";
+$first_nameErr = $last_nameErr = $emailErr = $mobile_numberErr = $passwordErr = $confirm_passwordErr = $error_message = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
+    // Validate and sanitize form inputs
+    $first_name = htmlspecialchars(trim($_POST["first_name"] ?? ""));
+    $last_name = htmlspecialchars(trim($_POST["last_name"] ?? ""));
+    $email = htmlspecialchars(trim($_POST["email"] ?? ""));
+    $mobile_number = htmlspecialchars(trim($_POST["mobile_number"] ?? ""));
+    $password = htmlspecialchars(trim($_POST["password"] ?? ""));
+    $confirm_password = htmlspecialchars(trim($_POST["confirm_password"] ?? ""));
+
+    // Validate form fields
+    if (empty($first_name)) {
+        $first_nameErr = "Please enter your first name.";
+    }
+    if (empty($last_name)) {
+        $last_nameErr = "Please enter your last name.";
+    }
+    if (empty($email)) {
+        $emailErr = "Please enter your email address.";
+    } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $emailErr = "Invalid email format.";
+    }
+    if (!empty($mobile_number) && !preg_match('/^[0-9]{10}$/', $mobile_number)) {
+        $mobile_numberErr = "Mobile number must be 10 digits long.";
+    }
+    if (empty($password)) {
+        $passwordErr = "Please enter a password.";
+    } elseif (strlen($password) < 8) {
+        $passwordErr = "Password must be at least 8 characters long.";
+    }
+    if (empty($confirm_password)) {
+        $confirm_passwordErr = "Please confirm your password.";
+    } elseif ($password !== $confirm_password) {
+        $confirm_passwordErr = "Passwords do not match.";
+    }
+
+    // If there are no validation errors
+    if (empty($first_nameErr) && empty($last_nameErr) && empty($emailErr) && empty($mobile_numberErr) && empty($passwordErr) && empty($confirm_passwordErr)) {
+        // Check if email already exists
+        $sql = "SELECT user_id FROM users WHERE email = ?";
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+            if ($stmt->num_rows > 0) {
+                $emailErr = "This email is already registered.";
+            } else {
+                // Insert new user into database
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                $sql_insert = "INSERT INTO users (first_name, last_name, email, mobile_number, password, created_at, updated_at) VALUES (?, ?, ?, ?, ?, NOW(), NOW())";
+                if ($stmt_insert = $conn->prepare($sql_insert)) {
+                    $stmt_insert->bind_param("sssss", $first_name, $last_name, $email, $mobile_number, $hashed_password);
+                    if ($stmt_insert->execute()) {
+                        // Redirect to index.php on successful registration
+                        header("Location: index.php");
+                        exit();
+                    } else {
+                        $error_message = "Error registering user.";
+                    }
+                    $stmt_insert->close();
+                } else {
+                    $error_message = "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+                }
+            }
+            $stmt->close();
+        } else {
+            $error_message = "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        }
+    }
+}
+?>
 
 <!DOCTYPE html>
 <html lang="en">
