@@ -1,3 +1,80 @@
+<?php
+session_start();
+include '../database/conn.php';
+
+// Initialize variables to hold input values and error messages
+$email = $password = "";
+$emailErr = $passwordErr = "";
+$error_message = "";
+
+// Check if form is submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate email
+    if (empty($_POST["email"])) {
+        $emailErr = "Please enter your email address.";
+    } else {
+        $email = htmlspecialchars(trim($_POST["email"]));
+        // Check if email is valid
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailErr = "Invalid email format.";
+        }
+    }
+
+    // Validate password
+    if (empty($_POST["password"])) {
+        $passwordErr = "Please enter your password.";
+    } else {
+        $password = htmlspecialchars(trim($_POST["password"]));
+    }
+
+    // Proceed with login if no validation errors
+    if (empty($emailErr) && empty($passwordErr)) {
+        // Fetch user from database based on email
+        $sql = "SELECT user_id, email, password FROM users WHERE email = ?";
+        if ($stmt = $conn->prepare($sql)) {
+            $stmt->bind_param("s", $email);
+            $stmt->execute();
+            $stmt->store_result();
+
+            if ($stmt->num_rows == 1) {
+                $stmt->bind_result($user_id, $email, $hashed_password);
+                if ($stmt->fetch()) {
+                    // Verify password
+                    if (password_verify($password, $hashed_password)) {
+                        // Password is correct, start session and redirect to home.php
+                        $_SESSION['user_id'] = $user_id;
+                        $_SESSION['email'] = $email;
+                        header("Location: home.php");
+                        exit();
+                    } else {
+                        $passwordErr = "Invalid password.";
+                    }
+                }
+            } else {
+                $emailErr = "No account found with this email.";
+            }
+
+            $stmt->close();
+        } else {
+            $error_message = "Prepare failed: (" . $conn->errno . ") " . $conn->error;
+        }
+    } else {
+        $error_message = "Please correct the errors and try again.";
+    }
+
+    // Store error message in session if any error occurred
+    $_SESSION['login_error'] = $error_message;
+}
+
+// Function to display error messages for each field
+function displayError($fieldError)
+{
+    if (!empty($fieldError)) {
+        echo '<div class="text-danger">' . $fieldError . '</div>';
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
