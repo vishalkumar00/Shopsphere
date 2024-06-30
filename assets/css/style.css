@@ -33,6 +33,18 @@ h1, h2, h3, h4, h5, h6 {
 .logo-login img {
   width: 180px !important;
 }
+.login-form-card {
+  border-radius: 1rem;
+}
+
+.login-img {
+  border-radius: 0 1rem 1rem 0;
+}
+
+.login-center-vertically {
+  display: flex;
+  align-items: center;
+}
 
 #main-admin {
   margin-top: 60px !important;
