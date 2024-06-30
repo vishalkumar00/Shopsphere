@@ -117,7 +117,31 @@
     <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="../assets/js/main.js"></script>
 
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            togglePasswordVisibility('password', 'togglePassword');
+        });
 
+        document.getElementById('toggleConfirmPassword').addEventListener('click', function() {
+            togglePasswordVisibility('confirm_password', 'toggleConfirmPassword');
+        });
+
+        function togglePasswordVisibility(fieldId, toggleId) {
+            var passwordField = document.getElementById(fieldId);
+            var toggleButton = document.getElementById(toggleId);
+
+            var fieldType = passwordField.getAttribute('type');
+            if (fieldType === 'password') {
+                passwordField.setAttribute('type', 'text');
+                toggleButton.classList.remove('bi-eye');
+                toggleButton.classList.add('bi-eye-slash');
+            } else {
+                passwordField.setAttribute('type', 'password');
+                toggleButton.classList.remove('bi-eye-slash');
+                toggleButton.classList.add('bi-eye');
+            }
+        }
+    </script>
 
 
 </body>
