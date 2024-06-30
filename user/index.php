@@ -77,5 +77,22 @@
                     </div>
                 </div>
             </div>
+            <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script>
+        document.getElementById('togglePassword').addEventListener('click', function() {
+            var passwordField = document.getElementById('password');
+            var fieldType = passwordField.getAttribute('type');
+            if (fieldType === 'password') {
+                passwordField.setAttribute('type', 'text');
+                this.classList.remove('bi-eye');
+                this.classList.add('bi-eye-slash');
+            } else {
+                passwordField.setAttribute('type', 'password');
+                this.classList.remove('bi-eye-slash');
+                this.classList.add('bi-eye');
+            }
+        });
+    </script>
+
                           </body>
                                     </html>
