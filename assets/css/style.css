@@ -402,6 +402,14 @@ h1, h2, h3, h4, h5, h6 {
 .pd-ld-label {
   padding-top: 0;
 }
+.form-label-register {
+  margin-bottom: 0.3rem;
+}
+
+.password-eye {
+  top: 47px;
+}
+
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
