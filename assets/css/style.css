@@ -130,7 +130,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .dropdown-menu.profile {
-  width: 200px;
+  width: 250px;
 }
 
 .dropdown-menu.profile .dropdown-item {
@@ -410,6 +410,76 @@ h1, h2, h3, h4, h5, h6 {
   top: 47px;
 }
 
+/* User (Customer) Navbar */
+.header-2 {
+  transition: all 0.5s;
+  z-index: 997;
+  box-shadow: 0px 2px 20px rgba(1, 41, 112, 0.1);
+  background-color: #fff;
+}
+
+.nav-item-user a{
+  color: #012970;
+}
+
+.nav-item-user a:hover {
+  color: #4154f1;
+  transition: 0.5s;
+}
+
+.nav-item-user-2 a {
+  color: #012970;
+}
+
+.nav-item-user-2 a:hover {
+  color: #4154f1;
+  transition: 0.5s;
+}
+
+.nav-item-user-2.show a {
+  color: #4154f1;
+}
+
+.cat-dropdown-usr {
+  height: 100%;
+  width: 100%;
+  text-align: left;
+  background-color: #4154f1;
+  color: #f6f6fe;
+}
+
+.cat-dropdown-usr:hover {
+  background-color: #f6f6f6;
+  color: #4154f1;
+}
+
+.dropdown-menu {
+  min-width: 200px; /* Adjust this width as needed */
+  width: max-content; /* Ensures the dropdown width expands with content */
+  left: -1px;
+  right: auto;
+  top: 100%;
+  background-color: #fff;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+
+.nav-cart-icon {
+  position: relative;
+  font-size: 1.5rem;
+  color: #012970;
+}
+
+.badge-number-2 {
+  position: absolute;
+  top: 10px;
+  right: 5px;
+  background-color: #ff4b5c;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {

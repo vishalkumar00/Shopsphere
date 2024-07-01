@@ -45,7 +45,7 @@ $business_email = $_SESSION['business_email'];
   <header id="header" class="header fixed-top d-flex align-items-center">
     <div class="d-flex align-items-center justify-content-between">
       <a href="dashboard.php" class="logo">
-        <img src="../assets/img/logo.png" alt="">
+        <img src="../assets/img/logo.png" alt="seller-shopsphere-logo">
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div>

@@ -176,7 +176,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                                 <button class="btn btn-primary btn-block" type="submit" name="register">Register</button>
                                             </div>
                                             <div class="text-center">
-                                                <p class="mb-0" style="color: #393f81;">Already have an account? <a href="index.php" class="link-opacity-25-hover">Login here</a></p>
+                                                <p class="mb-0" style="color: #393f81;">Already have an account? <a href="usr_login.php" class="link-opacity-25-hover">Login here</a></p>
                                             </div>
                                         </form>
 
