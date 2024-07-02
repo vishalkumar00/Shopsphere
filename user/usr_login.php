@@ -40,9 +40,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 if ($stmt->fetch()) {
                     // Verify password
                     if (password_verify($password, $hashed_password)) {
-                        // Password is correct, start session and redirect to home.php
+                        // Password is correct, start session and handle cookies
                         $_SESSION['user_id'] = $user_id;
                         $_SESSION['email'] = $email;
+
+                        if (isset($_POST['remember_me'])) {
+                            // Set cookies for 30 days
+                            setcookie('user_id', $user_id, time() + (86400 * 30), "/");
+                            setcookie('email', $email, time() + (86400 * 30), "/");
+                        }
+
                         header("Location: index.php");
                         exit();
                     } else {
@@ -58,6 +65,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $emailErr = "Database error: " . $conn->error;
         }
     }
+}
+
+// Check if user is already logged in via cookies
+if (isset($_COOKIE['user_id']) && isset($_COOKIE['email'])) {
+    $_SESSION['user_id'] = $_COOKIE['user_id'];
+    $_SESSION['email'] = $_COOKIE['email'];
+    header("Location: index.php");
+    exit();
 }
 
 // Function to display error messages for each field
@@ -121,6 +136,13 @@ function displayError($fieldError)
                                                     <button type="button" class="btn btn-outline-secondary bi bi-eye" id="togglePassword"></button>
                                                 </div>
                                                 <?php displayError($passwordErr); ?>
+                                            </div>
+
+                                            <div class="form-check mb-2">
+                                                <input class="form-check-input" type="checkbox" id="remember_me" name="remember_me">
+                                                <label class="form-check-label" for="remember_me">
+                                                    Remember Me
+                                                </label>
                                             </div>
 
                                             <div class="text-center pt-1 mb-1">

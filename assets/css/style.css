@@ -410,6 +410,10 @@ h1, h2, h3, h4, h5, h6 {
   top: 47px;
 }
 
+.form-check-input {
+  border: 1px solid rgba(99, 96, 97, 0.95)
+}
+
 /* User (Customer) Navbar */
 .header-2 {
   transition: all 0.5s;
@@ -449,13 +453,18 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .cat-dropdown-usr:hover {
-  background-color: #f6f6f6;
-  color: #4154f1;
+  background-color: #012970;
+  color: #f6f6f6;
+}
+
+.cat-dropdown-usr.show {
+  background-color: #012970;
+  color: #f6f6f6;
 }
 
 .dropdown-menu {
-  min-width: 200px; /* Adjust this width as needed */
-  width: max-content; /* Ensures the dropdown width expands with content */
+  min-width: 200px; 
+  width: max-content; 
   left: -1px;
   right: auto;
   top: 100%;
@@ -463,6 +472,13 @@ h1, h2, h3, h4, h5, h6 {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
+.user-second-navbar {
+  padding: 0;
+}
+
+.usr-cat-dropdown {
+  height: 52px;
+}
 
 .nav-cart-icon {
   position: relative;
@@ -479,6 +495,22 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   font-size: 0.75rem;
   padding: 2px 6px;
+}
+
+.search-input-user {
+  border: 1px solid #4154f1;
+}
+.search-button {
+  background-color: #4154f1;
+}
+
+.search-button:hover {
+  background-color: #fff;
+  border: 1px solid #4154f1;
+}
+
+.search-button:hover i.bi-search {
+  color: #4154f1 !important;
 }
 
 @media (max-width: 1199px) {
