@@ -513,6 +513,42 @@ h1, h2, h3, h4, h5, h6 {
   color: #4154f1 !important;
 }
 
+.carousel-inner {
+  max-height: 500px; 
+  overflow: hidden;
+}
+
+.carousel-item img.carousel-image {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.carousel-caption {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -95%);
+  text-align: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.carousel-caption h5 {
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.carousel-caption p {
+  font-size: 1.25rem;
+  color: #ddd;
+}
+
+.carousel-caption .btn {
+  font-size: 1.25rem;
+}
+
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
     transform: translateX(-250px); 
@@ -552,10 +588,47 @@ h1, h2, h3, h4, h5, h6 {
   .category-card-title {
     text-align: center;
   }
+
+  .carousel-caption {
+    width: 75%;
+    height: max-content;
+    transform: translate(-50%, -75%);
+    /* padding: 20px; */
+  }
+
+  .carousel-caption h5 {
+    font-size: 2rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 1rem;
+  }
+  
+  .carousel-caption .btn {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 576px) {
   .category-label {
     text-align: left;
+  }
+
+  .carousel-caption {
+    width: 95%;
+    height: max-content;
+    transform: translate(-50%, -55%);
+  }
+
+  .carousel-caption h5 {
+    font-size: 1.5rem;
+  }
+  
+  .carousel-caption p {
+    font-size: 0.875rem;
+  }
+  
+  .carousel-caption .btn {
+    font-size: 0.875rem;
   }
 }
