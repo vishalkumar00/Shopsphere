@@ -103,9 +103,9 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
           <button class="btn cat-dropdown-usr dropdown-toggle fw-bold rounded-0" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             Categories
           </button>
-          <ul class="dropdown-menu dropdown-btm-user" aria-labelledby="categoryDropdown">
+          <ul class="dropdown-menu dropdown-btm-user rounded-0 p-0" aria-labelledby="categoryDropdown">
             <?php foreach ($categories as $category) : ?>
-              <li><small><a class="dropdown-item" href="category.php?id=<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></a></small></li>
+              <li class="border py-2 usr-cat-dropdown-li"><small><a class="dropdown-item" href="category.php?id=<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></a></small></li>
             <?php endforeach; ?>
           </ul>
         </div>

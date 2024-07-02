@@ -513,6 +513,17 @@ h1, h2, h3, h4, h5, h6 {
   color: #4154f1 !important;
 }
 
+.usr-cat-dropdown-li:hover {
+  cursor: pointer;
+  background-color: #4154f1;
+}
+
+.usr-cat-dropdown-li:hover a{
+  color: white;
+  background-color: #4154f1;
+}
+
+/* Home Page main content  */
 .carousel-inner {
   max-height: 500px; 
   overflow: hidden;
@@ -548,6 +559,27 @@ h1, h2, h3, h4, h5, h6 {
 .carousel-caption .btn {
   font-size: 1.25rem;
 }
+
+.usr-features-h4 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 2px;
+  color: #012970;
+}
+
+.usr-features-h4 i {
+  margin-right: 10px;
+  font-size: 1.5rem;
+  color: #4154f1;
+}
+
+.border {
+  border: 2px solid #ccc;
+  /* border-radius: 10px; */
+}
+
+
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {

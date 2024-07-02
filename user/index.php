@@ -54,6 +54,31 @@ include 'navbar.php';
             <span class="visually-hidden">Next</span>
         </button>
     </div>
+
+    <div class="container-fluid my-5">
+        <div class="row text-center gy-4">
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="border py-4">
+                    <h4 class="mb-0 usr-features-h4 fw-bold"><i class="ri-check-fill"></i> Quality Products</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="border py-4">
+                    <h4 class="mb-0 usr-features-h4 fw-bold"><i class="ri-truck-fill"></i> Free Shipping</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="border py-4">
+                    <h4 class="mb-0 usr-features-h4 fw-bold"><i class="ri-arrow-left-right-fill"></i> 14-Day Return</h4>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-12">
+                <div class="border py-4">
+                    <h4 class="mb-0 usr-features-h4 fw-bold"><i class="ri-phone-fill"></i> 24/7 Support</h4>
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <?php include 'footer.php'; ?>
