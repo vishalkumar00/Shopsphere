@@ -1,6 +1,21 @@
 <?php
 session_start();
 include 'navbar.php';
+
+$sql = "SELECT DISTINCT p.product_id, p.product_name, pv.price, pv.product_image 
+        FROM products p 
+        JOIN product_variants pv ON p.product_id = pv.product_id 
+        GROUP BY p.product_id 
+        ORDER BY RAND() 
+        LIMIT 15";
+$result = $conn->query($sql);
+
+$products = [];
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
+        $products[] = $row;
+    }
+}
 ?>
 
 <main>
@@ -78,6 +93,39 @@ include 'navbar.php';
                 </div>
             </div>
         </div>
+    </div>
+    
+    <div id="productCarousel" class="carousel slide carousel-pd" data-bs-ride="carousel">
+        <div class="carousel-inner">
+            <?php
+            $chunks = array_chunk($products, 5); // Split products into chunks of 5
+            foreach ($chunks as $index => $chunk) {
+                echo '<div class="carousel-item ' . ($index === 0 ? 'active' : '') . '">';
+                echo '<div class="row justify-content-center">'; // Center align products
+                foreach ($chunk as $product) {
+                    echo '<div class="custom-col d-flex justify-content-center">';
+                    echo '<div class="card home-pd-carouesel-random">';
+                    echo '<img src="../uploads/' . $product['product_image'] . '" class="card-img-top product-img" alt="' . $product['product_name'] . '">';
+                    echo '<div class="card-body">';
+                    echo '<h5 class="card-title home-pd-card-title">' . $product['product_name'] . '</h5>';
+                    echo '<p class="card-text">$' . $product['price'] . '</p>';
+                    echo '</div>';
+                    echo '</div>';
+                    echo '</div>';
+                }
+                echo '</div>';
+                echo '</div>';
+            }
+            ?>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </div>
 </main>
 

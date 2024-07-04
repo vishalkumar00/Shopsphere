@@ -28,8 +28,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if (empty($productDesc)) {
         $errors['productDesc'] = 'Product Description is required';
-    } elseif (strlen($productDesc) > 400) {
-        $errors['productDesc'] = 'Product Description should not exceed 400 characters';
+    } elseif (strlen($productDesc) > 1000) {
+        $errors['productDesc'] = 'Product Description should not exceed 1000 characters';
     }
 
     if (empty($productCategory)) {

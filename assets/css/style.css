@@ -579,7 +579,34 @@ h1, h2, h3, h4, h5, h6 {
   /* border-radius: 10px; */
 }
 
+.custom-col {
+  width: calc(100% / 5); 
+  max-width: 270px; 
+}
 
+.carousel-pd {
+  padding: 0 20px;
+}
+
+.home-pd-carouesel-random {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.product-img {
+  height: 270px; 
+  object-fit: cover; 
+}
+
+.home-pd-card-title {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2; 
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 4em; 
+  line-height: 1.5em;
+}
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
