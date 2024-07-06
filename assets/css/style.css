@@ -729,6 +729,46 @@ h6 {
   height: auto;
 } */
 
+.sub-intput {
+  border: 1px solid black;
+}
+
+.sub-btn:hover {
+  background-color: #012970;
+  color: white;
+  transition: 0.3s;
+}
+
+.usr-newsletter-heading {
+  color: #012970;
+}
+
+.usr-newsletter-para {
+  color: #717ff5;
+  font-size: 1em;
+}
+
+.usr-footer-bg {
+  background-color: #012970;
+}
+
+.usr-ft-icon {
+  color: #fff;
+  font-size: 1.3em;
+  border: 2px solid white;
+    border-radius: 50%;
+    padding: 5px;
+    margin-right: 5px;
+}
+
+.usr-link-hover:hover {
+  cursor: pointer;
+}
+
+.usr-link-hover:hover a{
+  text-decoration: underline;
+}
+
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
     transform: translateX(-250px);

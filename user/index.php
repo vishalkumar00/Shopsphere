@@ -152,7 +152,7 @@ if ($result_categories->num_rows > 0) {
                     <?php endforeach; ?>
                 </div>
                 <button class="btn btn-primary leftLst"><</button>
-                <button class="btn btn-primary rightLst">></button>
+                        <button class="btn btn-primary rightLst">></button>
             </div>
         </div>
     </div>
@@ -195,6 +195,21 @@ if ($result_categories->num_rows > 0) {
             </div>
         </div>
     <?php endforeach; ?>
+
+    <div class="container-fluid bg-light py-5 my-5 my-sm-2">
+        <div class="row text-center">
+            <div class="col-12">
+                <h2 class="fw-bold usr-newsletter-heading fw-bold">Stay Updated</h2>
+                <p class="usr-newsletter-para fw-bold">Subscribe to our newsletter and stay updated on the latest products, offers, and news.</p>
+                <form action="subscribe.php" method="POST" class="d-flex justify-content-center">
+                    <div class="input-group w-50">
+                        <input type="email" name="email" class="form-control rounded-0 sub-intput" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary rounded-0 sub-btn">Subscribe</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 </main>
 
 <?php include 'footer.php'; ?>
