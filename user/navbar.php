@@ -178,6 +178,10 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
     </nav>
   </header>
 
+  <!-- Back to Top Button -->
+<button id="backToTopBtn" class="btn btn-primary">
+    <i class="ri-arrow-up-line"></i>
+</button>
 </body>
 
 </html>

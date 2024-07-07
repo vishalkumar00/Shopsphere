@@ -605,6 +605,16 @@ h6 {
   color: #012970;
 }
 
+.usr-carosuel-btn {
+  background-color: #4154f1;
+  color: #f6f6f6;
+}
+
+.usr-carosuel-btn:hover {
+  background-color: #f6f6f6;
+  color: #4154f1;
+}
+
 .MultiCarousel .MultiCarousel-inner {
   transition: 1s ease all;
   float: left;
@@ -683,7 +693,7 @@ h6 {
 }
 
 .banner-section {
-  position: relative; 
+  /* position: relative;  */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -691,7 +701,7 @@ h6 {
   overflow: hidden;
 }
 
-.banner-section::after {
+/* .banner-section::before {
   content: '';
   position: absolute;
   top: 0;
@@ -699,7 +709,7 @@ h6 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.1); 
-}
+} */
 
 .banner-heading {
   font-size: 2.4em;
@@ -748,6 +758,12 @@ h6 {
   font-size: 1em;
 }
 
+.input-group-custom {
+  width: 100%;
+  max-width: 500px;
+}
+
+
 .usr-footer-bg {
   background-color: #012970;
 }
@@ -756,9 +772,9 @@ h6 {
   color: #fff;
   font-size: 1.3em;
   border: 2px solid white;
-    border-radius: 50%;
-    padding: 5px;
-    margin-right: 5px;
+  border-radius: 50%;
+  padding: 5px;
+  margin-right: 5px;
 }
 
 .usr-link-hover:hover {
@@ -767,6 +783,28 @@ h6 {
 
 .usr-link-hover:hover a{
   text-decoration: underline;
+}
+
+.logo-footer img{
+  width: 180px;
+}
+
+#backToTopBtn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 100;
+  display: none;
+  padding: 10px 15px;
+  border-radius: 50%;
+  font-size: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+#backToTopBtn:hover {
+  background-color: #0056b3;
 }
 
 @media (max-width: 1199px) {
@@ -872,5 +910,18 @@ h6 {
 
   .carousel-caption .btn {
     font-size: 0.875rem;
+  }
+
+  .input-group {
+    flex-direction: column;
+  }
+
+  .input-group .form-control,
+  .input-group .btn {
+    width: 100%;
+  }
+
+  .mb-2 {
+    margin-bottom: 0.5rem !important;
   }
 }

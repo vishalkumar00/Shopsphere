@@ -71,7 +71,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Explore the Latest Fashion Trends</h5>
                     <p class="lead">Discover a wide range of stylish clothing and accessories to suit every occasion.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3">SHOP NOW</a>
+                    <a href="#" class="btn btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -151,8 +151,8 @@ if ($result_categories->num_rows > 0) {
                         </div>
                     <?php endforeach; ?>
                 </div>
-                <button class="btn btn-primary leftLst"><</button>
-                        <button class="btn btn-primary rightLst">></button>
+                <button class="btn btn-primary leftLst"><i class="ri-arrow-left-s-line fw-bold h3"></i></button>
+                <button class="btn btn-primary rightLst"><i class="ri-arrow-right-s-line fw-bold h3"></i></button>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@ if ($result_categories->num_rows > 0) {
             <div class="col-md-6 text-center text-md-start ps-3">
                 <h2 class="banner-heading">Discover Our Exclusive Collection</h2>
                 <p class="banner-text">Browse through our handpicked selection of top-quality products, perfect for any occasion.</p>
-                <a href="#" class="btn btn-lg btn-primary">Shop Now</a>
+                <a href="#" class="btn btn-lg usr-carosuel-btn rounded-0">Shop Now</a>
             </div>
             <div class="col-md-6 text-center">
                 <img src="../assets/img/banner-1.png" class="img-fluid banner-image" alt="Banner Product">
@@ -189,21 +189,21 @@ if ($result_categories->num_rows > 0) {
                             </div>
                         <?php endforeach; ?>
                     </div>
-                    <button class="btn btn-primary leftLst"><</button>
-                    <button class="btn btn-primary rightLst">></button>
+                    <button class="btn btn-primary leftLst"><i class="ri-arrow-left-s-line fw-bold h3"></i></button>
+                    <button class="btn btn-primary rightLst"><i class="ri-arrow-right-s-line fw-bold h3"></i></button>
                 </div>
             </div>
         </div>
     <?php endforeach; ?>
 
-    <div class="container-fluid bg-light py-5 my-5 my-sm-2">
+    <div class="container-fluid bg-light py-5 my-5 my-sm-0 my-sm-2">
         <div class="row text-center">
             <div class="col-12">
                 <h2 class="fw-bold usr-newsletter-heading fw-bold">Stay Updated</h2>
                 <p class="usr-newsletter-para fw-bold">Subscribe to our newsletter and stay updated on the latest products, offers, and news.</p>
                 <form action="subscribe.php" method="POST" class="d-flex justify-content-center">
-                    <div class="input-group w-50">
-                        <input type="email" name="email" class="form-control rounded-0 sub-intput" placeholder="Enter your email" required>
+                    <div class="input-group input-group-custom">
+                        <input type="email" name="email" class="form-control rounded-0 sub-intput mb-2 mb-sm-0" placeholder="Enter your email" required>
                         <button type="submit" class="btn btn-primary rounded-0 sub-btn">Subscribe</button>
                     </div>
                 </form>
