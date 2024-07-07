@@ -724,14 +724,15 @@ h6 {
 }
 
 .banner-image {
-  max-width: 50%; 
+  max-width: 50%;
   height: auto;
-  margin-top: 20px; 
+  margin-top: 20px;
   transition: transform 0.3s ease;
 }
 
-.banner-section:hover .banner-image{
-  transform: scale(1.1); /* Increase size on hover */
+.banner-section:hover .banner-image {
+  transform: scale(1.1);
+  /* Increase size on hover */
 }
 
 /* .banner-image {
@@ -763,7 +764,6 @@ h6 {
   max-width: 500px;
 }
 
-
 .usr-footer-bg {
   background-color: #012970;
 }
@@ -781,11 +781,11 @@ h6 {
   cursor: pointer;
 }
 
-.usr-link-hover:hover a{
+.usr-link-hover:hover a {
   text-decoration: underline;
 }
 
-.logo-footer img{
+.logo-footer img {
   width: 180px;
 }
 
@@ -805,6 +805,97 @@ h6 {
 
 #backToTopBtn:hover {
   background-color: #0056b3;
+}
+
+/* SHOP PAGE STYLES */
+.shop-pg-search-title {
+  color: #012970;
+}
+
+.card-height {
+  height: 500px;
+}
+
+.fixed-height-img {
+  height: 300px;
+  object-fit: cover;
+}
+
+.card-title-2 {
+  min-height: 3em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.card-body {
+  display: flex;
+  flex-direction: column;
+}
+
+.rounded-circle {
+  width: 25px;
+  height: 25px;
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.pd-color-circle-multicolor {
+  width: 25px;
+  height: 25px;
+  background-image: url('../img/multicolor.png') !important;
+  background-size: cover;
+  display: inline-block;
+  margin-right: 5px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.card-title-2 {
+  padding: 20px 0 0px 0;
+  font-size: 18px;
+  font-weight: 500;
+  color: #012970;
+  font-family: "Poppins", sans-serif;
+  min-height: 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show */
+  -webkit-box-orient: vertical;
+  white-space: normal;
+} 
+
+.usr-shop-pd-caed-price {
+  font-size: 1em;
+  color: #007bff;
+}
+
+.list-group-item-2 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-check-input-2 {
+  margin-right: 10px;
+}
+
+.list-group-item-2:hover {
+  background-color: #f8f9fa;
+  cursor: pointer;
+}
+
+.list-group-item-2 input[type="checkbox"] {
+  transform: scale(1.2);
+  margin-right: 10px;
 }
 
 @media (max-width: 1199px) {
@@ -869,23 +960,23 @@ h6 {
 
 @media (max-width: 768px) {
   .banner-section {
-      text-align: center;
+    text-align: center;
   }
 
-  .banner-section >div {
+  .banner-section>div {
     gap: 30px;
   }
 
   .banner-heading {
-      font-size: 2em;
+    font-size: 2em;
   }
 
   .banner-text {
-      font-size: 1em;
+    font-size: 1em;
   }
 
   .banner-image {
-      margin-top: 20px;
+    margin-top: 20px;
   }
 }
 

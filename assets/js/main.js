@@ -164,10 +164,9 @@
     click(1, this);
   });
 
-  // Get the button
+  // Back to Top Button For User Portal 
   let backToTopBtn = document.getElementById("backToTopBtn");
 
-  // When the user scrolls down 20px from the top of the document, show the button
   window.onscroll = function () {
     scrollFunction();
   };
@@ -180,10 +179,18 @@
     }
   }
 
-  // When the user clicks on the button, scroll to the top of the document
   backToTopBtn.onclick = function () {
-    document.body.scrollTop = 0; // For Safari
-    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE, and Opera
+    document.body.scrollTop = 0; 
+    document.documentElement.scrollTop = 0; 
   };
+
+  // Product image changing according to color circle hover 
+  $('.pd-color-circle').hover(function() {
+    var variantImage = $(this).data('variant-image');
+    $(this).closest('.card').find('.card-img-top').attr('src', variantImage);
+}, function() {
+    var originalImage = $(this).closest('.card').find('.card-img-top').attr('src');
+    $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
+});
 
 })();

@@ -101,18 +101,6 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
 
     <!-- Secondary Navbar -->
     <nav class="navbar navbar-expand-lg border user-second-navbar">
-        <!-- Categories Dropdown -->
-        <div class="dropdown usr-cat-dropdown">
-          <button class="btn cat-dropdown-usr dropdown-toggle fw-bold rounded-0" type="button" id="categoryDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-            Categories
-          </button>
-          <ul class="dropdown-menu dropdown-btm-user rounded-0 p-0" aria-labelledby="categoryDropdown">
-            <?php foreach ($categories as $category) : ?>
-              <li class="border py-2 usr-cat-dropdown-li"><small><a class="dropdown-item" href="category.php?id=<?php echo $category['category_id']; ?>"><?php echo $category['category_name']; ?></a></small></li>
-            <?php endforeach; ?>
-          </ul>
-        </div>
-
         <!-- Toggle Button for Mobile View -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -120,7 +108,7 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
 
         <!-- Page Links -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-          <ul class="navbar-nav mx-auto fw-bold">
+          <ul class="navbar-nav ps-2 me-auto fw-bold">
             <li class="nav-item nav-item-user">
               <a class="nav-link" href="index.php">Home</a>
             </li>
@@ -139,7 +127,7 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
           </ul>
 
           <!-- User Links -->
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto pe-2">
             <?php if (isset($_SESSION['user_id'])) : ?>
               <li class="nav-item-icon dropdown nav-item-user-2 pe-4">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">

@@ -79,7 +79,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Upgrade Your Tech Gear</h5>
                     <p class="lead">Find the latest and greatest in electronics and gadgets to stay ahead of the curve.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3">SHOP NOW</a>
+                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -87,7 +87,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Transform Your Living Space</h5>
                     <p class="lead">Enhance your home with our exquisite collection of decor items and furniture.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3">SHOP NOW</a>
+                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -95,7 +95,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Bring Nature to Your Home</h5>
                     <p class="lead">Get everything you need for gardening and make your home a green sanctuary.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3">SHOP NOW</a>
+                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
         </div>
