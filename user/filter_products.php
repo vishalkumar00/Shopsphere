@@ -1,8 +1,9 @@
 <?php
 session_start();
-include '../database/conn.php'; // Make sure to include your database connection
+include '../database/conn.php'; 
 
 $selected_categories = isset($_POST['categories']) ? $_POST['categories'] : [];
+$selected_prices = isset($_POST['price']) ? $_POST['price'] : [];
 
 $whereClauses = [];
 $params = [];
@@ -12,6 +13,21 @@ if (!empty($selected_categories) && !in_array('all', $selected_categories)) {
     $placeholders = implode(',', array_fill(0, count($selected_categories), '?'));
     $whereClauses[] = "p.category_id IN ($placeholders)";
     $params = array_merge($params, $selected_categories);
+}
+
+if (!empty($selected_prices)) {
+    $priceConditions = [];
+    foreach ($selected_prices as $priceRange) {
+        if ($priceRange === '1001') {
+            $priceConditions[] = "pv.price >= 1001";
+        } else {
+            list($min, $max) = explode('-', $priceRange);
+            $priceConditions[] = "pv.price BETWEEN ? AND ?";
+            $params[] = $min;
+            $params[] = $max;
+        }
+    }
+    $whereClauses[] = '(' . implode(' OR ', $priceConditions) . ')';
 }
 
 $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';

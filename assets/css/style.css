@@ -878,6 +878,49 @@ h6 {
   color: #007bff;
 }
 
+.usr-filter-list {
+  margin-top: 10px;
+}
+
+#filterForm h5 {
+  color: #0056b3;
+}
+
+.usr-filter-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 15px;
+  border-bottom: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: white;
+  transition: background-color 0.3s;
+}
+
+.usr-filter-item:hover {
+  background-color: #f1f1f1;
+  cursor: pointer;
+}
+
+.usr-filter-checkbox {
+  margin-right: 10px;
+}
+
+.usr-filter-label {
+  flex-grow: 1;
+  margin-right: 10px;
+}
+
+.usr-filter-count {
+  font-weight: bold;
+  color: #333;
+}
+
+.sidebar-filter-title {
+  color: #012970;
+  font-weight: bold;
+}
+
 .list-group-item-2 {
   display: flex;
   align-items: center;

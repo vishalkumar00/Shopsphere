@@ -15,23 +15,68 @@ if ($result_categories->num_rows > 0) {
         $categories[] = $row;
     }
 }
+
+// Fetch price ranges and their product counts
+$price_ranges = [
+    '0-50' => '0 AND 50',
+    '51-100' => '51 AND 100',
+    '101-200' => '101 AND 200',
+    '201-500' => '201 AND 500',
+    '501-1000' => '501 AND 1000',
+    '1001' => '1001 AND 1000000'
+];
+
+$price_counts = [];
+foreach ($price_ranges as $range => $condition) {
+    $sql_price = "SELECT COUNT(*) AS product_count FROM product_variants WHERE price BETWEEN $condition";
+    $result_price = $conn->query($sql_price);
+    if ($result_price->num_rows > 0) {
+        $row = $result_price->fetch_assoc();
+        $price_counts[$range] = $row['product_count'];
+    } else {
+        $price_counts[$range] = 0;
+    }
+}
 ?>
 
 <main class="container-fluid py-5">
     <div class="row">
         <!-- Sidebar for filters -->
         <aside class="col-lg-3 col-md-4 col-sm-12">
-            <h4>Filter by</h4>
+            <h4 class="sidebar-filter-title">Filter by:</h4>
             <form id="filterForm">
+                <h5 class="mb-0 mt-3">Category</h5>
                 <div class="usr-filter-list">
-                    <label class="usr-filter-item list-group-item-2">
+                    <label class="usr-filter-item rounded-0 list-group-item-2">
                         <input type="checkbox" name="categories[]" value="all" class="usr-filter-checkbox form-check-input-2" checked>
-                        All Products
+                        <span class="usr-filter-label">All Products</span>
+                        <span class="usr-filter-count"></span>
                     </label>
                     <?php foreach ($categories as $category) : ?>
-                        <label class="usr-filter-item list-group-item-2">
+                        <label class="usr-filter-item rounded-0 list-group-item-2">
                             <input type="checkbox" name="categories[]" value="<?php echo $category['category_id']; ?>" class="usr-filter-checkbox form-check-input-2">
-                            <?php echo $category['category_name']; ?> (<?php echo $category['product_count']; ?>)
+                            <span class="usr-filter-label"><?php echo $category['category_name']; ?></span>
+                            <span class="usr-filter-count">(<?php echo $category['product_count']; ?>)</span>
+                        </label>
+                    <?php endforeach; ?>
+                </div>
+                
+                <h5 class="mb-0 mt-3">Price</h5>
+                <div class="usr-filter-list">
+                    <?php foreach ($price_ranges as $range => $condition) : ?>
+                        <label class="usr-filter-item rounded-0 list-group-item-2">
+                            <input type="checkbox" name="price[]" value="<?php echo $range; ?>" class="usr-filter-checkbox form-check-input-2">
+                            <span class="usr-filter-label">
+                                <?php
+                                if ($range === '1001') {
+                                    echo '$1001 & Above';
+                                } else {
+                                    $prices = explode('-', $range);
+                                    echo '$' . $prices[0] . ' - $' . (isset($prices[1]) ? $prices[1] : '');
+                                }
+                                ?>
+                            </span>
+                            <span class="usr-filter-count">(<?php echo $price_counts[$range]; ?>)</span>
                         </label>
                     <?php endforeach; ?>
                 </div>
@@ -71,7 +116,7 @@ $(document).ready(function() {
 
                 $.each(products, function(productId, product) {
                     html += `
-                    <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="col-lg-4 col-md-6">
                         <div class="card card-height d-flex flex-column">
                             <div class="product-image-container">
                                 <img src="../uploads/${product.product_image}" class="card-img-top fixed-height-img" alt="${product.product_name}" data-original-src="../uploads/${product.product_image}">
