@@ -5,6 +5,8 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 include '../database/conn.php';
 
+$search_query = isset($_GET['search']) ? $_GET['search'] : (isset($_POST['search']) ? $_POST['search'] : '');
+
 // Check if user is logged in
 $cartCount = 0;
 $userFirstName = '';
@@ -70,13 +72,17 @@ $currentUrl = $_SERVER['REQUEST_URI'];
   <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="../assets/css/style.css" rel="stylesheet">
 
+  <style>
+    /* Style for fixed top navbar on scroll */
+  </style>
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
   <header class="header-2">
     <!-- Top Navbar -->
-    <nav class="navbar navbar-expand-lg border-bottom usr-custom-navbar">
+    <nav id="topNavbar" class="navbar navbar-expand-lg border-bottom usr-custom-navbar">
       <div class="container-fluid d-flex flex-column flex-sm-row align-items-center">
         <!-- Logo -->
         <a class="navbar-brand logo mx-auto mx-sm-0" href="index.php">
@@ -84,12 +90,12 @@ $currentUrl = $_SERVER['REQUEST_URI'];
         </a>
 
         <!-- Search Bar -->
-        <form class="d-flex my-2 my-sm-0 mx-auto mx-sm-0 usr-navbar-search-form" method="GET" action="">
-          <div class="input-group custom-input-group">
-            <input class="form-control search-input-user" type="search" placeholder="Search for products" aria-label="Search" name="query">
-            <button class="btn search-button" type="submit"><i class="bi bi-search text-white"></i></button>
-          </div>
-        </form>
+        <div class="d-flex my-2 my-sm-0 mx-auto mx-sm-0 usr-navbar-search-form">
+          <form class="input-group custom-input-group" action="shop.php" method="GET">
+            <input id="searchInput" class="form-control search-input-user" type="search" placeholder="Search for products" aria-label="Search" name="search" value="<?php echo htmlspecialchars($search_query); ?>">
+            <button id="searchButton" class="btn search-button" type="submit"><i class="bi bi-search text-white"></i></button>
+          </form>
+        </div>
 
         <!-- Cart Icon -->
         <div class="navbar-nav ms-auto d-none d-sm-flex">
@@ -103,11 +109,9 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
     <!-- Secondary Navbar -->
     <nav class="navbar navbar-expand-lg border user-second-navbar">
-      <!-- Toggle Button for Mobile View -->
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-
 
       <!-- Page Links -->
       <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
@@ -172,14 +176,6 @@ $currentUrl = $_SERVER['REQUEST_URI'];
   <button id="backToTopBtn" class="btn btn-primary">
     <i class="ri-arrow-up-line"></i>
   </button>
-
-  <script>
-    $(document).ready(function() {
-      $('.navbar-toggler').click(function() {
-        $('#navbarNav').collapse('toggle');
-      });
-    });
-  </script>
 
   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>

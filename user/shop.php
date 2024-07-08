@@ -37,6 +37,7 @@ foreach ($price_ranges as $range => $condition) {
         $price_counts[$range] = 0;
     }
 }
+
 ?>
 
 <main class="container-fluid py-5">
@@ -60,7 +61,7 @@ foreach ($price_ranges as $range => $condition) {
                         </label>
                     <?php endforeach; ?>
                 </div>
-                
+
                 <h5 class="mb-0 mt-3">Price</h5>
                 <div class="usr-filter-list">
                     <?php foreach ($price_ranges as $range => $condition) : ?>
@@ -82,15 +83,14 @@ foreach ($price_ranges as $range => $condition) {
                 </div>
             </form>
         </aside>
-        
+
         <!-- Main content for products -->
         <div class="col-lg-9 col-md-8 shop-pg-mrgn-tp">
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fw-bold shop-pg-search-title" id="shopTitle">All Products</h2>
-                <form id="searchForm" class="d-flex">
-                    <input type="text" name="search" class="form-control me-2" placeholder="Search products">
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
+                <div class="d-flex">
+                    
+                </div>
             </div>
             <div class="row shop-products-row" id="productsContainer">
                 <!-- Products will be loaded here dynamically -->
@@ -103,12 +103,13 @@ foreach ($price_ranges as $range => $condition) {
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function() {
+    $(document).ready(function() {
     function loadProducts() {
+        const searchQuery = $('#searchInput').val(); // Assuming this is where your search input value is retrieved
         $.ajax({
             url: 'filter_products.php',
             type: 'POST',
-            data: $('#filterForm').serialize(),
+            data: $('#filterForm').serialize() + '&search=' + searchQuery,
             success: function(response) {
                 const data = JSON.parse(response);
                 const products = data.products;
@@ -117,13 +118,13 @@ $(document).ready(function() {
 
                 $.each(products, function(productId, product) {
                     html += `
-                    <div class="col-lg-4 col-md-6">
-                        <div class="card card-height d-flex flex-column">
-                            <div class="product-image-container">
-                                <img src="../uploads/${product.product_image}" class="card-img-top fixed-height-img" alt="${product.product_name}" data-original-src="../uploads/${product.product_image}">
-                            </div>
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title-2 mb-0 text-center">${product.product_name}</h5>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="card card-height d-flex flex-column">
+                                <div class="product-image-container">
+                                    <img src="../uploads/${product.product_image}" class="card-img-top fixed-height-img" alt="${product.product_name}" data-original-src="../uploads/${product.product_image}">
+                                </div>
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title-2 mb-0 text-center">${product.product_name}</h5>
                     `;
 
                     if (Object.keys(product.colors).length > 1) {
@@ -139,13 +140,13 @@ $(document).ready(function() {
                     }
 
                     html += `
-                                <div class="mt-auto text-center">
-                                    <p class="card-text fw-bold usr-shop-pd-caed-price">$${product.price}</p>
-                                    <a href="product_details.php?product_id=${product.product_id}" class="rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
+                                    <div class="mt-auto text-center">
+                                        <p class="card-text fw-bold usr-shop-pd-caed-price">$${product.price}</p>
+                                        <a href="product_details.php?product_id=${product.product_id}" class="rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
                     `;
                 });
 
@@ -160,8 +161,16 @@ $(document).ready(function() {
                     $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
                 });
 
-                // Update the heading based on the selected filters
-                let filterText = filters.length > 0 ? filters.join(', ') : 'All Products';
+                // Update the heading based on the selected filters and search query
+                let filterText = '';
+                if (filters.length > 0) {
+                    filterText += filters.join(', ');
+                } else {
+                    filterText += 'All Products';
+                }
+                if (searchQuery !== '') {
+                    filterText += ' - Search: "' + searchQuery + '"';
+                }
                 $('#shopTitle').text(filterText);
             }
         });
@@ -171,7 +180,13 @@ $(document).ready(function() {
         loadProducts();
     });
 
+    $('#searchButton').click(function(event) {
+        event.preventDefault(); // Prevent form submission
+        loadProducts();
+    });
+
     // Initial load
     loadProducts();
 });
+
 </script>

@@ -193,4 +193,13 @@
     $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
 });
 
+// Scroll functinality 
+$(window).scroll(function () {
+  if ($(this).scrollTop() > 0) {
+    $('#topNavbar').addClass('fixed-top-scroll');
+  } else {
+    $('#topNavbar').removeClass('fixed-top-scroll');
+  }
+});
+
 })();

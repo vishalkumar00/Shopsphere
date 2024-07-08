@@ -4,6 +4,7 @@ include '../database/conn.php';
 
 $selected_categories = isset($_POST['categories']) ? $_POST['categories'] : [];
 $selected_prices = isset($_POST['price']) ? $_POST['price'] : [];
+$search_query = isset($_POST['search']) ? $_POST['search'] : '';
 
 $whereClauses = [];
 $params = [];
@@ -30,6 +31,11 @@ if (!empty($selected_prices)) {
     $whereClauses[] = '(' . implode(' OR ', $priceConditions) . ')';
 }
 
+if (!empty($search_query)) {
+    $whereClauses[] = "(p.product_name LIKE ?)";
+    $params[] = '%' . $search_query . '%';
+}
+
 $whereSql = !empty($whereClauses) ? 'WHERE ' . implode(' AND ', $whereClauses) : '';
 
 $sql = "SELECT p.product_id, p.product_name, MIN(pv.price) AS price, pv.product_image
@@ -39,7 +45,7 @@ $sql = "SELECT p.product_id, p.product_name, MIN(pv.price) AS price, pv.product_
         GROUP BY p.product_id, p.product_name, pv.product_image";
 $stmt = $conn->prepare($sql);
 if (!empty($params)) {
-    $stmt->bind_param(str_repeat('i', count($params)), ...$params);
+    $stmt->bind_param(str_repeat('i', count($params) - 1) . 's', ...$params);
 }
 $stmt->execute();
 $result = $stmt->get_result();
