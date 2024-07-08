@@ -71,7 +71,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Explore the Latest Fashion Trends</h5>
                     <p class="lead">Discover a wide range of stylish clothing and accessories to suit every occasion.</p>
-                    <a href="#" class="btn btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
+                    <a href="shop.php" class="btn btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -79,7 +79,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Upgrade Your Tech Gear</h5>
                     <p class="lead">Find the latest and greatest in electronics and gadgets to stay ahead of the curve.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
+                    <a href="shop.php" class="btn btn-primary btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -87,7 +87,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Transform Your Living Space</h5>
                     <p class="lead">Enhance your home with our exquisite collection of decor items and furniture.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
+                    <a href="shop.php" class="btn btn-primary btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
             <div class="carousel-item">
@@ -95,7 +95,7 @@ if ($result_categories->num_rows > 0) {
                 <div class="carousel-caption d-flex flex-column justify-content-center align-items-center text-center">
                     <h5 class="display-4">Bring Nature to Your Home</h5>
                     <p class="lead">Get everything you need for gardening and make your home a green sanctuary.</p>
-                    <a href="#" class="btn btn-primary btn-lg mt-3 usr-carosuel-btn">SHOP NOW</a>
+                    <a href="shop.php" class="btn btn-primary btn-lg mt-3 rounded-0 usr-carosuel-btn">SHOP NOW</a>
                 </div>
             </div>
         </div>
@@ -141,13 +141,12 @@ if ($result_categories->num_rows > 0) {
                 <div class="MultiCarousel-inner">
                     <?php foreach ($featuredProducts as $featuredProduct) : ?>
                         <div class="item">
-                            <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link">
                                 <div class="pad15 rounded-2">
                                     <img src="../uploads/<?php echo $featuredProduct['product_image']; ?>" class="product-img" alt="<?php echo $product['product_name']; ?>">
                                     <p class="product-title"><?php echo $featuredProduct['product_name']; ?></p>
                                     <p class="product-price fw-bold">$<?php echo $featuredProduct['price']; ?></p>
+                                    <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
                                 </div>
-                            </a>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -179,11 +178,11 @@ if ($result_categories->num_rows > 0) {
                     <div class="MultiCarousel-inner">
                         <?php foreach ($categoryCarousel['products'] as $product) : ?>
                             <div class="item">
-                                <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link">
                                     <div class="pad15 rounded-2">
                                         <img src="../uploads/<?php echo $product['product_image']; ?>" class="product-img" alt="<?php echo $product['product_name']; ?>">
                                         <p class="product-title"><?php echo $product['product_name']; ?></p>
                                         <p class="product-price fw-bold">$<?php echo $product['price']; ?></p>
+                                        <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
                                     </div>
                                 </a>
                             </div>

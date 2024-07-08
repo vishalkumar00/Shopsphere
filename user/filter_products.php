@@ -80,5 +80,31 @@ if ($result_variants->num_rows > 0) {
     }
 }
 
-echo json_encode(['products' => $products]);
+// Get the category and price filter labels
+$category_labels = [];
+if (!empty($selected_categories) && !in_array('all', $selected_categories)) {
+    $placeholders = implode(',', array_fill(0, count($selected_categories), '?'));
+    $sql_categories = "SELECT category_name FROM categories WHERE category_id IN ($placeholders)";
+    $stmt_categories = $conn->prepare($sql_categories);
+    $stmt_categories->bind_param(str_repeat('i', count($selected_categories)), ...$selected_categories);
+    $stmt_categories->execute();
+    $result_categories = $stmt_categories->get_result();
+    while ($row = $result_categories->fetch_assoc()) {
+        $category_labels[] = $row['category_name'];
+    }
+}
+
+$price_labels = [];
+foreach ($selected_prices as $priceRange) {
+    if ($priceRange === '1001') {
+        $price_labels[] = '$1001 & Above';
+    } else {
+        list($min, $max) = explode('-', $priceRange);
+        $price_labels[] = '$' . $min . ' - $' . $max;
+    }
+}
+
+$filters = array_merge($category_labels, $price_labels);
+
+echo json_encode(['products' => $products, 'filters' => $filters]);
 ?>

@@ -38,6 +38,9 @@ $categoryResult = $categoryStmt->get_result();
 while ($categoryRow = $categoryResult->fetch_assoc()) {
   $categories[] = $categoryRow;
 }
+
+// Get current URL
+$currentUrl = $_SERVER['REQUEST_URI'];
 ?>
 
 <!DOCTYPE html>
@@ -57,7 +60,7 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
 
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -68,22 +71,21 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
   <link href="../assets/css/style.css" rel="stylesheet">
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  
 </head>
 
 <body>
   <header class="header-2">
     <!-- Top Navbar -->
-    <nav class="navbar navbar-expand-lg border-bottom">
-      <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg border-bottom usr-custom-navbar">
+      <div class="container-fluid d-flex flex-column flex-sm-row align-items-center">
         <!-- Logo -->
-        <a class="navbar-brand logo" href="index.php">
+        <a class="navbar-brand logo mx-auto mx-sm-0" href="index.php">
           <img src="../assets/img/logo.png" alt="ShopSphere">
         </a>
 
         <!-- Search Bar -->
-        <form class="d-flex" method="GET" action="" style="flex-grow: 1; max-width: 600px; margin-left: 20px;">
-          <div class="input-group">
+        <form class="d-flex my-2 my-sm-0 mx-auto mx-sm-0 usr-navbar-search-form" method="GET" action="">
+          <div class="input-group custom-input-group">
             <input class="form-control search-input-user" type="search" placeholder="Search for products" aria-label="Search" name="query">
             <button class="btn search-button" type="submit"><i class="bi bi-search text-white"></i></button>
           </div>
@@ -101,75 +103,85 @@ while ($categoryRow = $categoryResult->fetch_assoc()) {
 
     <!-- Secondary Navbar -->
     <nav class="navbar navbar-expand-lg border user-second-navbar">
-        <!-- Toggle Button for Mobile View -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- Toggle Button for Mobile View -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <!-- Page Links -->
-        <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
-          <ul class="navbar-nav ps-2 me-auto fw-bold">
-            <li class="nav-item nav-item-user">
-              <a class="nav-link" href="index.php">Home</a>
-            </li>
-            <li class="nav-item nav-item-user">
-              <a class="nav-link" href="shop.php">Shop</a>
-            </li>
-            <li class="nav-item nav-item-user">
-              <a class="nav-link" href="cart.php">Cart</a>
-            </li>
-            <li class="nav-item nav-item-user">
-              <a class="nav-link" href="checkout.php">Checkout</a>
-            </li>
-            <li class="nav-item nav-item-user">
-              <a class="nav-link" href="contact.php">Contact</a>
-            </li>
-          </ul>
 
-          <!-- User Links -->
-          <ul class="navbar-nav ms-auto pe-2">
-            <?php if (isset($_SESSION['user_id'])) : ?>
-              <li class="nav-item-icon dropdown nav-item-user-2 pe-4">
-                <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                  <i class="ri-user-line fs-4"></i>
-                  <span class="d-none d-md-block dropdown-toggle ps-1 fw-bold"><?php echo htmlspecialchars($userFirstName); ?></span>
-                  <i class="bi bi-chevron-down fs-6"></i>
-                </a>
+      <!-- Page Links -->
+      <div class="collapse navbar-collapse justify-content-center" id="navbarNav">
+        <ul class="navbar-nav ps-2 me-auto fw-bold">
+          <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'index.php') !== false) ? 'active-1' : ''; ?>" href="index.php">Home</a>
+          </li>
+          <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'shop.php') !== false) ? 'active-1' : ''; ?>" href="shop.php">Shop</a>
+          </li>
+          <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'cart.php') !== false) ? 'active-1' : ''; ?>" href="cart.php">Cart</a>
+          </li>
+          <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'checkout.php') !== false) ? 'active-1' : ''; ?>" href="checkout.php">Checkout</a>
+          </li>
+          <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'contact.php') !== false) ? 'active-1' : ''; ?>" href="contact.php">Contact</a>
+          </li>
+        </ul>
 
-                <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                  <li class="dropdown-header text-center">
-                    <h6 class="fw-bold"><?php echo htmlspecialchars($userFirstName); ?></h6>
-                    <span><small><?php echo htmlspecialchars($userEmail); ?></small></span>
-                  </li>
-                  <li>
-                    <hr class="dropdown-divider">
-                  </li>
-                  <li>
-                    <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_logout.php">
-                      <i class="bi bi-box-arrow-right"></i>
-                      <span>Sign Out</span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            <?php else : ?>
-              <li class="nav-item nav-item-user fw-bold">
-                <a class="nav-link" href="usr_login.php">Login</a>
-              </li>
-              <li class="nav-item nav-item-user fw-bold">
-                <a class="nav-link" href="usr_register.php">Register</a>
-              </li>
-            <?php endif; ?>
-          </ul>
-        </div>
-      <!-- </div> -->
+        <!-- User Links -->
+        <ul class="navbar-nav ms-auto pe-2">
+          <?php if (isset($_SESSION['user_id'])) : ?>
+            <li class="nav-item-icon dropdown nav-item-user-2 pe-4">
+              <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+                <i class="ri-user-line fs-4"></i>
+                <span class="d-none d-md-block dropdown-toggle ps-1 fw-bold"><?php echo htmlspecialchars($userFirstName); ?></span>
+                <i class="bi bi-chevron-down fs-6"></i>
+              </a>
+
+              <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                <li class="dropdown-header text-center">
+                  <h6 class="fw-bold"><?php echo htmlspecialchars($userFirstName); ?></h6>
+                  <span><small><?php echo htmlspecialchars($userEmail); ?></small></span>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+                <li>
+                  <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_logout.php">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span>Sign Out</span>
+                  </a>
+                </li>
+              </ul>
+            </li>
+          <?php else : ?>
+            <li class="nav-item nav-item-user fw-bold">
+              <a class="nav-link <?php echo (strpos($currentUrl, 'usr_login.php') !== false) ? 'active-1' : ''; ?>" href="usr_login.php">Login</a>
+            </li>
+            <li class="nav-item nav-item-user fw-bold">
+              <a class="nav-link <?php echo (strpos($currentUrl, 'usr_register.php') !== false) ? 'active-1' : ''; ?>" href="usr_register.php">Register</a>
+            </li>
+          <?php endif; ?>
+        </ul>
+      </div>
     </nav>
   </header>
 
   <!-- Back to Top Button -->
-<button id="backToTopBtn" class="btn btn-primary">
+  <button id="backToTopBtn" class="btn btn-primary">
     <i class="ri-arrow-up-line"></i>
-</button>
+  </button>
+
+  <script>
+    $(document).ready(function() {
+      $('.navbar-toggler').click(function() {
+        $('#navbarNav').collapse('toggle');
+      });
+    });
+  </script>
+
+  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

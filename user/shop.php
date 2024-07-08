@@ -84,9 +84,9 @@ foreach ($price_ranges as $range => $condition) {
         </aside>
         
         <!-- Main content for products -->
-        <div class="col-lg-9 col-md-8">
+        <div class="col-lg-9 col-md-8 shop-pg-mrgn-tp">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <h2 class="fw-bold shop-pg-search-title">All Products</h2>
+                <h2 class="fw-bold shop-pg-search-title" id="shopTitle">All Products</h2>
                 <form id="searchForm" class="d-flex">
                     <input type="text" name="search" class="form-control me-2" placeholder="Search products">
                     <button type="submit" class="btn btn-primary">Search</button>
@@ -112,6 +112,7 @@ $(document).ready(function() {
             success: function(response) {
                 const data = JSON.parse(response);
                 const products = data.products;
+                const filters = data.filters;
                 let html = '';
 
                 $.each(products, function(productId, product) {
@@ -140,7 +141,7 @@ $(document).ready(function() {
                     html += `
                                 <div class="mt-auto text-center">
                                     <p class="card-text fw-bold usr-shop-pd-caed-price">$${product.price}</p>
-                                    <a href="product_details.php?product_id=${product.product_id}" class="btn btn-primary">View Details</a>
+                                    <a href="product_details.php?product_id=${product.product_id}" class="rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
                                 </div>
                             </div>
                         </div>
@@ -158,6 +159,10 @@ $(document).ready(function() {
                     var originalImage = $(this).closest('.card').find('.card-img-top').data('original-src');
                     $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
                 });
+
+                // Update the heading based on the selected filters
+                let filterText = filters.length > 0 ? filters.join(', ') : 'All Products';
+                $('#shopTitle').text(filterText);
             }
         });
     }
