@@ -904,6 +904,7 @@ h6 {
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
+  line-clamp: inherit;
   -webkit-line-clamp: 2;
   /* Number of lines to show */
   -webkit-box-orient: vertical;

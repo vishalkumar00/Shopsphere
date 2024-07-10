@@ -15,7 +15,7 @@
         </div>
 
         <!-- Quick Links -->
-        <div class="col-lg-4 col-md-12 col-sm-12 mb-4 text-lg-start text-md-center text-sm-center">
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 text-lg-start text-md-center text-sm-center">
             <h5 class="mb-3">Quick Links</h5>
             <p class="usr-link-hover"><i class="ri-arrow-right-s-line"></i> <a href="index.php" class="text-white">Home</a></p>
             <p class="usr-link-hover"><i class="ri-arrow-right-s-line"></i> <a href="shop.php" class="text-white">Shop</a></p>
@@ -25,7 +25,7 @@
         </div>
         
         <!-- Social Media Links -->
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-4 text-lg-start text-sm-center">
+        <div class="col-lg-4 col-md-12 col-sm-12 mb-4 text-lg-start text-sm-center">
             <h5 class="mb-3">Follow Us</h5>
             <p class="usr-link-hover"><i class="ri-instagram-line usr-ft-icon"></i> <a href="#" class="text-white">Instagram</a></p>
             <p class="usr-link-hover"><i class="ri-linkedin-line usr-ft-icon"></i> <a href="#" class="text-white">LinkedIn</a></p>
