@@ -87,10 +87,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     foreach ($productQuantities as $key => $quantity) {
         if (empty($quantity)) {
             $errors['productQuantity'][$key] = 'Quantity is required for variant ' . ($key + 1);
-        } elseif (!ctype_digit($quantity) || $quantity < 1 || $quantity > 9999) {
-            $errors['productQuantity'][$key] = 'Quantity must be between 1 and 9,999';
+        } elseif (!ctype_digit((string) $quantity) || $quantity < 0 || $quantity > 9999) {
+            $errors['productQuantity'][$key] = 'Quantity must be between 0 and 9,999';
         }
-    }
+    }    
 
     // If no errors, proceed with database insertion
     if (empty($errors)) {

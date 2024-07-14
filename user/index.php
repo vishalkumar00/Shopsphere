@@ -141,12 +141,12 @@ if ($result_categories->num_rows > 0) {
                 <div class="MultiCarousel-inner">
                     <?php foreach ($featuredProducts as $featuredProduct) : ?>
                         <div class="item">
-                                <div class="pad15 rounded-2">
-                                    <img src="../uploads/<?php echo $featuredProduct['product_image']; ?>" class="product-img" alt="<?php echo $product['product_name']; ?>">
-                                    <p class="product-title"><?php echo $featuredProduct['product_name']; ?></p>
-                                    <p class="product-price fw-bold">$<?php echo $featuredProduct['price']; ?></p>
-                                    <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
-                                </div>
+                            <div class="pad15 rounded-2">
+                                <img src="../uploads/<?php echo $featuredProduct['product_image']; ?>" class="product-img" alt="<?php echo $featuredProduct['product_name']; ?>">
+                                <p class="product-title"><?php echo $featuredProduct['product_name']; ?></p>
+                                <p class="product-price fw-bold">$<?php echo $featuredProduct['price']; ?></p>
+                                <a href="product_details.php?product_id=<?php echo $featuredProduct['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
+                            </div>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -178,12 +178,12 @@ if ($result_categories->num_rows > 0) {
                     <div class="MultiCarousel-inner">
                         <?php foreach ($categoryCarousel['products'] as $product) : ?>
                             <div class="item">
-                                    <div class="pad15 rounded-2">
-                                        <img src="../uploads/<?php echo $product['product_image']; ?>" class="product-img" alt="<?php echo $product['product_name']; ?>">
-                                        <p class="product-title"><?php echo $product['product_name']; ?></p>
-                                        <p class="product-price fw-bold">$<?php echo $product['price']; ?></p>
-                                        <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
-                                    </div>
+                                <div class="pad15 rounded-2">
+                                    <img src="../uploads/<?php echo $product['product_image']; ?>" class="product-img" alt="<?php echo $product['product_name']; ?>">
+                                    <p class="product-title"><?php echo $product['product_name']; ?></p>
+                                    <p class="product-price fw-bold">$<?php echo $product['price']; ?></p>
+                                    <a href="product_details.php?product_id=<?php echo $product['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
+                                </div>
                                 </a>
                             </div>
                         <?php endforeach; ?>

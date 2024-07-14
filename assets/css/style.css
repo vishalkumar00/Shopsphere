@@ -497,9 +497,9 @@ h6 {
   padding: 0;
 }
 
-.usr-cat-dropdown {
+/* .usr-cat-dropdown {
   height: 52px;
-}
+} */
 
 .nav-cart-icon {
   position: relative;
@@ -549,15 +549,15 @@ h6 {
   color: #f6f6f6;
 }
 
-.usr-cat-dropdown-li:hover {
+/* .usr-cat-dropdown-li:hover {
   cursor: pointer;
   background-color: #4154f1;
-}
+} */
 
-.usr-cat-dropdown-li:hover a {
+/* .usr-cat-dropdown-li:hover a {
   color: white;
   background-color: #4154f1;
-}
+} */
 
 /* Home Page main content  */
 .carousel-inner {
@@ -638,8 +638,8 @@ h6 {
 }
 
 .usr-carosuel-btn:hover {
-  background-color: #f6f6f6;
-  color: #4154f1;
+  background-color: #f6f6f6 !important;
+  color: #4154f1 !important;
 }
 
 .MultiCarousel .MultiCarousel-inner {
@@ -794,6 +794,10 @@ h6 {
 .usr-footer-bg {
   background-color: #012970;
 }
+
+.usr-footer-bg .address {
+        margin-bottom: 0.5rem; /* Adjust as needed */
+    }
 
 .usr-ft-icon {
   color: #fff;
@@ -979,6 +983,57 @@ h6 {
   margin-right: 10px;
 }
 
+/* Product Details Page Styles  */
+.fixed-height {
+  height: 500px;
+  object-fit: cover;
+}
+
+.pd-color-circle-details {
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.input-group .form-control.quantity-input {
+  max-width: 60px;
+}
+
+.btn-primary,
+.btn-outline-primary {
+  background-color: #4154f1;
+  border-color: #4154f1;
+  color: #fff;
+}
+
+.btn-primary:hover,
+.btn-outline-primary:hover {
+  background-color: #012970;
+  border-color: #012970;
+}
+
+.pd-details-h2 {
+  color: #012970;
+}
+
+.pd-details-h5 {
+  color: #0056b3;
+}
+
+.pd-details-price {
+  color: #4154f1;
+}
+
+.pd-color-circle-details {
+  border: 1px solid #ff4b5c;
+  transition: border-width 0.2s ease;
+}
+
+.pd-color-circle-details.selected-color {
+  border-width: 4px;
+}
+
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
     transform: translateX(-250px);
@@ -1082,6 +1137,25 @@ h6 {
     flex: 0 0 50%;
     max-width: 50%;
   }
+
+  .fixed-height {
+    max-height: auto;
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .text-center {
+    text-align: center;
+  }
+
+  .input-md-center {
+    justify-content: center;
+  }
+
+  .add-to-car-btn-center-md {
+    text-align: center;
+  }
+
 }
 
 @media (max-width: 576px) {
@@ -1140,5 +1214,17 @@ h6 {
   .shop-products-row .col-md-6 {
     flex: 0 0 100%;
     max-width: 100%;
+  }
+
+  .btn-outline-primary {
+    width: max-content !important;
+  }
+
+  .input-md-center {
+    flex-direction: row;
+  }
+
+  .text-xs-center {
+    text-align: center !important;
   }
 }

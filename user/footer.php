@@ -4,11 +4,13 @@
         <!-- Company Information -->
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4 text-lg-start text-sm-center">
             <a class="navbar-brand logo-footer" href="index.php">
-            <img src="../assets/img/image.png" alt="ShopSphere">
+                <img src="../assets/img/image.png" alt="ShopSphere">
             </a>
             <p class="pt-4">Your one-stop shop for all your needs.</p>
             <div>
-                <p><i class="ri-map-pin-line usr-ft-icon"></i> 299 Doon Valley Dr, Kitchener, ON N2G 4M4</p>
+                <p class="mb-0"><i class="ri-map-pin-line usr-ft-icon"></i> 299 Doon Valley Dr,</p>
+                <p class="mb-0 ps-5">Kitchener</p>
+                <p class="ps-5">ON N2G 4M4</p>
                 <p><i class="ri-mail-line usr-ft-icon"></i> info@conestogac.on.ca</p>
                 <p><i class="ri-phone-line usr-ft-icon"></i> 519-748-5220</p>
             </div>
@@ -23,7 +25,7 @@
             <p class="usr-link-hover"><i class="ri-arrow-right-s-line"></i> <a href="checkout.php" class="text-white">Checkout</a></p>
             <p class="usr-link-hover"><i class="ri-arrow-right-s-line"></i> <a href="contact_us.php" class="text-white">Contact Us</a></p>
         </div>
-        
+
         <!-- Social Media Links -->
         <div class="col-lg-4 col-md-12 col-sm-12 mb-4 text-lg-start text-sm-center">
             <h5 class="mb-3">Follow Us</h5>
@@ -38,5 +40,6 @@
 
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/vendor/simple-datatables/simple-datatables.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script src="../assets/js/main.js"></script>

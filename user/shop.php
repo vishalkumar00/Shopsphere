@@ -89,7 +89,7 @@ foreach ($price_ranges as $range => $condition) {
             <div class="d-flex justify-content-between align-items-center mb-3">
                 <h2 class="fw-bold shop-pg-search-title" id="shopTitle">All Products</h2>
                 <div class="d-flex">
-                    
+
                 </div>
             </div>
             <div class="row shop-products-row" id="productsContainer">
@@ -101,23 +101,22 @@ foreach ($price_ranges as $range => $condition) {
 
 <?php include 'footer.php'; ?>
 
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-    function loadProducts() {
-        const searchQuery = $('#searchInput').val(); // Assuming this is where your search input value is retrieved
-        $.ajax({
-            url: 'filter_products.php',
-            type: 'POST',
-            data: $('#filterForm').serialize() + '&search=' + searchQuery,
-            success: function(response) {
-                const data = JSON.parse(response);
-                const products = data.products;
-                const filters = data.filters;
-                let html = '';
+        function loadProducts() {
+            const searchQuery = $('#searchInput').val();
+            $.ajax({
+                url: 'filter_products.php',
+                type: 'POST',
+                data: $('#filterForm').serialize() + '&search=' + searchQuery,
+                success: function(response) {
+                    const data = JSON.parse(response);
+                    const products = data.products;
+                    const filters = data.filters;
+                    let html = '';
 
-                $.each(products, function(productId, product) {
-                    html += `
+                    $.each(products, function(productId, product) {
+                        html += `
                         <div class="col-lg-4 col-md-6">
                             <div class="card card-height d-flex flex-column">
                                 <div class="product-image-container">
@@ -127,19 +126,19 @@ foreach ($price_ranges as $range => $condition) {
                                     <h5 class="card-title-2 mb-0 text-center">${product.product_name}</h5>
                     `;
 
-                    if (Object.keys(product.colors).length > 1) {
-                        html += '<div class="product-variants text-center my-2">';
-                        $.each(product.colors, function(colorId, color) {
-                            if (colorId === 'multicolor') {
-                                html += `<div class="pd-color-circle pd-color-circle-multicolor" style="background-image: url('${color.color_code}');" data-variant-image="${color.color_code}"></div>`;
-                            } else {
-                                html += `<div class="rounded-circle pd-color-circle" style="background-color: ${color.color_code};" data-variant-image="../uploads/${color.product_image}"></div>`;
-                            }
-                        });
-                        html += '</div>';
-                    }
+                        if (Object.keys(product.colors).length > 1) {
+                            html += '<div class="product-variants text-center my-2">';
+                            $.each(product.colors, function(colorId, color) {
+                                if (colorId === 'multicolor') {
+                                    html += `<div class="pd-color-circle pd-color-circle-multicolor" style="background-image: url('${color.color_code}');" data-variant-image="${color.color_code}"></div>`;
+                                } else {
+                                    html += `<div class="rounded-circle pd-color-circle" style="background-color: ${color.color_code};" data-variant-image="../uploads/${color.product_image}"></div>`;
+                                }
+                            });
+                            html += '</div>';
+                        }
 
-                    html += `
+                        html += `
                                     <div class="mt-auto text-center">
                                         <p class="card-text fw-bold usr-shop-pd-caed-price">$${product.price}</p>
                                         <a href="product_details.php?product_id=${product.product_id}" class="rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
@@ -148,45 +147,52 @@ foreach ($price_ranges as $range => $condition) {
                             </div>
                         </div>
                     `;
-                });
+                    });
 
-                $('#productsContainer').html(html);
+                    $('#productsContainer').html(html);
 
-                // Add hover effect to change product image
-                $('.pd-color-circle').hover(function() {
-                    var variantImage = $(this).data('variant-image');
-                    $(this).closest('.card').find('.card-img-top').attr('src', variantImage);
-                }, function() {
-                    var originalImage = $(this).closest('.card').find('.card-img-top').data('original-src');
-                    $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
-                });
+                    // Add hover effect to change product image
+                    $('.pd-color-circle').hover(function() {
+                        var variantImage = $(this).data('variant-image');
+                        $(this).closest('.card').find('.card-img-top').attr('src', variantImage);
+                    }, function() {
+                        var originalImage = $(this).closest('.card').find('.card-img-top').data('original-src');
+                        $(this).closest('.card').find('.card-img-top').attr('src', originalImage);
+                    });
 
-                // Update the heading based on the selected filters and search query
-                let filterText = '';
-                if (filters.length > 0) {
-                    filterText += filters.join(', ');
-                } else {
-                    filterText += 'All Products';
+                    // Update the heading based on the selected filters and search query
+                    let filterText = '';
+                    if (filters.length > 0) {
+                        filterText += filters.join(', ');
+                    } else {
+                        filterText += 'All Products';
+                    }
+                    if (searchQuery !== '') {
+                        filterText += ' - Search: "' + searchQuery + '"';
+                    }
+                    $('#shopTitle').text(filterText);
                 }
-                if (searchQuery !== '') {
-                    filterText += ' - Search: "' + searchQuery + '"';
-                }
-                $('#shopTitle').text(filterText);
+            });
+        }
+
+        // Function to handle checkbox changes
+        $('#filterForm input[type="checkbox"]').change(function() {
+            if ($(this).val() === 'all' && $(this).prop('checked')) {
+                // If "All Products" is checked, uncheck all other checkboxes
+                $('#filterForm input[type="checkbox"]:not([value="all"])').prop('checked', false);
+            } else if ($(this).val() !== 'all' && $(this).prop('checked')) {
+                // If another checkbox is checked, uncheck "All Products"
+                $('#filterForm input[type="checkbox"][value="all"]').prop('checked', false);
             }
+            loadProducts();
         });
-    }
 
-    $('#filterForm input[type="checkbox"]').change(function() {
+        $('#searchButton').click(function(event) {
+            event.preventDefault();
+            loadProducts();
+        });
+
+        // Initial load
         loadProducts();
     });
-
-    $('#searchButton').click(function(event) {
-        event.preventDefault(); // Prevent form submission
-        loadProducts();
-    });
-
-    // Initial load
-    loadProducts();
-});
-
 </script>

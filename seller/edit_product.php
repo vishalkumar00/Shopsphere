@@ -127,10 +127,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errors['productPrice'] = 'Price must be between 10 and 1,000,000';
     }
 
-    if (empty($productQuantity)) {
-        $errors['productQuantity'] = 'Quantity is required';
-    } elseif (!ctype_digit($productQuantity) || $productQuantity < 1 || $productQuantity > 9999) {
-        $errors['productQuantity'] = 'Quantity must be between 1 and 9,999';
+    if (!ctype_digit((string) $productQuantity) || $productQuantity < 0 || $productQuantity > 9999) {
+        $errors['productQuantity'] = 'Quantity must be between 0 and 9,999';
     }
 
     // If no errors, proceed with database update

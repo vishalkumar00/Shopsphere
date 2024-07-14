@@ -68,6 +68,7 @@
     });
   })
 
+  // Multi Carousel (Product item one-by-one)
   var itemsMainDiv = ('.MultiCarousel');
   var itemsDiv = ('.MultiCarousel-inner');
   var itemWidth = 0;
@@ -184,7 +185,7 @@
     document.documentElement.scrollTop = 0; 
   };
 
-  // Product image changing according to color circle hover 
+  // Product image changing according to color circle hover on shop page
   $('.pd-color-circle').hover(function() {
     var variantImage = $(this).data('variant-image');
     $(this).closest('.card').find('.card-img-top').attr('src', variantImage);

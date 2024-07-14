@@ -1,9 +1,5 @@
 <?php
-// Check if a session is already started
-if (session_status() === PHP_SESSION_NONE) {
-  session_start();
-}
-include '../database/conn.php';
+include 'config.php';
 
 $search_query = isset($_GET['search']) ? $_GET['search'] : (isset($_POST['search']) ? $_POST['search'] : '');
 
@@ -72,11 +68,6 @@ $currentUrl = $_SERVER['REQUEST_URI'];
   <link href="../assets/vendor/simple-datatables/style.css" rel="stylesheet">
   <link href="../assets/css/style.css" rel="stylesheet">
 
-  <style>
-    /* Style for fixed top navbar on scroll */
-  </style>
-
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -177,7 +168,9 @@ $currentUrl = $_SERVER['REQUEST_URI'];
     <i class="ri-arrow-up-line"></i>
   </button>
 
-  <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
+   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
+
 </body>
 
 </html>
