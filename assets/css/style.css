@@ -994,6 +994,30 @@ h6 {
   height: 30px;
   border: 1px solid #ddd;
   cursor: pointer;
+  border: 1px solid #ff4b5c;
+  transition: border-width 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+.pd-color-circle-details:hover {
+  transform: scale(1.2);
+}
+
+.pd-color-circle-details.selected-color {
+  border-width: 4px;
+}
+
+.pd-color-circle-details.none-color {
+  background-color: transparent;
+  /* border: 1px solid #ccc; */
+}
+
+.none-cross-icon {
+  color: red; 
+  font-size: 20px; 
 }
 
 .input-group .form-control.quantity-input {
@@ -1025,13 +1049,42 @@ h6 {
   color: #4154f1;
 }
 
-.pd-color-circle-details {
-  border: 1px solid #ff4b5c;
-  transition: border-width 0.2s ease;
+/* CSS for Cart Page  */
+.quantity-btn {
+  background-color: #4154f1;
+  cursor: pointer;
 }
 
-.pd-color-circle-details.selected-color {
-  border-width: 4px;
+.quantity-btn:hover {
+  border: 1px solid #4154f1;
+}
+
+.quantity-btn:hover i{
+  color: #4154f1 !important;
+}
+
+.btn-remove:hover {
+  background-color: #fff;
+}
+
+.btn-remove:hover i{
+  color: #e32826 !important;
+}
+
+.summary-section {
+  margin-top: 64px;
+}
+
+.cart-table {
+  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+}
+
+.bg-table-initial {
+background-color: #cddfff !important;
+}
+
+.summary-card {
+  border: 1px solid #dee2e6;;
 }
 
 @media (max-width: 1199px) {
@@ -1156,6 +1209,22 @@ h6 {
     text-align: center;
   }
 
+  .center-md-pd-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+  }
+
+  .center-md-pd-details-2 {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    text-align: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
 }
 
 @media (max-width: 576px) {
@@ -1226,5 +1295,9 @@ h6 {
 
   .text-xs-center {
     text-align: center !important;
+  }
+
+  .center-md-pd-details {
+    flex-direction: row;
   }
 }
