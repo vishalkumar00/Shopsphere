@@ -6,9 +6,8 @@
             <a class="navbar-brand logo-footer" href="index.php">
                 <img src="../assets/img/image.png" alt="ShopSphere">
             </a>
-            <p class="pt-4">Your one-stop shop for all your needs.</p>
             <div>
-                <p class="mb-0"><i class="ri-map-pin-line usr-ft-icon"></i> 299 Doon Valley Dr,</p>
+                <p class="mb-0 pt-4"><i class="ri-map-pin-line usr-ft-icon"></i> 299 Doon Valley Dr,</p>
                 <p class="mb-0 ps-5">Kitchener</p>
                 <p class="ps-5">ON N2G 4M4</p>
                 <p><i class="ri-mail-line usr-ft-icon"></i> info@conestogac.on.ca</p>

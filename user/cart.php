@@ -108,8 +108,8 @@ $stmt->close();
                                 <td><?php echo $item['color']; ?></td>
                                 <td><?php echo $item['size']; ?></td>
                                 <td class="total-price" data-price="<?php echo $item['price']; ?>">$<?php echo number_format($item['quantity'] * $item['price'], 2); ?></td>
-                                <td>
-                                    <div class="input-group">
+                                <td class="quantity-column">
+                                    <div class="input-group center-md-pd-details">
                                         <button class="btn quantity-minus rounded-0 quantity-btn" data-variant-id="<?php echo $item['variant_id']; ?>"><i class="ri-subtract-line fw-bold text-white icon-hover"></i></button>
                                         <input type="text" class="form-control text-center quantity-input" value="<?php echo $item['quantity']; ?>" readonly>
                                         <button class="btn quantity-plus rounded-0 quantity-btn" data-variant-id="<?php echo $item['variant_id']; ?>"><i class="ri-add-line fw-bold text-white"></i></button>
