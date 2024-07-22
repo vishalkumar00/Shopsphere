@@ -796,7 +796,7 @@ h6 {
 }
 
 .usr-footer-bg .address {
-        margin-bottom: 0.5rem; /* Adjust as needed */
+        margin-bottom: 0.5rem;
     }
 
 .usr-ft-icon {
@@ -910,7 +910,6 @@ h6 {
   display: -webkit-box;
   line-clamp: inherit;
   -webkit-line-clamp: 2;
-  /* Number of lines to show */
   -webkit-box-orient: vertical;
   white-space: normal;
 }
@@ -1085,6 +1084,12 @@ background-color: #cddfff !important;
 
 .summary-card {
   border: 1px solid #dee2e6;;
+}
+
+.cart-pd-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
 }
 
 @media (max-width: 1199px) {

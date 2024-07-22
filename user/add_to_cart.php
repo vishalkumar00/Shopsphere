@@ -2,11 +2,15 @@
 session_start();
 include '../database/conn.php';
 
+// Initialize response array
+$response = ['success' => false, 'message' => '', 'cartItemCount' => 0];
+
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     http_response_code(403);
-    header("Location: usr_login.php");
-    exit;
+    $response['message'] = 'You must be logged in to add items to the cart.';
+    echo json_encode($response);
+    exit;   
 }
 
 // Validate and sanitize inputs
@@ -32,9 +36,10 @@ if ($product_id > 0 && $variant_id > 0 && $quantity > 0) {
             if ($stmt_update = $conn->prepare($sql_update)) {
                 $stmt_update->bind_param("iii", $new_quantity, $user_id, $variant_id);
                 if ($stmt_update->execute()) {
-                    $_SESSION['success_message'] = "Product quantity updated in cart.";
+                    $response['success'] = true;
+                    $response['message'] = "Product quantity updated in cart.";
                 } else {
-                    $_SESSION['error_message'] = "Error: " . $conn->error;
+                    $response['message'] = "Error: " . $conn->error;
                 }
                 $stmt_update->close();
             }
@@ -44,22 +49,35 @@ if ($product_id > 0 && $variant_id > 0 && $quantity > 0) {
             if ($stmt_insert = $conn->prepare($sql_insert)) {
                 $stmt_insert->bind_param("iiii", $user_id, $product_id, $variant_id, $quantity);
                 if ($stmt_insert->execute()) {
-                    $_SESSION['success_message'] = "Product added to cart successfully.";
+                    $response['success'] = true;
+                    $response['message'] = "Product added to cart successfully.";
                 } else {
-                    $_SESSION['error_message'] = "Error: " . $conn->error;
+                    $response['message'] = "Error: " . $conn->error;
                 }
                 $stmt_insert->close();
             }
         }
         $stmt_check->close();
     } else {
-        $_SESSION['error_message'] = "Error: " . $conn->error;
+        $response['message'] = "Error: " . $conn->error;
     }
 } else {
-    $_SESSION['error_message'] = "Invalid input data.";
+    $response['message'] = "Invalid input data.";
 }
 
-// Redirect to the cart page after adding the product
-header("Location: cart.php");
+// Fetch the updated cart item count
+$sql_count = "SELECT SUM(quantity) AS total_items FROM cart WHERE user_id = ?";
+if ($stmt_count = $conn->prepare($sql_count)) {
+    $stmt_count->bind_param("i", $user_id);
+    $stmt_count->execute();
+    $stmt_count->bind_result($total_items);
+    $stmt_count->fetch();
+    $response['cartItemCount'] = $total_items;
+    $stmt_count->close();
+}
+
+// Return JSON response
+header('Content-Type: application/json');
+echo json_encode($response);
 exit;
 ?>

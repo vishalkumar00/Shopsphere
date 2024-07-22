@@ -92,7 +92,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
         <div class="navbar-nav ms-auto d-none d-sm-flex">
           <a class="nav-link nav-cart-icon" href="cart.php">
             <i class="bi bi-cart"></i>
-            <span class="badge bg-primary badge-number-2"><?php echo $cartCount; ?></span>
+            <span id="" class="badge bg-primary badge-number-2"><?php echo $cartCount; ?></span>
           </a>
         </div>
       </div>
@@ -111,7 +111,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
             <a class="nav-link <?php echo (strpos($currentUrl, 'index.php') !== false) ? 'active-1' : ''; ?>" href="index.php">Home</a>
           </li>
           <li class="nav-item nav-item-user">
-            <a class="nav-link <?php echo (strpos($currentUrl, 'shop.php') !== false) ? 'active-1' : ''; ?>" href="shop.php">Shop</a>
+            <a class="nav-link <?php echo (strpos($currentUrl, 'shop.php') !== false || strpos($currentUrl, 'product_details.php') !== false) ? 'active-1' : ''; ?>" href="shop.php">Shop</a>
           </li>
           <li class="nav-item nav-item-user">
             <a class="nav-link <?php echo (strpos($currentUrl, 'cart.php') !== false) ? 'active-1' : ''; ?>" href="cart.php">Cart</a>

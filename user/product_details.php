@@ -2,7 +2,6 @@
 session_start();
 include 'navbar.php';
 
-// Check if a product_id is provided in the URL
 if (!isset($_GET['product_id']) || empty($_GET['product_id'])) {
     echo "Product ID is required.";
     exit;
@@ -10,7 +9,6 @@ if (!isset($_GET['product_id']) || empty($_GET['product_id'])) {
 
 $product_id = intval($_GET['product_id']);
 
-// Fetch product details
 $sql_product = "SELECT p.product_name, p.description, p.category_id, v.variant_id, v.color_id, v.size_id, v.quantity, v.price, v.product_image, c.color_name, c.color_code, s.size_name, cat.category_name
                 FROM products p
                 LEFT JOIN product_variants v ON p.product_id = v.product_id
@@ -46,10 +44,13 @@ while ($row = $result_product->fetch_assoc()) {
         'price' => $row['price']
     ];
     $sizes[$row['size_id']] = $row['size_name'];
-    $variants[$row['color_id']][$row['size_id']] = $row['variant_id'];
+    $variants[$row['color_id']][$row['size_id']] = [
+        'variant_id' => $row['variant_id'],
+        'quantity' => $row['quantity'],
+        'size_name' => $row['size_name'] 
+    ];
 }
 
-// Fetch similar products based on category
 $similarProducts = [];
 if (!empty($product['category_id'])) {
     $sql_similar_products = "SELECT DISTINCT p.product_id, p.product_name, p.category_id, pv.price, pv.product_image
@@ -78,9 +79,8 @@ $stmt->close();
 <main class="container-fluid my-5">
     <div class="container-lg container-fluid">
         <div class="row">
-            <!-- Move the alert box container above the product image -->
             <div class="col-md-12" id="alertContainer">
-            <?php
+                <?php
                 if (isset($_SESSION['success_message']) && !empty($_SESSION['success_message'])) {
                     echo '<div class="alert alert-success alert-dismissible fade show" role="alert">' .
                         $_SESSION['success_message'] .
@@ -114,20 +114,22 @@ $stmt->close();
                             <option value="">Select Size</option>
                         </select>
                     </div>
-                    <div class="form-group center-md-pd-details">
+                    <div id="quantitySection" class="form-group center-md-pd-details">
                         <h5 class="pd-details-h5 fw-bolder text-sm-center text-lg-start text-md-start text-xs-center">Quantity</h5>
-                        <div class="input-group mb-3 center-md-pd-details">
+                        <div class="input-group mb-2 center-md-pd-details">
                             <button type="button" class="btn btn-outline-primary rounded-0" id="decreaseQuantity"><i class="ri-subtract-line fw-bold text-white icon-hover"></i></button>
                             <input type="number" class="form-control text-center quantity-input" id="quantity" name="quantity" value="1" min="1" readonly>
                             <button type="button" class="btn btn-outline-primary rounded-0" id="increaseQuantity"><i class="ri-add-line fw-bold text-white"></i></button>
                         </div>
+                        <div id="maxQuantityMessage" class="text-danger fw-bold my-2" style="display: none;">Maximum Quantity Reached</div>
                     </div>
                     <input type="hidden" name="product_id" value="<?php echo $product_id; ?>">
                     <input type="hidden" name="variant_id" id="variantId" value="">
                     <input type="hidden" name="price" id="price" value="">
-                    <div class="center-md-pd-details">
+                    <div class="center-md-pd-details mt-2" id="addToCartButton">
                         <button type="submit" class="btn btn-primary rounded-0">Add to Cart</button>
                     </div>
+                    <div id="outOfStockMessage" class="text-danger fw-bold mt-3 h2 text-sm-center text-lg-start text-md-start text-xs-center" style="display: none;">Out of Stock</div>
                 </form>
                 <h5 class="pd-details-h5 fw-bolder text-sm-center text-lg-start text-md-start text-xs-center mt-4">Description</h5>
                 <p class="mt-0 pd-details-desc text-sm-center text-lg-start text-md-start text-xs-center"><?php echo $product['description']; ?></p>
@@ -150,109 +152,145 @@ $stmt->close();
                                         <p class="product-price fw-bold">$<?php echo $similarProduct['price']; ?></p>
                                         <a href="product_details.php?product_id=<?php echo $similarProduct['product_id']; ?>" class="product-link rounded-0 usr-carosuel-btn btn btn-primary">View Details</a>
                                     </div>
-                                    </a>
                                 </div>
                             <?php endforeach; ?>
                         </div>
-                        <button class="btn btn-primary leftLst"><i class="ri-arrow-left-s-line fw-bold h3"></i></button>
-                        <button class="btn btn-primary rightLst"><i class="ri-arrow-right-s-line fw-bold h3"></i></button>
+                        <button class="btn btn-primary leftLst"><i class="ri-arrow-left-s-line fw-bold text-white icon-hover"></i></button>
+                        <button class="btn btn-primary rightLst"><i class="ri-arrow-right-s-line fw-bold text-white icon-hover"></i></button>
                     </div>
                 </div>
             </div>
-        <?php else : ?>
-            <p> No Similar Products Found. </p>
         <?php endif; ?>
     </div>
 </main>
 
-<?php include 'footer.php'; ?>
-
 <script>
-    $(document).ready(function() {
-        var variants = <?php echo json_encode($variants); ?>;
-        var sizes = <?php echo json_encode($sizes); ?>;
+document.addEventListener('DOMContentLoaded', function () {
+    const colorSelect = document.getElementById('colorSelect');
+    const sizeSelect = document.getElementById('sizeSelect');
+    const productImage = document.getElementById('productImage');
+    const priceDisplay = document.querySelector('.pd-details-price');
+    const quantityInput = document.getElementById('quantity');
+    const increaseQuantityButton = document.getElementById('increaseQuantity');
+    const decreaseQuantityButton = document.getElementById('decreaseQuantity');
+    const addToCartForm = document.getElementById('addToCartForm');
+    const variantIdInput = document.getElementById('variantId');
+    const priceInput = document.getElementById('price');
+    const outOfStockMessage = document.getElementById('outOfStockMessage');
+    const maxQuantityMessage = document.getElementById('maxQuantityMessage');
+    const addToCartButton = document.getElementById('addToCartButton');
+    const quantitySection = document.getElementById('quantitySection')
 
-        $('#colorSelect').change(function() {
-            var colorId = $(this).val();
-            var image = $(this).find(':selected').data('image');
-            var price = $(this).find(':selected').data('price');
+    let variants = <?php echo json_encode($variants); ?>;
 
-            $('#productImage').attr('src', image);
-            $('#productPrice').text('Price: ' + price);
-            $('#price').val(price);
-            $('#variantId').val('');
+    colorSelect.addEventListener('change', function () {
+        const selectedColorId = this.value;
+        if (selectedColorId) {
+            const selectedColor = this.options[this.selectedIndex];
+            productImage.src = selectedColor.getAttribute('data-image');
+            priceDisplay.textContent = `$${selectedColor.getAttribute('data-price')}`;
 
-            var sizeSelect = $('#sizeSelect');
-            sizeSelect.empty();
-            sizeSelect.append('<option value="">Select Size</option>');
-
-            if (colorId) {
-                $.each(variants[colorId], function(sizeId, variantId) {
-                    var sizeName = sizes[sizeId];
-                    sizeSelect.append('<option value="' + sizeId + '" data-variant-id="' + variantId + '">' + sizeName + '</option>');
-                });
+            // Populate sizes based on the selected color
+            sizeSelect.innerHTML = '<option value="">Select Size</option>';
+            for (const sizeId in variants[selectedColorId]) {
+                const sizeName = variants[selectedColorId][sizeId].size_name;
+                const option = document.createElement('option');
+                option.value = sizeId;
+                option.textContent = sizeName;
+                sizeSelect.appendChild(option);
             }
-        });
-
-        $('#sizeSelect').change(function() {
-            var variantId = $(this).find(':selected').data('variant-id');
-            $('#variantId').val(variantId);
-        });
-
-        $('#addToCartForm').submit(function(e) {
-            e.preventDefault();
-
-            if ($('#variantId').val() === '') {
-                alert('Please select a valid color and size combination.');
-                return;
-            }
-
-            // Check if the user is logged in
-            <?php if (!isset($_SESSION['user_id'])) : ?>
-                window.location.href = 'usr_login.php';
-                return;
-            <?php endif; ?>
-
-            $.ajax({
-                url: 'add_to_cart.php',
-                type: 'POST',
-                data: $(this).serialize(),
-                success: function(response) {
-                    // Set session success message
-                    <?php $_SESSION['success_message'] = "Product added to cart successfully."; ?>
-
-                    // Display success message above the product image
-                    let successMessage = "<?php echo isset($_SESSION['success_message']) ? $_SESSION['success_message'] : ''; ?>";
-                    if (successMessage !== "") {
-                        let alertBox = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                            successMessage +
-                            '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                            '</div>';
-                        $('#alertContainer').html(alertBox);
-                    }
-
-                    // Redirect to refresh the page with updated message
-                    window.location.href = 'product_details.php?product_id=<?php echo $product_id; ?>';
-                },
-                error: function() {
-                    alert('Failed to add product to cart.');
-                }
-            });
-        });
-
-        $('#decreaseQuantity').click(function() {
-            var quantity = parseInt($('#quantity').val());
-            if (quantity > 1) {
-                $('#quantity').val(quantity - 1);
-            }
-        });
-
-        $('#increaseQuantity').click(function() {
-            var quantity = parseInt($('#quantity').val());
-            $('#quantity').val(quantity + 1);
-        });
-
-        // Clear session message after displaying
-        <?php unset($_SESSION['success_message']); ?>
+        }
     });
+
+    sizeSelect.addEventListener('change', function () {
+        const selectedColorId = colorSelect.value;
+        const selectedSizeId = this.value;
+        if (selectedSizeId) {
+            const variant = variants[selectedColorId][selectedSizeId];
+            variantIdInput.value = variant.variant_id;
+            priceInput.value = variant.price;
+
+            // Update quantity input based on the selected variant's quantity
+            const maxAvailableQuantity = Math.min(10, variant.quantity);
+            quantityInput.max = maxAvailableQuantity;
+            quantityInput.value = 1;
+
+            // Show or hide the out-of-stock message
+            if (variant.quantity <= 0) {
+                outOfStockMessage.style.display = 'block';
+                quantitySection.style.display = 'none';
+                addToCartButton.style.display = 'none';
+            } else {
+                outOfStockMessage.style.display = 'none';
+                quantitySection.style.display = 'block';
+                addToCartButton.style.display = 'block';
+            }
+        }
+    });
+
+    increaseQuantityButton.addEventListener('click', function () {
+        const currentQuantity = parseInt(quantityInput.value);
+        const maxQuantity = parseInt(quantityInput.max);
+        if (currentQuantity < maxQuantity) {
+            quantityInput.value = currentQuantity + 1;
+            maxQuantityMessage.style.display = 'none';
+        } else {
+            maxQuantityMessage.style.display = 'block';
+        }
+    });
+
+    decreaseQuantityButton.addEventListener('click', function () {
+        const currentQuantity = parseInt(quantityInput.value);
+        if (currentQuantity > 1) {
+            quantityInput.value = currentQuantity - 1;
+            maxQuantityMessage.style.display = 'none';
+        }
+    });
+
+    addToCartForm.addEventListener('submit', function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        fetch('add_to_cart.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                const alertContainer = document.getElementById('alertContainer');
+                const successMessage = document.createElement('div');
+                successMessage.className = 'alert alert-success alert-dismissible fade show';
+                successMessage.role = 'alert';
+                successMessage.innerHTML = `
+                    ${data.message}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                `;
+                alertContainer.appendChild(successMessage);
+
+                // Update cart item count in the navbar
+                const cartItemCount = document.getElementById('cartItemCount');
+                cartItemCount.textContent = data.cartItemCount;
+
+                // Reset the form
+                addToCartForm.reset();
+                productImage.src = '../uploads/<?php echo $product['variants'][0]['product_image']; ?>';
+                priceDisplay.textContent = `$<?php echo $product['variants'][0]['price']; ?>`;
+                variantIdInput.value = '';
+                priceInput.value = '';
+                quantityInput.max = '1';
+                quantityInput.value = '1';
+                outOfStockMessage.style.display = 'none';
+                addToCartButton.style.display = 'block';
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+});
+
 </script>
+<?php
+include 'footer.php';
+?>
