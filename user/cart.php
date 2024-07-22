@@ -76,6 +76,9 @@ if ($result_cart->num_rows > 0) {
     }
 }
 
+$taxes = $total_price * 0.13;
+$total_amount = $total_price + $taxes;
+
 $stmt->close();
 ?>
 
@@ -104,7 +107,7 @@ $stmt->close();
                                 <td><?php echo $item['product_name']; ?></td>
                                 <td><?php echo $item['color']; ?></td>
                                 <td><?php echo $item['size']; ?></td>
-                                <td class="total-price" data-price="<?php echo $item['price']; ?>">$<?php echo $item['quantity'] * $item['price']; ?></td>
+                                <td class="total-price" data-price="<?php echo $item['price']; ?>">$<?php echo number_format($item['quantity'] * $item['price'], 2); ?></td>
                                 <td>
                                     <div class="input-group">
                                         <button class="btn quantity-minus rounded-0 quantity-btn" data-variant-id="<?php echo $item['variant_id']; ?>"><i class="ri-subtract-line fw-bold text-white icon-hover"></i></button>
@@ -127,11 +130,19 @@ $stmt->close();
             <div class="card p-4 rounded-0 summary-card">
                 <h3 class="fw-bold mb-4">Summary</h3>
                 <p class="d-flex justify-content-between">
-                    <span>Total Price:</span>
-                    <span class="fw-bold" id="totalPrice">$<?php echo $total_price; ?></span>
+                    <span>Subtotal:</span>
+                    <span class="fw-bold" id="totalPrice">$<?php echo number_format($total_price, 2); ?></span>
                 </p>
-                <!-- Optionally add other summary details like taxes, shipping, etc. -->
-                <a href="checkout.php" class="btn btn-primary btn-block mt-4">Proceed to Checkout</a>
+                <p class="d-flex justify-content-between">
+                    <span>Taxes (13%):</span>
+                    <span class="fw-bold" id="taxes">$<?php echo number_format($taxes, 2); ?></span>
+                </p>
+                <hr>
+                <p class="d-flex justify-content-between">
+                    <span>Total Amount:</span>
+                    <span class="fw-bold" id="totalAmount">$<?php echo number_format($total_amount, 2); ?></span>
+                </p>
+                <a href="checkout.php" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn">Proceed to Checkout</a>
             </div>
         </div>
     </div>
@@ -144,15 +155,6 @@ include 'footer.php';
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    // Update total price function
-    function updateTotalPrice() {
-        let totalPrice = 0;
-        document.querySelectorAll('.total-price').forEach(function(element) {
-            totalPrice += parseFloat(element.textContent.replace('$', ''));
-        });
-        document.getElementById('totalPrice').textContent = '$' + totalPrice.toFixed(2);
-    }
-
     // Quantity Buttons
     $(document).on('click', '.quantity-plus', function() {
         let quantityInput = $(this).siblings('.quantity-input');
@@ -163,13 +165,6 @@ include 'footer.php';
         if (!isNaN(currentValue) && currentValue < maxQuantity) {
             quantityInput.val(currentValue + 1);
 
-            // Update total price in table
-            let price = parseFloat($(this).closest('tr').find('.total-price').data('price'));
-            $(this).closest('tr').find('.total-price').text('$' + (price * (currentValue + 1)).toFixed(2));
-
-            // Update total price
-            updateTotalPrice();
-
             // Send AJAX request to update quantity in the database
             $.ajax({
                 url: 'cart.php',
@@ -178,6 +173,9 @@ include 'footer.php';
                     action: 'update_quantity',
                     variant_id: variantId,
                     quantity: currentValue + 1
+                },
+                success: function(response) {
+                    location.reload();
                 }
             });
         }
@@ -191,13 +189,6 @@ include 'footer.php';
         if (!isNaN(currentValue) && currentValue > 1) {
             quantityInput.val(currentValue - 1);
 
-            // Update total price in table
-            let price = parseFloat($(this).closest('tr').find('.total-price').data('price'));
-            $(this).closest('tr').find('.total-price').text('$' + (price * (currentValue - 1)).toFixed(2));
-
-            // Update total price
-            updateTotalPrice();
-
             // Send AJAX request to update quantity in the database
             $.ajax({
                 url: 'cart.php',
@@ -206,27 +197,28 @@ include 'footer.php';
                     action: 'update_quantity',
                     variant_id: variantId,
                     quantity: currentValue - 1
+                },
+                success: function(response) {
+                    location.reload();
                 }
             });
         }
     });
 
     $(document).on('click', '.btn-remove', function() {
-    let variantId = $(this).data('variant-id');
-    let row = $(this).closest('tr');
+        let variantId = $(this).data('variant-id');
+        let row = $(this).closest('tr');
 
-    $.ajax({
-        url: 'cart.php',
-        method: 'POST',
-        data: {
-            action: 'remove_item',
-            variant_id: variantId
-        },
-        success: function(response) {
+        $.ajax({
+            url: 'cart.php',
+            method: 'POST',
+            data: {
+                action: 'remove_item',
+                variant_id: variantId
+            },
+            success: function(response) {
                 location.reload();
             }
-        }
-    );
-});
-
+        });
+    });
 </script>

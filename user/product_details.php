@@ -247,6 +247,20 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
+    function updateCartCount() {
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', 'cart_count.php', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                const cartCount = xhr.responseText;
+                document.querySelector('.badge-number-2').textContent = cartCount;
+            }
+        };
+        xhr.send();
+    }
+
+    updateCartCount();
+
     addToCartForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const formData = new FormData(this);
@@ -268,9 +282,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 `;
                 alertContainer.appendChild(successMessage);
 
-                // Update cart item count in the navbar
-                const cartItemCount = document.getElementById('cartItemCount');
-                cartItemCount.textContent = data.cartItemCount;
+                // Update cart count after success
+                updateCartCount();
 
                 // Reset the form
                 addToCartForm.reset();
