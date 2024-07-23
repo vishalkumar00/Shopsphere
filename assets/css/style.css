@@ -1076,6 +1076,36 @@ background-color: #cddfff !important;
   max-width: 60px;
 }
 
+/* Checkout Page CSS Styles */
+.checkout-pd-img {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.badge-number-3 {
+  position: absolute;
+  top: -5px;
+  right: 240px;
+  background-color: #ff4b5c;
+  color: white;
+  border-radius: 50%;
+  font-size: 0.75rem;
+  padding: 2px 6px;
+}
+
+.checkout-summary-price {
+  padding-left: 55px;
+}
+
+
+/* .checkout-pd-name::before {
+  content: '';
+  display: inline-block;
+  width: 0;
+} */
+
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
     transform: translateX(-250px);
