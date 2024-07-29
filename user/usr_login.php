@@ -119,7 +119,7 @@ function displayError($fieldError)
                             <div class="row g-0">
                                 <div class="col-md-6 col-lg-7 d-flex align-items-center">
                                     <div class="card-body card-login-body p-3 p-lg-4 text-black">
-                                        <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Log in to your account</h4>
+                                        <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Login</h4>
 
                                         <!-- Login Form -->
                                         <form id="loginForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
@@ -149,7 +149,7 @@ function displayError($fieldError)
                                                 <button class="btn btn-primary btn-block" type="submit" name="login">Login</button>
                                             </div>
                                             <div class="text-center">
-                                                <p class="mb-0" style="color: #393f81;">Don't have an account? <a href="usr_register.php" class="link-opacity-25-hover">Register here</a></p>
+                                                <p class="mb-0" style="color: #393f81;">Don't have an account? <a href="usr_register.php" class="link-opacity-25-hover">Register</a> Or <a href="index.php" class="">Continue as Guest</a></p>
                                             </div>
                                         </form>
                                         <!-- End Login Form -->

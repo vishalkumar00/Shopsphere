@@ -1,3 +1,4 @@
+capture_payment.php:
 <?php
 require '../vendor/autoload.php';
 require 'paypal_config.php'; 
@@ -41,6 +42,26 @@ try {
         $stmt_delete_cart->bind_param('i', $user_id);
         $stmt_delete_cart->execute();
         $stmt_delete_cart->close();
+        
+        // Fetch ordered items to update the quantity
+        $sql_order_items = "SELECT variant_id, quantity FROM order_items WHERE order_id = ?";
+        $stmt_order_items = $conn->prepare($sql_order_items);
+        $stmt_order_items->bind_param('i', $orderID);
+        $stmt_order_items->execute();
+        $result_order_items = $stmt_order_items->get_result();
+        
+        while ($item = $result_order_items->fetch_assoc()) {
+            $variant_id = $item['variant_id'];
+            $quantity_ordered = $item['quantity'];
+
+            // Update the quantity of the product variant
+            $sql_update_variant = "UPDATE product_variants SET quantity = quantity - ? WHERE variant_id = ?";
+            $stmt_update_variant = $conn->prepare($sql_update_variant);
+            $stmt_update_variant->bind_param('ii', $quantity_ordered, $variant_id);
+            $stmt_update_variant->execute();
+            $stmt_update_variant->close();
+        }
+        $stmt_order_items->close();
         
         // Redirect to success page
         header("Location: success.php?order_id=$orderID");

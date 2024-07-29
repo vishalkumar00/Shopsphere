@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../database/conn.php';
 
 $first_name = $last_name = $email = $mobile_number = $password = $confirm_password = "";
@@ -56,8 +57,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                 if ($stmt_insert = $conn->prepare($sql_insert)) {
                     $stmt_insert->bind_param("sssss", $first_name, $last_name, $email, $mobile_number, $hashed_password);
                     if ($stmt_insert->execute()) {
-                        // Redirect to index.php on successful registration
-                        header("Location: index.php");
+                        // Redirect to usr_login.php on successful registration
+                        header("Location: usr_login.php");
                         exit();
                     } else {
                         $error_message = "Error registering user.";
@@ -102,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 <body>
 
 <div class="container-fluid">
-        <section class="min-vh-100">
+        <section class="min-vh-100 register-min-height">
             <div class="container py-4">
                 <div class="row d-flex justify-content-center align-items-center">
                     <div class="col col-xl-10">
@@ -119,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 
                                         <form id="registerForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-                                            <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Register your account</h4>
+                                            <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Register</h4>
 
                                             <?php if (!empty($error_message)) : ?>
                                                 <div class="alert alert-danger"><?php echo $error_message; ?></div>
@@ -176,7 +177,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                                 <button class="btn btn-primary btn-block" type="submit" name="register">Register</button>
                                             </div>
                                             <div class="text-center">
-                                                <p class="mb-0" style="color: #393f81;">Already have an account? <a href="usr_login.php" class="link-opacity-25-hover">Login here</a></p>
+                                                <p class="mb-0" style="color: #393f81;">Already have an account? <a href="usr_login.php" class="link-opacity-25-hover">Login</a></p>
                                             </div>
                                         </form>
 

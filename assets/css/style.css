@@ -1076,6 +1076,11 @@ background-color: #cddfff !important;
   max-width: 60px;
 }
 
+.empty-cart-img {
+  width: 200px;
+  color: #012970;
+}
+
 /* Checkout Page CSS Styles */
 .checkout-pd-img {
   position: relative;
@@ -1105,6 +1110,28 @@ background-color: #cddfff !important;
   display: inline-block;
   width: 0;
 } */
+
+/* Orders page CSS styles */
+.order-pd-img {
+  width: 100px;
+  height: 100px;
+  object-fit: contain;
+}
+
+.order-id-text {
+  color: #0056b3;
+}
+
+.orders-pd-name {
+  color: #007bff;
+}
+
+.invoice-print-btn:hover {
+  background-color: #007bff;
+  /* color: white; */
+  transition: all 0.3s;
+  border: none;
+}
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
@@ -1258,6 +1285,15 @@ background-color: #cddfff !important;
   .category-label {
     text-align: left;
   }
+
+  .register-min-height {
+    min-height: fit-content !important;
+  }
+
+  .login-center-vertically {
+    align-items: flex-start;
+    min-height: fit-content !important;
+  } 
 
   .carousel-caption {
     width: 95%;

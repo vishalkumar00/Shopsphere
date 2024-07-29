@@ -120,6 +120,9 @@ $currentUrl = $_SERVER['REQUEST_URI'];
             <a class="nav-link <?php echo (strpos($currentUrl, 'checkout.php') !== false) ? 'active-1' : ''; ?>" href="checkout.php">Checkout</a>
           </li>
           <li class="nav-item nav-item-user">
+            <a class="nav-link <?php echo (strpos($currentUrl, 'orders.php') !== false) ? 'active-1' : ''; ?>" href="orders.php">Orders</a>
+          </li>
+          <li class="nav-item nav-item-user">
             <a class="nav-link <?php echo (strpos($currentUrl, 'contact.php') !== false) ? 'active-1' : ''; ?>" href="contact.php">Contact</a>
           </li>
         </ul>
@@ -167,9 +170,6 @@ $currentUrl = $_SERVER['REQUEST_URI'];
   <button id="backToTopBtn" class="btn btn-primary">
     <i class="ri-arrow-up-line"></i>
   </button>
-
-   <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> 
-   <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script> -->
 
 </body>
 
