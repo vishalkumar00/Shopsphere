@@ -19,16 +19,16 @@
         <span>Product List</span>
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/promo_code.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="#">
         <i class="bx bxs-package fs-5"></i>
         <span>Orders</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="bx bxs-inbox fs-5"></i>
-        <span>Category Req.</span>
+      <a class="nav-link" href="promo_code.php">
+        <i class="bx bxs-discount fs-5"></i>
+        <span>Promo Codes</span>
       </a>
     </li>
     <li class="nav-item">

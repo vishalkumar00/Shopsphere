@@ -2,6 +2,10 @@
 session_start();
 include 'navbar.php';
 
+// Initialize session variables
+$_SESSION['cart_total_price'] = 0;
+$_SESSION['cart_total_amount'] = 0;
+
 $user_id = $_SESSION['user_id'] ?? null;
 $user = null;
 $cart_items = [];
@@ -48,6 +52,9 @@ if ($user_id) {
     $taxes = $total_price * 0.13;
     $total_amount = $total_price + $taxes;
 
+    $_SESSION['cart_total_price'] = $total_price;
+    $_SESSION['cart_total_amount'] = $total_amount;
+
     $stmt_cart->close();
     $stmt_user->close();
 }
@@ -55,6 +62,7 @@ if ($user_id) {
 
 <main class="container-fluid my-5">
     <form action="process_checkout.php" method="POST">
+        <input type="hidden" id="discountApplied" value="false"> 
         <div class="row">
             <h2 class="fw-bold mb-4 shop-pg-search-title">Checkout</h2>
             <?php if ($user_id && !empty($cart_items)) : ?>
@@ -115,6 +123,16 @@ if ($user_id) {
                             <input type="text" class="form-control" id="postal_code" name="postal_code" required>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="promoCode" class="form-label" id="promoLabel">Promo Code (Optional)</label>
+                            <input type="text" class="form-control" id="promoCode" name="promo_code">
+                            <div id="promoMessage" class="mt-2"></div>
+                        </div>
+                        <div class="col-md-6 mt-4">
+                            <button type="button" id="applyPromoCode" class="btn btn-secondary mt-2">Apply Coupon</button>
+                        </div>
+                    </div>
                 </div>
             <?php else : ?>
                 <!-- Empty Cart Message Section -->
@@ -126,21 +144,21 @@ if ($user_id) {
             <?php endif; ?>
 
             <!-- Order Summary Section -->
-            <div class="col-md-4 summary-section">
+            <div class="col-md-4">
                 <div class="card p-4 rounded-0 summary-card">
                     <h3 class="fw-bold mb-4">Order Summary</h3>
                     <?php if ($user_id && !empty($cart_items)) : ?>
                         <?php foreach ($cart_items as $item) : ?>
                             <div class="d-flex justify-content-between mb-2">
                                 <div class="d-flex flex-column">
-                                    <div class="position-relative">   
+                                    <div class="position-relative">
                                         <img src="../uploads/<?php echo $item['product_image']; ?>" class="checkout-pd-img" alt="<?php echo $item['product_name']; ?>">
                                         <span class="badge bg-primary badge-number-3"><?php echo $item['quantity']; ?></span>
                                         <span class="checkout-pd-name"><?php echo $item['product_name']; ?> (<?php echo $item['color']; ?>, <?php echo $item['size']; ?>)</span>
                                     </div>
                                     <div class="checkout-summary-price">
                                         <span>$<?php echo number_format($item['price'], 2); ?></span>
-                                    </div>  
+                                    </div>
                                 </div>
                                 <div class="pt-2">
                                     <span class="fw-bold">$<?php echo number_format($item['quantity'] * $item['price'], 2); ?></span>
@@ -156,13 +174,17 @@ if ($user_id) {
                             <span>Taxes (13%):</span>
                             <span class="fw-bold" id="taxes">$<?php echo number_format($taxes, 2); ?></span>
                         </p>
+                        <p class="d-flex justify-content-between" id="discountRow" style="display:none !important;">
+                            <span>Discount:</span>
+                            <span class="fw-bold" id="discountAmount">-$0.00</span>
+                        </p>
                         <hr>
                         <p class="d-flex justify-content-between">
                             <span>Total Amount:</span>
                             <span class="fw-bold" id="totalAmount">$<?php echo number_format($total_amount, 2); ?></span>
                         </p>
                         <button type="submit" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn">Proceed to PayPal</button>
-                    <?php else: ?>
+                    <?php else : ?>
                         <button type="button" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn" disabled>Proceed to PayPal</button>
                     <?php endif; ?>
                 </div>
@@ -170,6 +192,56 @@ if ($user_id) {
         </div>
     </form>
 </main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#applyPromoCode').on('click', function() {
+            var promoCode = $('#promoCode').val();
+            var discountApplied = $('#discountApplied').val();
+
+            if (discountApplied === "true") {
+                $('#promoMessage').text('A discount has already been applied.').removeClass('text-danger').addClass('text-success');
+                return;
+            }
+
+            $.ajax({
+                url: 'apply_promo.php',
+                method: 'POST',
+                data: {
+                    promo_code: promoCode
+                },
+                success: function(response) {
+                    var data = JSON.parse(response);
+
+                    if (data.success) {
+                        $('#discountApplied').val('true');
+                        $('#discountRow').show();
+                        $('#discountAmount').text('-$' + data.discount_amount.toFixed(2));
+                        $('#totalAmount').text('$' + data.total_amount.toFixed(2));
+                        $('#promoMessage').text(data.message).removeClass('text-danger').addClass('text-success');
+                        // Update session values for total amount
+                        $.ajax({
+                            url: 'update_session.php',
+                            method: 'POST',
+                            data: {
+                                total_amount: data.total_amount
+                            }
+                        });
+                    } else {
+                        $('#discountApplied').val('false');
+                        $('#discountRow').hide();
+                        $('#promoMessage').text(data.message).removeClass('text-success').addClass('text-danger');
+                    }
+                },
+                error: function() {
+                    $('#promoMessage').text('An error occurred. Please try again.').addClass('text-danger');
+                }
+            });
+        });
+    });
+</script>
 
 <?php
 include 'footer.php';

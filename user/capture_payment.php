@@ -42,6 +42,8 @@ try {
         $stmt_delete_cart->bind_param('i', $user_id);
         $stmt_delete_cart->execute();
         $stmt_delete_cart->close();
+
+        unset($_SESSION['cart_total_price']);
         
         // Fetch ordered items to update the quantity
         $sql_order_items = "SELECT variant_id, quantity FROM order_items WHERE order_id = ?";
@@ -63,8 +65,8 @@ try {
         }
         $stmt_order_items->close();
         
-        // Redirect to success page
-        header("Location: success.php?order_id=$orderID");
+        // Redirect to orders page
+        header("Location: orders.php");
         exit();
     } else {
         // Payment was not successful

@@ -114,10 +114,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
             <a class="nav-link <?php echo (strpos($currentUrl, 'shop.php') !== false || strpos($currentUrl, 'product_details.php') !== false) ? 'active-1' : ''; ?>" href="shop.php">Shop</a>
           </li>
           <li class="nav-item nav-item-user">
-            <a class="nav-link <?php echo (strpos($currentUrl, 'cart.php') !== false) ? 'active-1' : ''; ?>" href="cart.php">Cart</a>
-          </li>
-          <li class="nav-item nav-item-user">
-            <a class="nav-link <?php echo (strpos($currentUrl, 'checkout.php') !== false) ? 'active-1' : ''; ?>" href="checkout.php">Checkout</a>
+            <a class="nav-link <?php echo (strpos($currentUrl, 'cart.php') !== false || strpos($currentUrl, 'checkout.php') !== false) ? 'active-1' : ''; ?>" href="cart.php">Cart</a>
           </li>
           <li class="nav-item nav-item-user">
             <a class="nav-link <?php echo (strpos($currentUrl, 'orders.php') !== false) ? 'active-1' : ''; ?>" href="orders.php">Orders</a>

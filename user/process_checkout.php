@@ -46,7 +46,9 @@ if ($result_cart->num_rows > 0) {
 }
 
 $taxes = $total_price * 0.13;
-$total_amount = $total_price + $taxes;
+
+// Use the discounted total amount if it is set, otherwise use the full total amount
+$total_amount = isset($_SESSION['cart_total_amount']) ? $_SESSION['cart_total_amount'] : ($total_price + $taxes);
 
 // Insert order into orders table
 $sql_order = "INSERT INTO orders (user_id, total_amount, shipping_status, created_at, shipping_address, city, province, postal_code, phone_number) VALUES (?, ?, 'Pending', NOW(), ?, ?, ?, ?, ?)";
@@ -65,6 +67,9 @@ foreach ($cart_items as $item) {
     $stmt_order_item->execute();
     $stmt_order_item->close();
 }
+
+// Clear the session variable after checkout
+unset($_SESSION['cart_total_amount']);
 
 // Redirect to PayPal checkout page 
 header("Location: create_payment.php?order_id=$order_id");
