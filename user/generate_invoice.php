@@ -211,5 +211,40 @@ foreach ($order_items as $item) {
     $pdf->Ln(10);
 }
 
-// Output PDF
+$x1 = 10; // Starting X coordinate
+$y1 = 196; // Starting Y coordinate
+$x2 = 200; // Ending X coordinate (page width - right margin)
+$y2 = 196; // Ending Y coordinate (same as starting Y to make it horizontal)
+$pdf->Line($x1, $y1, $x2, $y2);
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(0, 10, 'Order Date: ' . date('d M Y', strtotime($order['created_at'])), 0,  'L');
+$pdf->SetFont('Arial', 'B', 12);
+$pdf->Cell(0, 10, 'Total Amount: $' . number_format($order['total_amount'], 2), 0, 1, "R");
+// Shipping Status with color
+$shipping_status = ucfirst($order['shipping_status']);
+switch ($order['shipping_status']) {
+    case 'Pending':
+        $pdf->SetTextColor(255, 0, 0); // Red color for 'Pending'
+        break;
+    case 'Unshipped':
+        $pdf->SetTextColor(255, 165, 0); // Orange color for 'Unshipped'
+        break;
+    case 'Shipped':
+        $pdf->SetTextColor(0, 0, 255); // Blue color for 'Shipped'
+        break;
+    case 'Delivered':
+        $pdf->SetTextColor(0, 128, 0); // Green color for 'Delivered'
+        break;
+    default:
+        $pdf->SetTextColor(0, 0, 0); // Default black color
+        break;
+}
+
+// Print Shipping Status
+$pdf->Cell(0, 10, 'Shipping Status: ' . $shipping_status, 0, 1);
+$x1 = 10; // Starting X coordinate
+$y1 = 226; // Starting Y coordinate
+$x2 = 200; // Ending X coordinate (page width - right margin)
+$y2 = 226; // Ending Y coordinate (same as starting Y to make it horizontal)
+$pdf->Line($x1, $y1, $x2, $y2);
 $pdf->Output('I', 'Invoice_' . $order['order_id'] . '.pdf');
