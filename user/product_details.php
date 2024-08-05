@@ -47,7 +47,7 @@ while ($row = $result_product->fetch_assoc()) {
     $variants[$row['color_id']][$row['size_id']] = [
         'variant_id' => $row['variant_id'],
         'quantity' => $row['quantity'],
-        'size_name' => $row['size_name'] 
+        'size_name' => $row['size_name']
     ];
 }
 
@@ -86,7 +86,7 @@ $stmt->close();
                         $_SESSION['success_message'] .
                         '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' .
                         '</div>';
-                    unset($_SESSION['success_message']); 
+                    unset($_SESSION['success_message']);
                 }
                 ?>
             </div>
@@ -137,6 +137,25 @@ $stmt->close();
         </div>
     </div>
 
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    You must be logged in to add items to the cart.
+                </div>
+                <div class="modal-footer">
+                    <a href="usr_login.php" class="btn btn-primary">Login</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container-fluid mt-5">
         <?php if (!empty($similarProducts)) : ?>
             <div class="bg-white pt-5">
@@ -165,144 +184,148 @@ $stmt->close();
 </main>
 
 <script>
-document.addEventListener('DOMContentLoaded', function () {
-    const colorSelect = document.getElementById('colorSelect');
-    const sizeSelect = document.getElementById('sizeSelect');
-    const productImage = document.getElementById('productImage');
-    const priceDisplay = document.querySelector('.pd-details-price');
-    const quantityInput = document.getElementById('quantity');
-    const increaseQuantityButton = document.getElementById('increaseQuantity');
-    const decreaseQuantityButton = document.getElementById('decreaseQuantity');
-    const addToCartForm = document.getElementById('addToCartForm');
-    const variantIdInput = document.getElementById('variantId');
-    const priceInput = document.getElementById('price');
-    const outOfStockMessage = document.getElementById('outOfStockMessage');
-    const maxQuantityMessage = document.getElementById('maxQuantityMessage');
-    const addToCartButton = document.getElementById('addToCartButton');
-    const quantitySection = document.getElementById('quantitySection')
+    document.addEventListener('DOMContentLoaded', function() {
+        const colorSelect = document.getElementById('colorSelect');
+        const sizeSelect = document.getElementById('sizeSelect');
+        const productImage = document.getElementById('productImage');
+        const priceDisplay = document.querySelector('.pd-details-price');
+        const quantityInput = document.getElementById('quantity');
+        const increaseQuantityButton = document.getElementById('increaseQuantity');
+        const decreaseQuantityButton = document.getElementById('decreaseQuantity');
+        const addToCartForm = document.getElementById('addToCartForm');
+        const variantIdInput = document.getElementById('variantId');
+        const priceInput = document.getElementById('price');
+        const outOfStockMessage = document.getElementById('outOfStockMessage');
+        const maxQuantityMessage = document.getElementById('maxQuantityMessage');
+        const addToCartButton = document.getElementById('addToCartButton');
+        const quantitySection = document.getElementById('quantitySection')
 
-    let variants = <?php echo json_encode($variants); ?>;
+        let variants = <?php echo json_encode($variants); ?>;
 
-    colorSelect.addEventListener('change', function () {
-        const selectedColorId = this.value;
-        if (selectedColorId) {
-            const selectedColor = this.options[this.selectedIndex];
-            productImage.src = selectedColor.getAttribute('data-image');
-            priceDisplay.textContent = `$${selectedColor.getAttribute('data-price')}`;
+        colorSelect.addEventListener('change', function() {
+            const selectedColorId = this.value;
+            if (selectedColorId) {
+                const selectedColor = this.options[this.selectedIndex];
+                productImage.src = selectedColor.getAttribute('data-image');
+                priceDisplay.textContent = `$${selectedColor.getAttribute('data-price')}`;
 
-            // Populate sizes based on the selected color
-            sizeSelect.innerHTML = '<option value="">Select Size</option>';
-            for (const sizeId in variants[selectedColorId]) {
-                const sizeName = variants[selectedColorId][sizeId].size_name;
-                const option = document.createElement('option');
-                option.value = sizeId;
-                option.textContent = sizeName;
-                sizeSelect.appendChild(option);
+                // Populate sizes based on the selected color
+                sizeSelect.innerHTML = '<option value="">Select Size</option>';
+                for (const sizeId in variants[selectedColorId]) {
+                    const sizeName = variants[selectedColorId][sizeId].size_name;
+                    const option = document.createElement('option');
+                    option.value = sizeId;
+                    option.textContent = sizeName;
+                    sizeSelect.appendChild(option);
+                }
             }
-        }
-    });
+        });
 
-    sizeSelect.addEventListener('change', function () {
-        const selectedColorId = colorSelect.value;
-        const selectedSizeId = this.value;
-        if (selectedSizeId) {
-            const variant = variants[selectedColorId][selectedSizeId];
-            variantIdInput.value = variant.variant_id;
-            priceInput.value = variant.price;
+        sizeSelect.addEventListener('change', function() {
+            const selectedColorId = colorSelect.value;
+            const selectedSizeId = this.value;
+            if (selectedSizeId) {
+                const variant = variants[selectedColorId][selectedSizeId];
+                variantIdInput.value = variant.variant_id;
+                priceInput.value = variant.price;
 
-            // Update quantity input based on the selected variant's quantity
-            const maxAvailableQuantity = Math.min(10, variant.quantity);
-            quantityInput.max = maxAvailableQuantity;
-            quantityInput.value = 1;
+                // Update quantity input based on the selected variant's quantity
+                const maxAvailableQuantity = Math.min(10, variant.quantity);
+                quantityInput.max = maxAvailableQuantity;
+                quantityInput.value = 1;
 
-            // Show or hide the out-of-stock message
-            if (variant.quantity <= 0) {
-                outOfStockMessage.style.display = 'block';
-                quantitySection.style.display = 'none';
-                addToCartButton.style.display = 'none';
+                // Show or hide the out-of-stock message
+                if (variant.quantity <= 0) {
+                    outOfStockMessage.style.display = 'block';
+                    quantitySection.style.display = 'none';
+                    addToCartButton.style.display = 'none';
+                } else {
+                    outOfStockMessage.style.display = 'none';
+                    quantitySection.style.display = 'block';
+                    addToCartButton.style.display = 'block';
+                }
+            }
+        });
+
+        increaseQuantityButton.addEventListener('click', function() {
+            const currentQuantity = parseInt(quantityInput.value);
+            const maxQuantity = parseInt(quantityInput.max);
+            if (currentQuantity < maxQuantity) {
+                quantityInput.value = currentQuantity + 1;
+                maxQuantityMessage.style.display = 'none';
             } else {
-                outOfStockMessage.style.display = 'none';
-                quantitySection.style.display = 'block';
-                addToCartButton.style.display = 'block';
+                maxQuantityMessage.style.display = 'block';
             }
-        }
-    });
+        });
 
-    increaseQuantityButton.addEventListener('click', function () {
-        const currentQuantity = parseInt(quantityInput.value);
-        const maxQuantity = parseInt(quantityInput.max);
-        if (currentQuantity < maxQuantity) {
-            quantityInput.value = currentQuantity + 1;
-            maxQuantityMessage.style.display = 'none';
-        } else {
-            maxQuantityMessage.style.display = 'block';
-        }
-    });
-
-    decreaseQuantityButton.addEventListener('click', function () {
-        const currentQuantity = parseInt(quantityInput.value);
-        if (currentQuantity > 1) {
-            quantityInput.value = currentQuantity - 1;
-            maxQuantityMessage.style.display = 'none';
-        }
-    });
-
-    function updateCartCount() {
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', 'cart_count.php', true);
-        xhr.onload = function () {
-            if (xhr.status === 200) {
-                const cartCount = xhr.responseText;
-                document.querySelector('.badge-number-2').textContent = cartCount;
+        decreaseQuantityButton.addEventListener('click', function() {
+            const currentQuantity = parseInt(quantityInput.value);
+            if (currentQuantity > 1) {
+                quantityInput.value = currentQuantity - 1;
+                maxQuantityMessage.style.display = 'none';
             }
-        };
-        xhr.send();
-    }
+        });
 
-    updateCartCount();
+        function updateCartCount() {
+            const xhr = new XMLHttpRequest();
+            xhr.open('GET', 'cart_count.php', true);
+            xhr.onload = function() {
+                if (xhr.status === 200) {
+                    const cartCount = xhr.responseText;
+                    document.querySelector('.badge-number-2').textContent = cartCount;
+                }
+            };
+            xhr.send();
+        }
 
-    addToCartForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        const formData = new FormData(this);
+        updateCartCount();
 
-        fetch('add_to_cart.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                const alertContainer = document.getElementById('alertContainer');
-                const successMessage = document.createElement('div');
-                successMessage.className = 'alert alert-success alert-dismissible fade show';
-                successMessage.role = 'alert';
-                successMessage.innerHTML = `
+        addToCartForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const formData = new FormData(this);
+
+            fetch('add_to_cart.php', {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const alertContainer = document.getElementById('alertContainer');
+                        const successMessage = document.createElement('div');
+                        successMessage.className = 'alert alert-success alert-dismissible fade show';
+                        successMessage.role = 'alert';
+                        successMessage.innerHTML = `
                     ${data.message}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 `;
-                alertContainer.appendChild(successMessage);
+                        alertContainer.appendChild(successMessage);
 
-                // Update cart count after success
-                updateCartCount();
+                        // Update cart count after success
+                        updateCartCount();
 
-                // Reset the form
-                addToCartForm.reset();
-                productImage.src = '../uploads/<?php echo $product['variants'][0]['product_image']; ?>';
-                priceDisplay.textContent = `$<?php echo $product['variants'][0]['price']; ?>`;
-                variantIdInput.value = '';
-                priceInput.value = '';
-                quantityInput.max = '1';
-                quantityInput.value = '1';
-                outOfStockMessage.style.display = 'none';
-                addToCartButton.style.display = 'block';
-            } else {
-                alert(data.message);
-            }
-        })
-        .catch(error => console.error('Error:', error));
+                        // Reset the form
+                        addToCartForm.reset();
+                        productImage.src = '../uploads/<?php echo $product['variants'][0]['product_image']; ?>';
+                        priceDisplay.textContent = `$<?php echo $product['variants'][0]['price']; ?>`;
+                        variantIdInput.value = '';
+                        priceInput.value = '';
+                        quantityInput.max = '1';
+                        quantityInput.value = '1';
+                        outOfStockMessage.style.display = 'none';
+                        addToCartButton.style.display = 'block';
+                    } else {
+                        if (data.modal) {
+                            const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+                            loginModal.show();
+                        } else {
+                            alert(data.message);
+                        }
+                    }
+                })
+            .catch(error => console.error('Error:', error));
+        });
     });
-});
-
 </script>
 <?php
 include 'footer.php';

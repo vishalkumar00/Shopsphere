@@ -420,6 +420,45 @@ h6 {
   border: 1px solid rgba(99, 96, 97, 0.95)
 }
 
+/* Tooltip Styles  */
+.tooltip-custom {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip-custom .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%; 
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip-custom .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%; 
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip-custom:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
 /* User (Customer) Navbar */
 .header-2 {
   transition: all 0.5s;
@@ -543,6 +582,36 @@ h6 {
   color: #f6f6f6;
 }
 
+/* Custom styles for the nav tabs for Seller orders page */
+.custom-nav-tabs {
+  border-bottom: 2px solid #4154f1;
+}
+
+.custom-nav-tabs .custom-nav-link {
+  color: #4154f1;
+  background-color: #f8f9fa;
+  border: 1px solid #dee2e6;
+  border-bottom: none;
+  padding: 10px 15px;
+  margin-right: 2px;
+  border-radius: 4px 4px 0 0;
+}
+
+.custom-nav-tabs .custom-nav-link:hover {
+  color: #0056b3;
+}
+
+.custom-nav-tabs .custom-nav-link.active {
+  color: #fff;
+  background-color: #4154f1;
+  border-color: #4154f1 #4154f1 #f8f9fa;
+}
+
+.custom-nav-tabs .custom-nav-link:focus {
+  box-shadow: none;
+}
+
+/* User Portal  */
 /* Home Page main content  */
 .carousel-inner {
   max-height: 500px;

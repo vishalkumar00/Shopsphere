@@ -3,12 +3,13 @@ session_start();
 include '../database/conn.php';
 
 // Initialize response array
-$response = ['success' => false, 'message' => '', 'cartItemCount' => 0];
+$response = ['success' => false, 'message' => '', 'cartItemCount' => 0, 'modal' => false];
 
 // Check if the user is logged in
 if (!isset($_SESSION['user_id'])) {
     http_response_code(403);
     $response['message'] = 'You must be logged in to add items to the cart.';
+    $response['modal'] = true; // Indicate to show modal
     echo json_encode($response);
     exit;   
 }

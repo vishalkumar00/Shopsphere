@@ -13,8 +13,8 @@
         <span>Products</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_orders.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="slr_orders.php">
         <i class="bx bxs-package fs-5"></i>
         <span>Orders</span>
       </a>
