@@ -349,6 +349,12 @@ h6 {
   padding-bottom: 20px;
 }
 
+.dash-timeline {
+  color: #899bbd;
+  font-size: 14px;
+  font-weight: 400;
+}
+
 /* Category Page Styles */
 .category-card {
   margin-bottom: 20px;

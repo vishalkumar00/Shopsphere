@@ -19,16 +19,10 @@
         <span>Orders</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_revenue.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="slr_revenue.php">
         <i class='bx bx-wallet'></i>
         <span>Revenue</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="bx bxs-inbox fs-5"></i>
-        <span>Feedbacks</span>
       </a>
     </li>
     <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_profile.php') !== false) ? 'active' : ''; ?>">

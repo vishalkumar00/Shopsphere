@@ -111,9 +111,6 @@ $business_email = $_SESSION['business_email'];
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
           </ul>
         </li>
 

@@ -11,6 +11,7 @@ $seller_id = $_SESSION['seller_id'];
 $query = "SELECT 
                 o.order_id, 
                 p.product_name, 
+                p.product_id, 
                 sz.size_name, 
                 clr.color_name, 
                 oi.quantity, 
@@ -56,19 +57,19 @@ while ($row = $result->fetch_assoc()) {
         </div>
 
         <ul class="nav nav-tabs custom-nav-tabs" id="orderTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-        <button class="nav-link custom-nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link custom-nav-link" id="unshipped-tab" data-bs-toggle="tab" data-bs-target="#unshipped" type="button" role="tab" aria-controls="unshipped" aria-selected="false">Unshipped</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link custom-nav-link" id="shipped-tab" data-bs-toggle="tab" data-bs-target="#shipped" type="button" role="tab" aria-controls="shipped" aria-selected="false">Shipped</button>
-    </li>
-    <li class="nav-item" role="presentation">
-        <button class="nav-link custom-nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered" aria-selected="false">Delivered</button>
-    </li>
-</ul>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link custom-nav-link active" id="pending-tab" data-bs-toggle="tab" data-bs-target="#pending" type="button" role="tab" aria-controls="pending" aria-selected="true">Pending</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link custom-nav-link" id="unshipped-tab" data-bs-toggle="tab" data-bs-target="#unshipped" type="button" role="tab" aria-controls="unshipped" aria-selected="false">Unshipped</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link custom-nav-link" id="shipped-tab" data-bs-toggle="tab" data-bs-target="#shipped" type="button" role="tab" aria-controls="shipped" aria-selected="false">Shipped</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link custom-nav-link" id="delivered-tab" data-bs-toggle="tab" data-bs-target="#delivered" type="button" role="tab" aria-controls="delivered" aria-selected="false">Delivered</button>
+            </li>
+        </ul>
 
         <div class="tab-content" id="orderTabsContent">
             <div class="tab-pane fade show active" id="pending" role="tabpanel" aria-labelledby="pending-tab">
@@ -111,7 +112,7 @@ function displayOrdersTable($orders, $current_status) {
             echo '<td>' . htmlspecialchars($order_id) . '</td>';
             echo '<td>';
             foreach ($items as $item) {
-                echo htmlspecialchars($item['product_name']) . ' (' . htmlspecialchars($item['size_name']) . ', ' . htmlspecialchars($item['color_name']) . ')<br>';
+                echo '<a href="http://localhost/shopsphere/user/product_details.php?product_id=' . htmlspecialchars($item['product_id']) . '" target="_blank" class="text-primary">' . htmlspecialchars($item['product_name']) . '</a> (' . htmlspecialchars($item['size_name']) . ', ' . htmlspecialchars($item['color_name']) . ')<br>';
             }
             echo '</td>';
             echo '<td>';
@@ -155,31 +156,34 @@ function displayOrdersTable($orders, $current_status) {
 ?>
 
 <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const buttons = document.querySelectorAll(".change-status-btn");
+    document.addEventListener("DOMContentLoaded", function() {
+        const buttons = document.querySelectorAll(".change-status-btn");
 
-    buttons.forEach(button => {
-        button.addEventListener("click", function() {
-            const orderId = this.getAttribute("data-order-id");
-            const currentStatus = this.getAttribute("data-current-status");
+        buttons.forEach(button => {
+            button.addEventListener("click", function() {
+                const orderId = this.getAttribute("data-order-id");
+                const currentStatus = this.getAttribute("data-current-status");
 
-            fetch('update_order_status.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ order_id: orderId, current_status: currentStatus })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    location.reload();
-                } else {
-                    alert('Error updating order status');
-                }
-            })
-            .catch(error => console.error('Error:', error));
+                fetch('update_order_status.php', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            order_id: orderId,
+                            current_status: currentStatus
+                        })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            location.reload();
+                        } else {
+                            alert('Error updating order status');
+                        }
+                    })
+                    .catch(error => console.error('Error:', error));
+            });
         });
     });
-});
 </script>
