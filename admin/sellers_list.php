@@ -46,6 +46,7 @@ $stmt->close();
                                     <th scope="col">Tax ID</th>
                                     <th scope="col">Bank Details</th>
                                     <th scope="col">Registered At</th>
+                                    <th scope="col">Details</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -59,6 +60,7 @@ $stmt->close();
                                             <td><?php echo htmlspecialchars($row['tax_id']); ?></td>
                                             <td><b>Bank A/C No: </b><?php echo htmlspecialchars($row['bank_account_number']); ?><br><b>Bank Name: </b><?php echo htmlspecialchars($row['bank_name']); ?><br><b>Transit No: </b><?php echo htmlspecialchars($row['transit_number']); ?><br><b>Institution Number: </b><?php echo htmlspecialchars($row['institution_number']); ?><br></td>
                                             <td><?php echo htmlspecialchars($row['created_at']); ?></td>
+                                            <td><a href="view_seller.php?seller_id=<?php echo htmlspecialchars($row['seller_id']); ?>" class="btn btn-primary"><i class="ri-file-user-fill fs-5"></i></a></td>
                                         </tr>
                                     <?php endwhile; ?>
                                 <?php else : ?>

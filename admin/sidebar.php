@@ -31,13 +31,13 @@
         <span>Promo Codes</span>
       </a>
     </li>
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'sellers_list.php') !== false) ? 'active' : ''; ?>">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'sellers_list.php') !== false || strpos($_SERVER['REQUEST_URI'], 'view_seller.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="sellers_list.php">
         <i class="bx bxs-user-detail fs-5"></i>
         <span>Sellers' List</span>
       </a>
     </li>
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'users_list.php') !== false) ? 'active' : ''; ?>">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'users_list.php') !== false || strpos($_SERVER['REQUEST_URI'], 'view_user.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="users_list.php">
       <i class="bi bi-people-fill fs-6"></i>
         <span>Customers' List</span>
@@ -49,10 +49,10 @@
         <span>Announcements</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'ad_revenue.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="ad_revenue.php">
         <i class="bx bxs-bank fs-5"></i>
-        <span>Payments</span>
+        <span>Revenue</span>
       </a>
     </li>
   </ul>
