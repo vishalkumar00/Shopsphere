@@ -5,7 +5,7 @@ include 'header.php';
 include 'sidebar.php';
 
 // Initialize variables
-$sellerId = $_SESSION['seller_id']; // Assume you have the seller_id stored in the session
+$sellerId = $_SESSION['seller_id']; 
 $revenue = 0.00;
 
 // Fetch total number of variants for the current seller

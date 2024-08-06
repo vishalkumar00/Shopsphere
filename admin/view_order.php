@@ -71,7 +71,7 @@ $colors = ['#FF0000', '#0000FF', '#FF00FF', '#00FF00', '#00FFFF', '#FFFF00'];
         <div class="row mb-3">
             <div class="col-lg-12 d-flex justify-content-between align-items-center">
                 <h3 class="slr-product-page-title">Order Detail</h3>
-                <a href="ad_orders.php" class="btn btn-secondary">Back to Orders</a>
+                <a href="ad_orders.php" class="btn btn-secondary"><i class="bi bi-arrow-left-circle me-2"></i>Back to Orders</a>
             </div>
         </div>
 

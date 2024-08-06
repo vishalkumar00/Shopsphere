@@ -308,6 +308,11 @@ h6 {
   background: #ffecdf;
 }
 
+.dashboard .sellers-card .card-icon {
+  color: #ffc107;
+  background: #faf0d0;
+}
+
 .dashboard .top-selling img {
   border-radius: 5px;
   max-width: 60px;
