@@ -64,7 +64,7 @@ $stmt->close();
                                                     <img src="../uploads/default.png" alt="Default Image" width="50">
                                                 <?php endif; ?>
                                             </td>
-                                            <td><?php echo htmlspecialchars($row['product_name']); ?></td>
+                                            <td><a href="http://localhost/shopsphere/user/product_details.php?product_id=<?php echo htmlspecialchars($row['product_id']); ?>" target="_blank"><?php echo htmlspecialchars($row['product_name']); ?></a></td>
                                             <td><?php echo htmlspecialchars($row['category_name']); ?></td>
                                             <td><?php echo htmlspecialchars($row['description']); ?></td>
                                             <td><?php echo "$" . htmlspecialchars($row['price']); ?></td>

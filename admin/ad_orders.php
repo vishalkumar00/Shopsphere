@@ -12,6 +12,7 @@ $selected_status = isset($_GET['shipping_status']) ? $_GET['shipping_status'] : 
 // Modify the query to filter by the selected shipping status if set
 $query = "SELECT 
                 o.order_id, 
+                p.product_id,
                 p.product_name, 
                 sz.size_name, 
                 clr.color_name, 
@@ -105,7 +106,7 @@ $colorIndex = 0;
                                             <td>
                                                 <?php foreach ($items as $index => $item) : ?>
                                                     <?php $color = $colors[$index % count($colors)]; ?>
-                                                    <span style="color: <?php echo $color; ?>"><?php echo htmlspecialchars($item['product_name']) . ' (' . htmlspecialchars($item['size_name']) . ', ' . htmlspecialchars($item['color_name']) . ')'; ?></span><br>
+                                                    <a href="http://localhost/shopsphere/user/product_details.php?product_id=<?php echo htmlspecialchars($item['product_id']); ?>" target="_blank"><span style="color: <?php echo $color; ?>"><?php echo htmlspecialchars($item['product_name']) . ' (' . htmlspecialchars($item['size_name']) . ', ' . htmlspecialchars($item['color_name']) . ')'; ?></span></a><br>
                                                 <?php endforeach; ?>
                                             </td>
                                             <td><?php echo htmlspecialchars($items[0]['customer_name']); ?></td>

@@ -1,4 +1,3 @@
-capture_payment.php:
 <?php
 require '../vendor/autoload.php';
 require 'paypal_config.php'; 
@@ -46,7 +45,11 @@ try {
         unset($_SESSION['cart_total_price']);
         
         // Fetch ordered items to update the quantity
-        $sql_order_items = "SELECT variant_id, quantity FROM order_items WHERE order_id = ?";
+        $sql_order_items = "SELECT oi.variant_id, oi.quantity, pv.product_id, p.product_name, p.seller_id 
+                            FROM order_items oi 
+                            JOIN product_variants pv ON oi.variant_id = pv.variant_id
+                            JOIN products p ON pv.product_id = p.product_id
+                            WHERE oi.order_id = ?";
         $stmt_order_items = $conn->prepare($sql_order_items);
         $stmt_order_items->bind_param('i', $orderID);
         $stmt_order_items->execute();
@@ -55,6 +58,8 @@ try {
         while ($item = $result_order_items->fetch_assoc()) {
             $variant_id = $item['variant_id'];
             $quantity_ordered = $item['quantity'];
+            $product_name = $item['product_name'];
+            $seller_id = $item['seller_id'];
 
             // Update the quantity of the product variant
             $sql_update_variant = "UPDATE product_variants SET quantity = quantity - ? WHERE variant_id = ?";
@@ -62,6 +67,14 @@ try {
             $stmt_update_variant->bind_param('ii', $quantity_ordered, $variant_id);
             $stmt_update_variant->execute();
             $stmt_update_variant->close();
+            
+            // Insert notification for the seller
+            $notification_message = "You have received a new order for $product_name for $quantity_ordered.";
+            $sql_notification = "INSERT INTO notifications (seller_id, message) VALUES (?, ?)";
+            $stmt_notification = $conn->prepare($sql_notification);
+            $stmt_notification->bind_param('is', $seller_id, $notification_message);
+            $stmt_notification->execute();
+            $stmt_notification->close();
         }
         $stmt_order_items->close();
         

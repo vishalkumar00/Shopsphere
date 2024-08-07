@@ -44,7 +44,7 @@ $stmt->close();
                                 <?php if ($result->num_rows > 0) : ?>
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($row['full_name']); ?></td>
+                                            <td><b><?php echo htmlspecialchars($row['full_name']); ?></b></td>
                                             <td><?php echo htmlspecialchars($row['email']); ?></td>
                                             <td><?php echo htmlspecialchars($row['mobile_number']); ?></td>
                                             <td><?php echo htmlspecialchars($row['created_at']); ?></td>

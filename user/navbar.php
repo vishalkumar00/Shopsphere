@@ -136,7 +136,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
 
               <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                 <li class="dropdown-header text-center">
-                  <h6 class="fw-bold"><?php echo htmlspecialchars($userFirstName); ?></h6>
+                  <h6 class="fw-bold text-success"><?php echo htmlspecialchars($userFirstName); ?></h6>
                   <span><small><?php echo htmlspecialchars($userEmail); ?></small></span>
                 </li>
                 <li>
@@ -144,7 +144,7 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                 </li>
                 <li>
                   <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_logout.php">
-                    <i class="bi bi-box-arrow-right"></i>
+                    <i class="bi bi-box-arrow-right text-danger"></i>
                     <span>Sign Out</span>
                   </a>
                 </li>

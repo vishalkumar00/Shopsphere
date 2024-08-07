@@ -6,28 +6,29 @@ include '../database/conn.php';
 // Fetch revenue details
 $query = "
     SELECT 
-        oi.order_item_id,
-        p.product_name,
-        clr.color_name,
-        sz.size_name,
-        oi.quantity,
-        oi.price,
-        CONCAT(u.first_name, ' ', u.last_name) AS customer_name,
-        s.store_name,
-        (oi.price - (oi.price * (c.commission_rate / 100))) AS seller_revenue,
-        ((oi.price * (c.commission_rate / 100))) AS admin_revenue,
-        p.product_id,
-        o.user_id,
-        p.seller_id
-    FROM order_items oi
-    JOIN orders o ON oi.order_id = o.order_id
-    JOIN product_variants v ON oi.variant_id = v.variant_id
-    JOIN products p ON v.product_id = p.product_id
-    JOIN categories c ON p.category_id = c.category_id
-    JOIN colors clr ON v.color_id = clr.color_id
-    JOIN sizes sz ON v.size_id = sz.size_id
-    JOIN users u ON o.user_id = u.user_id
-    JOIN sellers s ON p.seller_id = s.seller_id
+    oi.order_item_id,
+    p.product_name,
+    clr.color_name,
+    sz.size_name,
+    oi.quantity,
+    oi.price,
+    CONCAT(u.first_name, ' ', u.last_name) AS customer_name,
+    s.store_name,
+    (oi.price - (oi.price * (c.commission_rate / 100))) AS seller_revenue,
+    ((oi.price * (c.commission_rate / 100))) AS admin_revenue,
+    p.product_id,
+    o.user_id,
+    p.seller_id
+FROM order_items oi
+JOIN orders o ON oi.order_id = o.order_id
+JOIN product_variants v ON oi.variant_id = v.variant_id
+JOIN products p ON v.product_id = p.product_id
+JOIN categories c ON p.category_id = c.category_id
+JOIN colors clr ON v.color_id = clr.color_id
+JOIN sizes sz ON v.size_id = sz.size_id
+JOIN users u ON o.user_id = u.user_id
+JOIN sellers s ON p.seller_id = s.seller_id
+ORDER BY oi.order_item_id DESC;
 ";
 
 $stmt = $conn->prepare($query);
@@ -94,6 +95,4 @@ $stmt->close();
     </div>
 </main>
 
-<!-- http://localhost/shopsphere/admin/view_user.php?id= -->
-<!-- http://localhost/shopsphere/admin/view_seller.php?seller_id= -->
 <?php include 'footer.php'; ?>

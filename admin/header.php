@@ -1,12 +1,47 @@
 <?php
 session_start();
-include '../database/conn.php'; 
+include '../database/conn.php';
 
 if (!isset($_SESSION['admin'])) {
-    header("Location: index.php");
-    exit();
+  header("Location: index.php");
+  exit();
 }
 
+// Function to format time as relative
+function timeAgo($timestamp) {
+  $time = strtotime($timestamp);
+  $currentTime = time();
+  $timeDifference = $currentTime - $time;
+  $seconds = $timeDifference;
+  
+  $minutes      = round($seconds / 60);           // value 60 is seconds
+  $hours        = round($seconds / 3600);         // value 3600 is 60 minutes * 60 seconds
+  $days         = round($seconds / 86400);        // value 86400 is 24 hours * 60 minutes * 60 seconds
+  
+  if ($seconds <= 60) {
+      return "Just now";
+  } else if ($minutes <= 60) {
+      return "$minutes mins";
+  } else if ($hours <= 24) {
+      return "$hours hrs";
+  } else {
+      return "$days days";
+  }
+}
+
+// Fetch unread notifications of type 'order' for all sellers
+$sql_notifications = "SELECT message, created_at FROM notifications WHERE type = 'order' AND is_read = 0 ORDER BY created_at DESC LIMIT 5";
+$stmt_notifications = $conn->prepare($sql_notifications);
+$stmt_notifications->execute();
+$result_notifications = $stmt_notifications->get_result();
+$notifications = [];
+while ($row = $result_notifications->fetch_assoc()) {
+  $notifications[] = $row;
+}
+$stmt_notifications->close();
+
+// Count unread notifications
+$unread_count = count($notifications);
 ?>
 
 <!DOCTYPE html>
@@ -53,7 +88,7 @@ if (!isset($_SESSION['admin'])) {
         <li class="nav-item dropdown">
           <a class="nav-link nav-icon d-flex align-items-center" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span class="badge bg-primary badge-number"><?php echo $unread_count; ?></span>
             <i class="bi bi-chevron-down fs-6"></i>
           </a>
 
@@ -64,53 +99,30 @@ if (!isset($_SESSION['admin'])) {
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="dropdown-footer">
-              <a href="#">Show all notifications</a>
-            </li>
+            <?php if ($unread_count > 0) : ?>
+              <?php foreach ($notifications as $notification) : ?>
+                <li class="notification-item">
+                  <i class="bi bi-box-seam text-primary"></i>
+                  <div>
+                    <h4><a href="./ad_orders.php" class="text-primary">New Order</a></h4>
+                    <p><?php echo htmlspecialchars($notification['message']); ?></p>
+                    <p><b><?php echo timeAgo($notification['created_at']); ?></b></p>
+                  </div>
+                </li>
+                <li>
+                  <hr class="dropdown-divider">
+                </li>
+              <?php endforeach; ?>
+            <?php else : ?>
+              <li class="notification-item">
+                <div>
+                  <p>No new notifications</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            <?php endif; ?>
           </ul>
         </li>
 
@@ -123,7 +135,7 @@ if (!isset($_SESSION['admin'])) {
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header text-center">
-              <h6 class="fw-bold">Admin</h6>
+              <h6 class="fw-bold text-success">Admin</h6>
               <span>ShopSphere</span>
             </li>
             <li>
@@ -131,7 +143,7 @@ if (!isset($_SESSION['admin'])) {
             </li>
             <li class="">
               <a class="dropdown-item d-flex align-items-center justify-content-center" href="logout.php">
-                <i class="bi bi-box-arrow-right"></i>
+                <i class="bi bi-box-arrow-right text-danger"></i>
                 <span>Sign Out</span>
               </a>
             </li>
@@ -140,8 +152,6 @@ if (!isset($_SESSION['admin'])) {
       </ul>
     </nav>
   </header><!-- End Header -->
-
-
 
 </body>
 

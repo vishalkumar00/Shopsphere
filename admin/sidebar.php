@@ -43,8 +43,8 @@
         <span>Customers' List</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/admin/ad_announcement.php') !== false) ? 'active' : ''; ?>">
+      <a class="nav-link" href="ad_announcement.php">
         <i class="bx bxs-megaphone fs-5"></i>
         <span>Announcements</span>
       </a>

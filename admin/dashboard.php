@@ -117,6 +117,23 @@ $result = $stmt->get_result();
 $top_selling = $result->fetch_all(MYSQLI_ASSOC);
 $stmt->close();
 
+// SQL query to get recent order notifications
+$notificationsQuery = "
+    SELECT message, created_at
+    FROM notifications
+    WHERE type = 'order'
+    ORDER BY created_at DESC
+    LIMIT 5
+";
+$stmt = $conn->prepare($notificationsQuery);
+if ($stmt === false) {
+  die('Prepare failed: ' . htmlspecialchars($conn->error));
+}
+$stmt->execute();
+$result = $stmt->get_result();
+$notifications = $result->fetch_all(MYSQLI_ASSOC);
+$stmt->close();
+
 $conn->close();
 ?>
 
@@ -278,65 +295,37 @@ $conn->close();
       <!-- Right side columns -->
       <div class="col-lg-4">
 
-        <!-- Announcement -->
+        <!-- Recent Notifications -->
         <div class="card">
-
           <div class="card-body">
-            <h5 class="card-title">Announcements</h5>
+            <h5 class="card-title">Recent Notifications</h5>
 
             <div class="activity">
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins"><span>32 min</span></div>
-                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                <div class="activity-content">
-                  Quia quae rerum explicabo officiis beatae
+              <?php foreach ($notifications as $notification) : ?>
+                <div class="activity-item d-flex">
+                  <div class="activite-label"><?php echo timeAgo($notification['created_at']); ?></div>
+                  <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
+                  <div class="activity-content">
+                    <h6><a href="./ad_orders.php" class="text-primary">New Order</a></h6>
+                    <p><?php echo htmlspecialchars($notification['message']); ?></p>
+                  </div>
                 </div>
-              </div>
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins">56 min</div>
-                <i class='bi bi-circle-fill activity-badge text-danger align-self-start'></i>
-                <div class="activity-content">
-                  Voluptatem blanditiis blanditiis eveniet
+              <?php endforeach; ?>
+              <?php if (empty($notifications)) : ?>
+                <div class="activity-item d-flex">
+                  <div class="activite-label">Now</div>
+                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                  <div class="activity-content">
+                    <p>No recent notifications</p>
+                  </div>
                 </div>
-              </div>
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins">2 hrs</div>
-                <i class='bi bi-circle-fill activity-badge text-primary align-self-start'></i>
-                <div class="activity-content">
-                  Voluptates corrupti molestias voluptatem
-                </div>
-              </div>
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins">1 day</div>
-                <i class='bi bi-circle-fill activity-badge text-info align-self-start'></i>
-                <div class="activity-content">
-                  Tempore autem saepe occaecati voluptatem tempore
-                </div>
-              </div>
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins">2 days</div>
-                <i class='bi bi-circle-fill activity-badge text-warning align-self-start'></i>
-                <div class="activity-content">
-                  Est sit eum reiciendis exercitationem
-                </div>
-              </div>
-
-              <div class="activity-item d-flex">
-                <div class="ann-mins">4 weeks</div>
-                <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
-                <div class="activity-content">
-                  Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
-                </div>
-              </div>
+              <?php endif; ?>
             </div>
+
           </div>
-        </div>
-      </div>
+        </div><!-- End Recent Notifications -->
+
+      </div><!-- End Right side columns -->
     </div>
   </section>
 </main>

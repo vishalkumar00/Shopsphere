@@ -53,7 +53,7 @@ $stmt->close();
                                 <?php if ($result->num_rows > 0) : ?>
                                     <?php while ($row = $result->fetch_assoc()) : ?>
                                         <tr>
-                                            <td><?php echo htmlspecialchars($row['store_name']); ?></td>
+                                            <td><b><?php echo htmlspecialchars($row['store_name']); ?></b></td>
                                             <td><?php echo htmlspecialchars($row['full_address']); ?></td>
                                             <td><?php echo htmlspecialchars($row['business_email']); ?></td>
                                             <td><?php echo htmlspecialchars($row['contact_number']); ?></td>

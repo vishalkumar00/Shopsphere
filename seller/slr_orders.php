@@ -1,6 +1,6 @@
 <?php
-session_start();
-include '../database/conn.php';
+// session_start();
+// include '../database/conn.php';
 
 include 'header.php';
 include 'sidebar.php';

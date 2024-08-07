@@ -1,5 +1,29 @@
 <?php 
 include '../database/conn.php'; 
+session_start();
+
+// Function to format time as relative
+function timeAgo($timestamp)
+{
+  $time = strtotime($timestamp);
+  $currentTime = time();
+  $timeDifference = $currentTime - $time;
+  $seconds = $timeDifference;
+
+  $minutes      = round($seconds / 60);           // value 60 is seconds
+  $hours        = round($seconds / 3600);         // value 3600 is 60 minutes * 60 seconds
+  $days         = round($seconds / 86400);        // value 86400 is 24 hours * 60 minutes * 60 seconds
+
+  if ($seconds <= 60) {
+    return "Just now";
+  } else if ($minutes <= 60) {
+    return "$minutes mins";
+  } else if ($hours <= 24) {
+    return "$hours hrs";
+  } else {
+    return "$days days";
+  }
+}
 
 // Check if the seller is logged in
 if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
@@ -10,6 +34,22 @@ if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
 // Fetch the store name and email from session
 $store_name = $_SESSION['store_name'];
 $business_email = $_SESSION['business_email'];
+$seller_id = $_SESSION['seller_id'];
+
+// Fetch unread notifications for the seller
+$sql_notifications = "SELECT message, created_at, type FROM notifications WHERE seller_id = ? AND is_read = 0 ORDER BY created_at DESC LIMIT 5";
+$stmt_notifications = $conn->prepare($sql_notifications);
+$stmt_notifications->bind_param('i', $seller_id);
+$stmt_notifications->execute();
+$result_notifications = $stmt_notifications->get_result();
+$notifications = [];
+while ($row = $result_notifications->fetch_assoc()) {
+    $notifications[] = $row;
+}
+$stmt_notifications->close();
+
+// Count unread notifications
+$unread_count = count($notifications);
 ?>
 
 <!DOCTYPE html>
@@ -53,64 +93,41 @@ $business_email = $_SESSION['business_email'];
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center m-0">
 
-        <li class="nav-item dropdown">
+      <!-- Notification feature  -->
+      <li class="nav-item dropdown">
           <a class="nav-link nav-icon d-flex align-items-center" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
+            <span class="badge bg-primary badge-number"><?php echo $unread_count; ?></span>
             <i class="bi bi-chevron-down fs-6"></i>
           </a>
-
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-            <li class="dropdown-header">
-              Notifications
-            </li>
+            <li class="dropdown-header">Notifications</li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li class="notification-item">
-              <i class="bi bi-exclamation-circle text-warning"></i>
-              <div>
-                <h4>Lorem Ipsum</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>30 min. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-x-circle text-danger"></i>
-              <div>
-                <h4>Atque rerum nesciunt</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>1 hr. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-check-circle text-success"></i>
-              <div>
-                <h4>Sit rerum fuga</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>2 hrs. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li class="notification-item">
-              <i class="bi bi-info-circle text-primary"></i>
-              <div>
-                <h4>Dicta reprehenderit</h4>
-                <p>Quae dolorem earum veritatis oditseno</p>
-                <p>4 hrs. ago</p>
-              </div>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            <?php foreach ($notifications as $notification): ?>
+              <li class="notification-item">
+                <i class="bi <?php echo $notification['type'] == 'order' ? 'bi bi-box-seam text-primary' : 'bi bi-megaphone text-warning'; ?>"></i>
+                <div>
+                  <h4><?php echo $notification['type'] == 'order' ? 'New Order' : 'Announcement'; ?></h4>
+                  <p><?php echo htmlspecialchars($notification['message']); ?></p>
+                  <p><b><?php echo timeAgo($notification['created_at']); ?></b></p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            <?php endforeach; ?>
+            <?php if ($unread_count === 0): ?>
+              <li class="notification-item">
+                <div>
+                  <p>No new notifications</p>
+                </div>
+              </li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+            <?php endif; ?>
           </ul>
         </li>
 
@@ -123,15 +140,15 @@ $business_email = $_SESSION['business_email'];
 
           <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
             <li class="dropdown-header text-center">
-              <h6 class="fw-bold"><?php echo htmlspecialchars($store_name); ?></h6>
-              <span><?php echo htmlspecialchars($business_email); ?></span>
+              <h6 class="fw-bold text-success"><?php echo htmlspecialchars($store_name); ?></h6>
+              <span class="text-dark"><?php echo htmlspecialchars($business_email); ?></span>
             </li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li class="">
+            <li> 
               <a class="dropdown-item d-flex align-items-center justify-content-center" href="logout.php">
-                <i class="bi bi-box-arrow-right"></i>
+                <i class="bi bi-box-arrow-right text-danger"></i>
                 <span>Sign Out</span>
               </a>
             </li>

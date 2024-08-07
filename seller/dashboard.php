@@ -1,18 +1,16 @@
 <?php
-session_start();
-
 include 'header.php';
 include 'sidebar.php';
 
 // Initialize variables
-$sellerId = $_SESSION['seller_id']; 
+$sellerId = $_SESSION['seller_id'];
 $revenue = 0.00;
 
 // Fetch total number of variants for the current seller
 $variantCountQuery = "SELECT COUNT(*) AS total_variants 
-                          FROM product_variants v 
-                          JOIN products p ON v.product_id = p.product_id 
-                          WHERE p.seller_id = ?";
+                      FROM product_variants v 
+                      JOIN products p ON v.product_id = p.product_id 
+                      WHERE p.seller_id = ?";
 
 if ($variantStmt = $conn->prepare($variantCountQuery)) {
   $variantStmt->bind_param("i", $sellerId);
@@ -73,7 +71,7 @@ if ($revenueStmt = $conn->prepare($revenueQuery)) {
     die("An error occurred while calculating revenue. Please try again later.");
   }
   $revenueResult = $revenueStmt->get_result();
-  $revenue = $revenueResult->fetch_assoc()['total_revenue'] ?? 0.0; // Corrected key here
+  $revenue = $revenueResult->fetch_assoc()['total_revenue'] ?? 0.0;
   $revenueStmt->close();
 } else {
   error_log("Prepare failed: (" . $conn->errno . ") " . $conn->error);
@@ -105,7 +103,21 @@ if ($recentOrdersStmt = $conn->prepare($recentOrdersQuery)) {
   die("An error occurred while fetching recent orders. Please try again later.");
 }
 
-
+// Fetch notifications and announcements
+$activityQuery = "SELECT message, created_at, type FROM notifications WHERE seller_id = ? ORDER BY created_at DESC LIMIT 7";
+if ($activityStmt = $conn->prepare($activityQuery)) {
+  $activityStmt->bind_param("i", $sellerId);
+  if (!$activityStmt->execute()) {
+    error_log("Execute failed: (" . $activityStmt->errno . ") " . $activityStmt->error);
+    die("An error occurred while fetching activities. Please try again later.");
+  }
+  $activityResult = $activityStmt->get_result();
+  $activities = $activityResult->fetch_all(MYSQLI_ASSOC);
+  $activityStmt->close();
+} else {
+  error_log("Prepare failed: (" . $conn->errno . ") " . $conn->error);
+  die("An error occurred while fetching activities. Please try again later.");
+}
 ?>
 
 <main id="main-admin" class="main-admin">
@@ -183,7 +195,7 @@ if ($recentOrdersStmt = $conn->prepare($recentOrdersQuery)) {
                       <th scope="col">#</th>
                       <th scope="col">Customer</th>
                       <th scope="col">Product</th>
-                      <th scope="col">Quantity</th> 
+                      <th scope="col">Quantity</th>
                       <th scope="col">Price</th>
                       <th scope="col">Status</th>
                     </tr>
@@ -198,7 +210,7 @@ if ($recentOrdersStmt = $conn->prepare($recentOrdersQuery)) {
                             <?php echo htmlspecialchars($order['product_name']); ?>
                           </a>
                         </td>
-                        <td><b><?php echo htmlspecialchars($order['quantity']); ?></b></td> 
+                        <td><b><?php echo htmlspecialchars($order['quantity']); ?></b></td>
                         <td><b><?php echo "$" . number_format($order['price'], 2); ?></b></td>
                         <td>
                           <?php
@@ -235,28 +247,34 @@ if ($recentOrdersStmt = $conn->prepare($recentOrdersQuery)) {
 
       <!-- Right side columns -->
       <div class="col-lg-4">
-
         <!-- Recent Activity -->
         <div class="card">
           <div class="card-body">
-            <h5 class="card-title">Recent Activity <span class="dash-timeline">| Announcements</span></h5>
-
+            <h5 class="card-title">Recent Activity</h5>
             <div class="activity">
-              <!-- Add recent activities here -->
-              <div class="activity-item d-flex">
-                <div class="activite-label">32 min</div>
-                <i class='bi bi-circle-fill activity-badge text-success align-self-start'></i>
-                <div class="activity-content">
-                  Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+              <?php foreach ($activities as $activity) : ?>
+                <div class="activity-item d-flex">
+                  <div class="activite-label"><?php echo timeAgo($activity['created_at']); ?></div>
+                  <i class='bi bi-circle-fill activity-badge <?php echo $activity['type'] == 'order' ? 'text-primary' : 'text-warning'; ?> align-self-start'></i>
+                  <div class="activity-content">
+                    <h6><a href="<?php echo $activity['type'] == 'order' ? 'slr_orders.php' : 'announcements.php'; ?>" class="text-primary"><?php echo $activity['type'] == 'order' ? 'New Order' : 'Announcement'; ?></a></h6>
+                    <p><?php echo htmlspecialchars($activity['message']); ?></p>
+                  </div>
                 </div>
-              </div>
+              <?php endforeach; ?>
+              <?php if (empty($activities)) : ?>
+                <div class="activity-item d-flex">
+                  <div class="activite-label">Now</div>
+                  <i class='bi bi-circle-fill activity-badge text-muted align-self-start'></i>
+                  <div class="activity-content">
+                    <p>No recent activities</p>
+                  </div>
+                </div>
+              <?php endif; ?>
             </div>
-
           </div>
         </div><!-- End Recent Activity -->
-
       </div><!-- End Right side columns -->
-
     </div>
   </section>
 
