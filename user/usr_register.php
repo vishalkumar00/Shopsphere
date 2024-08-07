@@ -120,7 +120,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
 
                                         <form id="registerForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
 
-                                            <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Register</h4>
+                                            <h4 class="fw-normal mb-3 fw-bolder text-center" style="color: #4154f1;">Register</h4>
 
                                             <?php if (!empty($error_message)) : ?>
                                                 <div class="alert alert-danger"><?php echo $error_message; ?></div>
@@ -129,14 +129,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                             <div class="row mb-2">
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <label class="form-label form-label-register" for="first_name">First Name *</label>
+                                                        <label class="form-label form-label-register" for="first_name">First Name <span class="text-danger">*</span></label>
                                                         <input type="text" id="first_name" name="first_name" class="form-control" value="<?php echo htmlspecialchars($first_name); ?>" />
                                                         <span class="text-danger"><?php echo $first_nameErr; ?></span>
                                                     </div>
                                                 </div>
                                                 <div class="col">
                                                     <div class="form-outline">
-                                                        <label class="form-label form-label-register" for="last_name">Last Name *</label>
+                                                        <label class="form-label form-label-register" for="last_name">Last Name <span class="text-danger">*</span></label>
                                                         <input type="text" id="last_name" name="last_name" class="form-control" value="<?php echo htmlspecialchars($last_name); ?>" />
                                                         <span class="text-danger"><?php echo $last_nameErr; ?></span>
                                                     </div>
@@ -144,19 +144,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                             </div>
 
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="email">Email address *</label>
+                                                <label class="form-label form-label-register" for="email">Email address <span class="text-danger">*</span></label>
                                                 <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>" />
                                                 <span class="text-danger"><?php echo $emailErr; ?></span>
                                             </div>
 
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="mobile_number">Mobile Number</label>
+                                                <label class="form-label form-label-register" for="mobile_number">Mobile Number (optional)</label>
                                                 <input type="text" id="mobile_number" name="mobile_number" class="form-control" value="<?php echo htmlspecialchars($mobile_number); ?>" />
                                                 <span class="text-danger"><?php echo $mobile_numberErr; ?></span>
                                             </div>
 
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="password">Password *</label>
+                                                <label class="form-label form-label-register" for="password">Password <span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <input type="password" id="password" name="password" class="form-control">
                                                     <button type="button" class="btn btn-outline-secondary bi bi-eye" id="togglePassword"></button>
@@ -165,7 +165,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                             </div>
 
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="confirm_password">Confirm Password *</label>
+                                                <label class="form-label form-label-register" for="confirm_password">Confirm Password <span class="text-danger">*</span></label>
                                                 <div class="input-group">
                                                     <input type="password" id="confirm_password" name="confirm_password" class="form-control">
                                                     <button type="button" class="btn btn-outline-secondary bi bi-eye" id="toggleConfirmPassword"></button>
@@ -174,10 +174,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
                                             </div>
 
                                             <div class=" text-center pt-1 mb-1">
-                                                <button class="btn btn-primary btn-block" type="submit" name="register">Register</button>
+                                                <button class="btn btn-primary btn-block" type="submit" name="register">Sign Up</button>
                                             </div>
                                             <div class="text-center">
-                                                <p class="mb-0" style="color: #393f81;">Already have an account? <a href="usr_login.php" class="link-opacity-25-hover">Login</a></p>
+                                                <p class="mb-0" style="color: #393f81;">Have an account? <a href="usr_login.php" class="link-opacity-25-hover fw-bold">Login</a></p>
                                             </div>
                                         </form>
 

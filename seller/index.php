@@ -8,6 +8,7 @@ if (isset($_SESSION['seller_id']) && isset($_SESSION['business_email'])) {
 }
 
 $error_message = '';
+$success_message = '';
 $slrEmail = '';
 $password = '';
 
@@ -64,6 +65,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 }
+
+// Check for success message
+if (isset($_GET['message'])) {
+    $success_message = $_GET['message'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -115,6 +121,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         <?php echo $error_message; ?>
                                     </div>
                                 <?php endif; ?>
+                                <?php if (!empty($success_message)) : ?>
+                                        <div class="alert alert-success"><?php echo $success_message; ?></div>
+                                    <?php endif; ?>
 
                                 <form class="row g-3 needs-validation" action="index.php" method="post">
 

@@ -5,6 +5,12 @@ include '../database/conn.php';
 // Initialize variables to hold input values and error messages
 $email = $password = "";
 $emailErr = $passwordErr = "";
+$success_message = "";
+
+// Check for success message in the URL
+if (isset($_GET['message'])) {
+    $success_message = htmlspecialchars($_GET['message']);
+}
 
 // Check if form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -121,16 +127,20 @@ function displayError($fieldError)
                                     <div class="card-body card-login-body p-3 p-lg-4 text-black">
                                         <h4 class="fw-normal mb-3 fw-bold text-center" style="color: #4154f1;">Login</h4>
 
+                                        <?php if (!empty($success_message)) : ?>
+                                            <div class="alert alert-success"><?php echo $success_message; ?></div>
+                                        <?php endif; ?>
+
                                         <!-- Login Form -->
                                         <form id="loginForm" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="email">Email address *</label>
+                                                <label class="form-label form-label-register" for="email">Email address</label>
                                                 <input type="email" id="email" name="email" class="form-control" value="<?php echo htmlspecialchars($email); ?>">
                                                 <?php displayError($emailErr); ?>
                                             </div>
 
                                             <div class="form-outline mb-2">
-                                                <label class="form-label form-label-register" for="password">Password *</label>
+                                                <label class="form-label form-label-register" for="password">Password</label>
                                                 <div class="input-group">
                                                     <input type="password" id="password" name="password" class="form-control" value="<?php echo htmlspecialchars($password); ?>">
                                                     <button type="button" class="btn btn-outline-secondary bi bi-eye" id="togglePassword"></button>
@@ -148,11 +158,13 @@ function displayError($fieldError)
                                             <div class="text-center pt-1 mb-1">
                                                 <button class="btn btn-primary btn-block" type="submit" name="login">Login</button>
                                             </div>
-                                            <div class="text-center">
-                                                <p class="mb-0" style="color: #393f81;">Don't have an account? <a href="usr_register.php" class="link-opacity-25-hover">Register</a> Or <a href="index.php" class="">Continue as Guest</a></p>
+                                            <div class="text-center mt-2">
+                                                <p class="mb-0" style="color: #393f81;">Don't have an account? <a href="usr_register.php" class="link-opacity-25-hover fw-bolder">Register</a> Or <a href="index.php" class="fw-bolder">Continue as Guest</a></p>
+                                            </div>
+                                            <div class="text-center mt-2">
+                                                <a href="request_reset.php" class="btn btn-success">Forgot password</a>
                                             </div>
                                         </form>
-                                        <!-- End Login Form -->
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-lg-5 d-none d-md-block">

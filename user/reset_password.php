@@ -19,27 +19,31 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } elseif ($new_password !== $confirm_password) {
         $error_message = "Passwords do not match.";
     } else {
-        $sql = "SELECT seller_id, token_expiry FROM sellers WHERE reset_token = ?";
+        $sql = "SELECT user_id, token_expiry FROM users WHERE reset_token = ?";
         $stmt = $conn->prepare($sql);
-        $stmt->bind_param('s', $token);
-        $stmt->execute();
-        $result = $stmt->get_result();
+        if ($stmt) {
+            $stmt->bind_param('s', $token);
+            $stmt->execute();
+            $result = $stmt->get_result();
 
-        if ($result->num_rows > 0) {
-            $row = $result->fetch_assoc();
-            if (new DateTime() > new DateTime($row['token_expiry'])) {
-                $error_message = "Token has expired.";
+            if ($result->num_rows > 0) {
+                $row = $result->fetch_assoc();
+                if (new DateTime() > new DateTime($row['token_expiry'])) {
+                    $error_message = "Token has expired.";
+                } else {
+                    $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
+                    $stmt = $conn->prepare("UPDATE users SET password = ?, reset_token = NULL, token_expiry = NULL WHERE reset_token = ?");
+                    $stmt->bind_param('ss', $hashed_password, $token);
+                    $stmt->execute();
+                    $success_message = "Password has been reset successfully.";
+                    header("Location: usr_login.php?message=" . urlencode($success_message));
+                    exit();
+                }
             } else {
-                $hashed_password = password_hash($new_password, PASSWORD_DEFAULT);
-                $stmt = $conn->prepare("UPDATE sellers SET password = ?, reset_token = NULL, token_expiry = NULL WHERE reset_token = ?");
-                $stmt->bind_param('ss', $hashed_password, $token);
-                $stmt->execute();
-                $success_message = "Password has been reset successfully.";
-                header("Location: index.php?message=" . urlencode($success_message));
-                exit();
+                $error_message = "Invalid token.";
             }
         } else {
-            $error_message = "Invalid token.";
+            $error_message = "Failed to prepare statement.";
         }
     }
 }
@@ -50,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
 <meta charset="utf-8">
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>Change Password - Seller</title>
+<title>Change Password - ShopSphere</title>
 <meta content="" name="description">
 <meta content="" name="keywords">
 <link href="../assets/img/favicon.png" rel="icon">
@@ -84,13 +88,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             </div>
                             <div class="mb-3">
                                 <label for="new_password" class="form-label">New Password</label>
-                                <input type="text" name="new_password" class="form-control" id="new_password" placeholder="Enter new password" value="<?php echo htmlspecialchars($new_password); ?>">
+                                <input type="password" name="new_password" class="form-control" id="new_password" placeholder="Enter new password" value="<?php echo htmlspecialchars($new_password); ?>">
                             </div>
                             <div class="mb-3">
-                                <label for="confirm_password" class="form-label">Confirm New Password</label>
-                                <input type="text" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm new password" value="<?php echo htmlspecialchars($confirm_password); ?>">
+                                <label for="confirm_password" class="form-label">Confirm Password</label>
+                                <input type="password" name="confirm_password" class="form-control" id="confirm_password" placeholder="Confirm new password" value="<?php echo htmlspecialchars($confirm_password); ?>">
                             </div>
-                            <div class="text-center py-1">
+                            <div class="text-center">
                                 <button type="submit" class="btn btn-primary">Reset Password</button>
                             </div>
                         </form>
@@ -100,7 +104,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </section>
     </div>
 </main>
-
 <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="../assets/js/main.js"></script>
 </body>

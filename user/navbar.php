@@ -143,6 +143,12 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                   <hr class="dropdown-divider">
                 </li>
                 <li>
+                  <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_profile.php">
+                    <i class="bi bi-person-circle text-danger"></i>
+                    <span>Profile</span>
+                  </a>
+                </li>
+                <li>
                   <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_logout.php">
                     <i class="bi bi-box-arrow-right text-danger"></i>
                     <span>Sign Out</span>
