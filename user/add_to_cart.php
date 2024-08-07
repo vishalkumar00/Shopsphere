@@ -9,7 +9,7 @@ $response = ['success' => false, 'message' => '', 'cartItemCount' => 0, 'modal' 
 if (!isset($_SESSION['user_id'])) {
     http_response_code(403);
     $response['message'] = 'You must be logged in to add items to the cart.';
-    $response['modal'] = true; // Indicate to show modal
+    $response['modal'] = true; 
     echo json_encode($response);
     exit;   
 }

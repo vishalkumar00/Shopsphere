@@ -144,10 +144,11 @@ $currentUrl = $_SERVER['REQUEST_URI'];
                 </li>
                 <li>
                   <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_profile.php">
-                    <i class="bi bi-person-circle text-danger"></i>
+                    <i class="bi bi-person-circle text-warning"></i>
                     <span>Profile</span>
                   </a>
                 </li>
+                <hr class="my-1">
                 <li>
                   <a class="dropdown-item d-flex align-items-center justify-content-center" href="usr_logout.php">
                     <i class="bi bi-box-arrow-right text-danger"></i>
