@@ -1,7 +1,4 @@
 <?php
-// session_start();
-// include '../database/conn.php';
-
 include 'header.php';
 include 'sidebar.php';
 
@@ -91,7 +88,8 @@ while ($row = $result->fetch_assoc()) {
 <?php
 include 'footer.php';
 
-function displayOrdersTable($orders, $current_status) {
+function displayOrdersTable($orders, $current_status)
+{
     echo '<div class="table-responsive">';
     echo '<table class="table datatable">';
     echo '<thead>';
@@ -131,7 +129,7 @@ function displayOrdersTable($orders, $current_status) {
                 echo '<td>Delivered ✅</td>';
             } else {
                 $buttonText = '';
-                switch($current_status) {
+                switch ($current_status) {
                     case 'Pending':
                         $buttonText = 'Move to Unshipped 📦';
                         break;

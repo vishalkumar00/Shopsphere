@@ -1,6 +1,9 @@
-<?php 
-include '../database/conn.php'; 
+<?php
+include '../database/conn.php';
 session_start();
+
+// Set the correct time zone
+date_default_timezone_set('America/Toronto');
 
 // Function to format time as relative
 function timeAgo($timestamp)
@@ -27,8 +30,8 @@ function timeAgo($timestamp)
 
 // Check if the seller is logged in
 if (!isset($_SESSION['seller_id']) || !isset($_SESSION['business_email'])) {
-    header("Location: index.php");
-    exit();
+  header("Location: index.php");
+  exit();
 }
 
 // Fetch the store name and email from session
@@ -44,7 +47,7 @@ $stmt_notifications->execute();
 $result_notifications = $stmt_notifications->get_result();
 $notifications = [];
 while ($row = $result_notifications->fetch_assoc()) {
-    $notifications[] = $row;
+  $notifications[] = $row;
 }
 $stmt_notifications->close();
 
@@ -93,8 +96,8 @@ $unread_count = count($notifications);
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center m-0">
 
-      <!-- Notification feature  -->
-      <li class="nav-item dropdown">
+        <!-- Notification feature  -->
+        <li class="nav-item dropdown">
           <a class="nav-link nav-icon d-flex align-items-center" href="#" data-bs-toggle="dropdown">
             <i class="bi bi-bell"></i>
             <span class="badge bg-primary badge-number"><?php echo $unread_count; ?></span>
@@ -105,7 +108,7 @@ $unread_count = count($notifications);
             <li>
               <hr class="dropdown-divider">
             </li>
-            <?php foreach ($notifications as $notification): ?>
+            <?php foreach ($notifications as $notification) : ?>
               <li class="notification-item">
                 <i class="bi <?php echo $notification['type'] == 'order' ? 'bi bi-box-seam text-primary' : 'bi bi-megaphone text-warning'; ?>"></i>
                 <div>
@@ -118,7 +121,7 @@ $unread_count = count($notifications);
                 <hr class="dropdown-divider">
               </li>
             <?php endforeach; ?>
-            <?php if ($unread_count === 0): ?>
+            <?php if ($unread_count === 0) : ?>
               <li class="notification-item">
                 <div>
                   <p>No new notifications</p>
@@ -146,7 +149,7 @@ $unread_count = count($notifications);
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li> 
+            <li>
               <a class="dropdown-item d-flex align-items-center justify-content-center" href="logout.php">
                 <i class="bi bi-box-arrow-right text-danger"></i>
                 <span>Sign Out</span>

@@ -41,11 +41,11 @@ $conn->close();
             </div>
         </div>
 
-        <?php if (isset($success_message)): ?>
+        <?php if (isset($success_message)) : ?>
             <div class="alert alert-success"><?php echo $success_message; ?></div>
         <?php endif; ?>
 
-        <?php if (isset($error_message)): ?>
+        <?php if (isset($error_message)) : ?>
             <div class="alert alert-danger"><?php echo $error_message; ?></div>
         <?php endif; ?>
 
@@ -89,15 +89,15 @@ $conn->close();
                                 </tr>
                             </thead>
                             <tbody>
-                                <?php if (!empty($promo_codes)): ?>
-                                    <?php foreach ($promo_codes as $promo_code): ?>
+                                <?php if (!empty($promo_codes)) : ?>
+                                    <?php foreach ($promo_codes as $promo_code) : ?>
                                         <tr>
                                             <td><?php echo $promo_code['promo_name']; ?></td>
                                             <td><?php echo $promo_code['discount_percent']; ?>%</td>
                                             <td><?php echo $promo_code['status']; ?></td>
                                         </tr>
                                     <?php endforeach; ?>
-                                <?php else: ?>
+                                <?php else : ?>
                                     <tr>
                                         <td colspan="3" class="text-center">No promo codes found.</td>
                                     </tr>

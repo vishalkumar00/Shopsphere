@@ -77,7 +77,7 @@ $stmt->close();
                         <li class="list-group-item"><strong>Email:</strong> <?php echo htmlspecialchars($seller['business_email']); ?></li>
                         <li class="list-group-item"><strong>Contact Number:</strong> <?php echo htmlspecialchars($seller['contact_number']); ?></li>
                         <li class="list-group-item"><strong>Tax ID:</strong> <?php echo htmlspecialchars($seller['tax_id']); ?></li>
-                        <li class="list-group-item"><strong>Bank Details:</strong> <?php echo '<br>' .'Account Number: ' . htmlspecialchars($seller['bank_account_number']) .'<br>' . 'Bank Name: ' . htmlspecialchars($seller['bank_name']) . '<br>' .'Transit Number: ' . htmlspecialchars($seller['transit_number']) . '<br>' . 'Institution Number: ' . htmlspecialchars($seller['institution_number']); ?></li>
+                        <li class="list-group-item"><strong>Bank Details:</strong> <?php echo '<br>' . 'Account Number: ' . htmlspecialchars($seller['bank_account_number']) . '<br>' . 'Bank Name: ' . htmlspecialchars($seller['bank_name']) . '<br>' . 'Transit Number: ' . htmlspecialchars($seller['transit_number']) . '<br>' . 'Institution Number: ' . htmlspecialchars($seller['institution_number']); ?></li>
                     </ul>
                 </div>
             </div>

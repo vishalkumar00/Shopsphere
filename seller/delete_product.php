@@ -45,4 +45,3 @@ if (isset($_GET['id']) && isset($_GET['variant_id'])) {
 } else {
     echo "Product ID or Variant ID not provided.";
 }
-?>

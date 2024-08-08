@@ -3,24 +3,20 @@ include 'header.php';
 include 'sidebar.php';
 include '../database/conn.php';
 
-// Initialize variables
 $title = '';
 $message = '';
 $announcement_id = null;
 
-// Handle form submission for adding/editing an announcement
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title = $_POST['title'];
     $message = $_POST['message'];
     $announcement_id = $_POST['announcement_id'];
 
     if ($announcement_id) {
-        // Update existing announcement
         $query = "UPDATE announcements SET title = ?, message = ? WHERE announcement_id = ?";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ssi', $title, $message, $announcement_id);
     } else {
-        // Insert new announcement
         $query = "INSERT INTO announcements (title, message) VALUES (?, ?)";
         $stmt = $conn->prepare($query);
         $stmt->bind_param('ss', $title, $message);
@@ -28,11 +24,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($stmt->execute()) {
         if (!$announcement_id) {
-            // If this is a new announcement, insert notifications for all sellers
-            $announcement_id = $stmt->insert_id; // Get the ID of the newly inserted announcement
+            $announcement_id = $stmt->insert_id;
             $notification_message = "New Announcement: " . $title;
 
-            // Fetch all seller IDs
             $sql_sellers = "SELECT seller_id FROM sellers";
             $result_sellers = $conn->query($sql_sellers);
 
@@ -47,7 +41,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         }
 
         echo "Announcement " . ($announcement_id ? "updated" : "added") . " successfully.";
-        // Clear form data after successful update
         $title = '';
         $message = '';
         $announcement_id = null;
@@ -58,7 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt->close();
 }
 
-// Handle deletion of an announcement
 if (isset($_GET['delete'])) {
     $announcement_id = $_GET['delete'];
 
@@ -75,7 +67,6 @@ if (isset($_GET['delete'])) {
     $stmt->close();
 }
 
-// Fetch the announcement to edit
 if (isset($_GET['edit'])) {
     $announcement_id = $_GET['edit'];
 
@@ -94,7 +85,6 @@ if (isset($_GET['edit'])) {
     $stmt->close();
 }
 
-// Fetch current announcements
 $query = "SELECT * FROM announcements ORDER BY created_at DESC";
 $result = $conn->query($query);
 ?>

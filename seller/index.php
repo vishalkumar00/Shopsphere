@@ -3,8 +3,8 @@ session_start();
 include '../database/conn.php';
 
 if (isset($_SESSION['seller_id']) && isset($_SESSION['business_email'])) {
-  header("Location: dashboard.php");
-  exit();
+    header("Location: dashboard.php");
+    exit();
 }
 
 $error_message = '';
@@ -94,87 +94,87 @@ if (isset($_GET['message'])) {
 
 <body>
 
-<main>
-    <div class="container">
-        <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-3">
-            <div class="container">
-                <div class="row justify-content-center">
-                <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
+    <main>
+        <div class="container">
+            <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-3">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-xl-4 col-lg-5 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
-                        <div class="d-flex justify-content-center py-4">
-                            <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
-                                <img src="../assets/img/logo.png" alt="ShopSphere-logo">
-                            </a>
-                        </div>
+                            <div class="d-flex justify-content-center py-4">
+                                <a href="dashboard.php" class="logo-login d-flex align-items-center w-auto ">
+                                    <img src="../assets/img/logo.png" alt="ShopSphere-logo">
+                                </a>
+                            </div>
 
-                        <div class="card mb-3">
+                            <div class="card mb-3">
 
-                            <div class="card-body">
+                                <div class="card-body">
 
-                                <div class="pt-4 pb-2">
-                                    <h5 class="card-title text-center pb-0 fs-4">Login to Seller Account</h5>
-                                    <p class="text-center small">Enter your username & password to login</p>
-                                </div>
-
-                                <?php if (!empty($error_message)) : ?>
-                                    <div class="alert alert-danger" role="alert">
-                                        <?php echo $error_message; ?>
+                                    <div class="pt-4 pb-2">
+                                        <h5 class="card-title text-center pb-0 fs-4">Login to Seller Account</h5>
+                                        <p class="text-center small">Enter your username & password to login</p>
                                     </div>
-                                <?php endif; ?>
-                                <?php if (!empty($success_message)) : ?>
+
+                                    <?php if (!empty($error_message)) : ?>
+                                        <div class="alert alert-danger" role="alert">
+                                            <?php echo $error_message; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if (!empty($success_message)) : ?>
                                         <div class="alert alert-success"><?php echo $success_message; ?></div>
                                     <?php endif; ?>
 
-                                <form class="row g-3 needs-validation" action="index.php" method="post">
+                                    <form class="row g-3 needs-validation" action="index.php" method="post">
 
-                                    <div class="col-12">
-                                        <label for="slrEmail" class="form-label">Seller Email</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-envelope'></i></span>
-                                            <input type="text" name="slrEmail" class="form-control" id="slrEmail" value="<?php echo isset($slrEmail) ? htmlspecialchars($slrEmail) : ''; ?>">
+                                        <div class="col-12">
+                                            <label for="slrEmail" class="form-label">Seller Email</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-envelope'></i></span>
+                                                <input type="text" name="slrEmail" class="form-control" id="slrEmail" value="<?php echo isset($slrEmail) ? htmlspecialchars($slrEmail) : ''; ?>">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-key'></i></span>
-                                            <input type="password" name="password" class="form-control" id="password" value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
+                                        <div class="col-12">
+                                            <label for="password" class="form-label">Password</label>
+                                            <div class="input-group">
+                                                <span class="input-group-text" id="inputGroupPrepend"><i class='bx bx-key'></i></span>
+                                                <input type="password" name="password" class="form-control" id="password" value="<?php echo isset($password) ? htmlspecialchars($password) : ''; ?>">
+                                            </div>
                                         </div>
-                                    </div>
 
-                                    <div class="col-12">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
-                                            <label class="form-check-label" for="rememberMe">Remember me</label>
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" name="remember" value="true" id="rememberMe">
+                                                <label class="form-check-label" for="rememberMe">Remember me</label>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="col-12">
-                                        <button class="btn btn-primary w-100" type="submit">Login</button>
-                                    </div>
-                                    <div class="text-center">
-                                        <a href="request_reset.php" class="small">Forgot password?</a>
-                                    </div>
-                                    <hr>
-                                    <div class="col-12 text-center mt-0">
-                                        <a class="btn btn-success" href="slr_register.php">Create an account</a>
-                                    </div>
-                                </form>
+                                        <div class="col-12">
+                                            <button class="btn btn-primary w-100" type="submit">Login</button>
+                                        </div>
+                                        <div class="text-center">
+                                            <a href="request_reset.php" class="small">Forgot password?</a>
+                                        </div>
+                                        <hr>
+                                        <div class="col-12 text-center mt-0">
+                                            <a class="btn btn-success" href="slr_register.php">Create an account</a>
+                                        </div>
+                                    </form>
 
+                                </div>
                             </div>
-                        </div>
 
+                        </div>
                     </div>
                 </div>
-            </div>
 
-        </section>
+            </section>
 
-    </div>
-</main>
+        </div>
+    </main>
 
-<script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../assets/js/main.js"></script>
+    <script src="../assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../assets/js/main.js"></script>
 
 </body>
 

@@ -7,25 +7,29 @@ if (!isset($_SESSION['admin'])) {
   exit();
 }
 
+// Set the correct time zone
+date_default_timezone_set('America/Toronto');
+
 // Function to format time as relative
-function timeAgo($timestamp) {
+function timeAgo($timestamp)
+{
   $time = strtotime($timestamp);
   $currentTime = time();
   $timeDifference = $currentTime - $time;
   $seconds = $timeDifference;
-  
+
   $minutes      = round($seconds / 60);           // value 60 is seconds
   $hours        = round($seconds / 3600);         // value 3600 is 60 minutes * 60 seconds
   $days         = round($seconds / 86400);        // value 86400 is 24 hours * 60 minutes * 60 seconds
-  
+
   if ($seconds <= 60) {
-      return "Just now";
+    return "Just now";
   } else if ($minutes <= 60) {
-      return "$minutes mins";
+    return "$minutes mins";
   } else if ($hours <= 24) {
-      return "$hours hrs";
+    return "$hours hrs";
   } else {
-      return "$days days";
+    return "$days days";
   }
 }
 

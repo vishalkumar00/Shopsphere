@@ -39,7 +39,7 @@
     </li>
     <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'users_list.php') !== false || strpos($_SERVER['REQUEST_URI'], 'view_user.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="users_list.php">
-      <i class="bi bi-people-fill fs-6"></i>
+        <i class="bi bi-people-fill fs-6"></i>
         <span>Customers' List</span>
       </a>
     </li>

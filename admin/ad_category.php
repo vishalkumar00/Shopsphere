@@ -2,7 +2,7 @@
 
 include 'header.php';
 include 'sidebar.php';
-include '../database/conn.php'; 
+include '../database/conn.php';
 
 $message = "";
 $alertClass = "";
@@ -84,7 +84,7 @@ if (isset($_GET['delete'])) {
   if ($deleteResult->num_rows > 0) {
     $deleteRow = $deleteResult->fetch_assoc();
     $deleteCategoryName = $deleteRow['category_name'];
-    
+
     // Check if products exist under this category
     $checkProductSql = "SELECT product_id FROM products WHERE category_id='$deleteId'";
     $checkProductResult = $conn->query($checkProductSql);
@@ -113,82 +113,82 @@ $result = $conn->query($sql);
 
 <main id="main-admin" class="main-admin">
 
-<div class="pagetitle">
-  <h1>Categories</h1>
-</div>
-
-<?php if (!empty($message)) : ?>
-  <div class="alert <?php echo $alertClass; ?>" role="alert">
-    <?php echo $message; ?>
+  <div class="pagetitle">
+    <h1>Categories</h1>
   </div>
-<?php endif; ?>
 
-<div class="row">
-  <div class="col-lg-6">
-    <div class="card category-card">
-      <div class="card-body">
-        <h5 class="card-title category-card-title"><?php echo !empty($categoryId) ? 'Edit Category' : 'Add New Category'; ?></h5>
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-          <div class="row mb-3">
-            <label for="categoryName" class="col-sm-5 col-form-label category-label">Category Name</label>
-            <div class="col-sm-7">
-              <input type="text" class="form-control category-input" name="categoryName" id="categoryName" value="<?php echo htmlspecialchars($categoryName); ?>">
+  <?php if (!empty($message)) : ?>
+    <div class="alert <?php echo $alertClass; ?>" role="alert">
+      <?php echo $message; ?>
+    </div>
+  <?php endif; ?>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="card category-card">
+        <div class="card-body">
+          <h5 class="card-title category-card-title"><?php echo !empty($categoryId) ? 'Edit Category' : 'Add New Category'; ?></h5>
+          <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <div class="row mb-3">
+              <label for="categoryName" class="col-sm-5 col-form-label category-label">Category Name</label>
+              <div class="col-sm-7">
+                <input type="text" class="form-control category-input" name="categoryName" id="categoryName" value="<?php echo htmlspecialchars($categoryName); ?>">
+              </div>
             </div>
-          </div>
-          <div class="row mb-3">
-            <label for="commissionRate" class="col-sm-5 col-form-label category-label">Commission Rate (%)</label>
-            <div class="col-sm-7">
-              <input type="number" class="form-control category-input" name="commissionRate" id="commissionRate" value="<?php echo htmlspecialchars($commissionRate); ?>">
+            <div class="row mb-3">
+              <label for="commissionRate" class="col-sm-5 col-form-label category-label">Commission Rate (%)</label>
+              <div class="col-sm-7">
+                <input type="number" class="form-control category-input" name="commissionRate" id="commissionRate" value="<?php echo htmlspecialchars($commissionRate); ?>">
+              </div>
             </div>
-          </div>
-          <?php if (!empty($categoryId)) : ?>
-            <input type="hidden" name="categoryId" value="<?php echo $categoryId; ?>">
-          <?php endif; ?>
-          <div class="text-center mt-3">
-            <button type="submit" class="btn btn-primary category-btn"><?php echo !empty($categoryId) ? 'Update Category' : 'Add Category'; ?></button>
-          </div>
-        </form>
+            <?php if (!empty($categoryId)) : ?>
+              <input type="hidden" name="categoryId" value="<?php echo $categoryId; ?>">
+            <?php endif; ?>
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-primary category-btn"><?php echo !empty($categoryId) ? 'Update Category' : 'Add Category'; ?></button>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
-  </div>
-  
-  <div class="col-lg-6">
-    <div class="card category-card">
-      <div class="card-body">
-        <h5 class="card-title category-card-title">Existing Categories</h5>
-        <div class="table-responsive">
-          <table class="table category-table table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">Category Name</th>
-                <th scope="col">Commission Rate</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <?php if ($result->num_rows > 0) : ?>
-                <?php while ($row = $result->fetch_assoc()) : ?>
-                  <tr>
-                    <td><?php echo htmlspecialchars($row['category_name']); ?></td>
-                    <td><?php echo htmlspecialchars($row['commission_rate']) . '%'; ?></td>
-                    <td>
-                      <a href="ad_category.php?edit=<?php echo $row['category_id']; ?>" class="btn btn-sm btn-warning category-edit-btn"><i class="bx bx-edit-alt"></i></a>
-                      <a href="ad_category.php?delete=<?php echo $row['category_id']; ?>" class="btn btn-sm btn-danger category-delete-btn"><i class="bx bx-trash"></i></a>
-                    </td>
-                  </tr>
-                <?php endwhile; ?>
-              <?php else : ?>
+
+    <div class="col-lg-6">
+      <div class="card category-card">
+        <div class="card-body">
+          <h5 class="card-title category-card-title">Existing Categories</h5>
+          <div class="table-responsive">
+            <table class="table category-table table-borderless">
+              <thead>
                 <tr>
-                  <td colspan="3">No categories found.</td>
+                  <th scope="col">Category Name</th>
+                  <th scope="col">Commission Rate</th>
+                  <th scope="col">Actions</th>
                 </tr>
-              <?php endif; ?>
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                <?php if ($result->num_rows > 0) : ?>
+                  <?php while ($row = $result->fetch_assoc()) : ?>
+                    <tr>
+                      <td><?php echo htmlspecialchars($row['category_name']); ?></td>
+                      <td><?php echo htmlspecialchars($row['commission_rate']) . '%'; ?></td>
+                      <td>
+                        <a href="ad_category.php?edit=<?php echo $row['category_id']; ?>" class="btn btn-sm btn-warning category-edit-btn"><i class="bx bx-edit-alt"></i></a>
+                        <a href="ad_category.php?delete=<?php echo $row['category_id']; ?>" class="btn btn-sm btn-danger category-delete-btn"><i class="bx bx-trash"></i></a>
+                      </td>
+                    </tr>
+                  <?php endwhile; ?>
+                <?php else : ?>
+                  <tr>
+                    <td colspan="3">No categories found.</td>
+                  </tr>
+                <?php endif; ?>
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
 </main>
 

@@ -447,7 +447,7 @@ h6 {
   padding: 5px 0;
   position: absolute;
   z-index: 1;
-  bottom: 125%; 
+  bottom: 125%;
   left: 50%;
   margin-left: -60px;
   opacity: 0;
@@ -457,7 +457,7 @@ h6 {
 .tooltip-custom .tooltiptext::after {
   content: "";
   position: absolute;
-  top: 100%; 
+  top: 100%;
   left: 50%;
   margin-left: -5px;
   border-width: 5px;
@@ -1055,8 +1055,8 @@ h6 {
 }
 
 .none-cross-icon {
-  color: red; 
-  font-size: 20px; 
+  color: red;
+  font-size: 20px;
 }
 
 .input-group .form-control.quantity-input {
@@ -1090,9 +1090,9 @@ h6 {
 
 /* CSS for Cart Page  */
 .quantity-column {
-  width: 150px; 
-  min-width: 150px; 
-  max-width: 150px; 
+  width: 150px;
+  min-width: 150px;
+  max-width: 150px;
 }
 
 .quantity-column .input-group {
@@ -1114,7 +1114,7 @@ h6 {
   border: 1px solid #4154f1;
 }
 
-.quantity-btn:hover i{
+.quantity-btn:hover i {
   color: #4154f1 !important;
 }
 
@@ -1122,7 +1122,7 @@ h6 {
   background-color: #fff;
 }
 
-.btn-remove:hover i{
+.btn-remove:hover i {
   color: #e32826 !important;
 }
 
@@ -1135,11 +1135,12 @@ h6 {
 }
 
 .bg-table-initial {
-background-color: #cddfff !important;
+  background-color: #cddfff !important;
 }
 
 .summary-card {
-  border: 1px solid #dee2e6;;
+  border: 1px solid #dee2e6;
+  ;
 }
 
 .cart-pd-img {
@@ -1184,13 +1185,6 @@ background-color: #cddfff !important;
   padding-left: 55px;
 }
 
-
-/* .checkout-pd-name::before {
-  content: '';
-  display: inline-block;
-  width: 0;
-} */
-
 /* Orders page CSS styles */
 .order-pd-img {
   width: 100px;
@@ -1208,10 +1202,34 @@ background-color: #cddfff !important;
 
 .invoice-print-btn:hover {
   background-color: #007bff;
-  /* color: white; */
   transition: all 0.3s;
   border: none;
 }
+
+/* Contact Page (Customers Portal)  */
+.contact-header-h1 {
+  color: #012970;
+}
+
+.contact-header {
+  background: url('../img/banner (8).jpg') no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #333;
+  padding: 50px 20px;
+  text-align: center;
+}
+
+.contact-header:hover::before {
+  opacity: 0;
+}
+
+.contact-header h1,
+.contact-header p {
+  position: relative;
+  z-index: 2;
+}
+
 
 @media (max-width: 1199px) {
   .toggle-sidebar .sidebar {
@@ -1373,7 +1391,7 @@ background-color: #cddfff !important;
   .login-center-vertically {
     align-items: flex-start;
     min-height: fit-content !important;
-  } 
+  }
 
   .carousel-caption {
     width: 95%;
@@ -1478,8 +1496,8 @@ background-color: #cddfff !important;
   }
 
   .quantity-column {
-    width: 120px; 
+    width: 120px;
     min-width: 120px;
     max-width: 120px;
-}
+  }
 }

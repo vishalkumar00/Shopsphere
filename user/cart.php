@@ -144,21 +144,21 @@ if ($is_logged_in) {
             <div class="card p-4 rounded-0 summary-card">
                 <h3 class="fw-bold mb-4">Summary</h3>
                 <?php if ($is_logged_in && !empty($cart_items)) : ?>
-                <p class="d-flex justify-content-between">
-                    <span>Subtotal:</span>
-                    <span class="fw-bold" id="totalPrice">$<?php echo number_format($total_price, 2); ?></span>
-                </p>
-                <p class="d-flex justify-content-between">
-                    <span>Taxes (13%):</span>
-                    <span class="fw-bold" id="taxes">$<?php echo number_format($taxes, 2); ?></span>
-                </p>
-                <hr>
-                <p class="d-flex justify-content-between">
-                    <span>Total Amount:</span>
-                    <span class="fw-bold" id="totalAmount">$<?php echo number_format($total_amount, 2); ?></span>
-                </p>
-                <a href="checkout.php" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn">Proceed to Checkout</a>
-                <?php else: ?>
+                    <p class="d-flex justify-content-between">
+                        <span>Subtotal:</span>
+                        <span class="fw-bold" id="totalPrice">$<?php echo number_format($total_price, 2); ?></span>
+                    </p>
+                    <p class="d-flex justify-content-between">
+                        <span>Taxes (13%):</span>
+                        <span class="fw-bold" id="taxes">$<?php echo number_format($taxes, 2); ?></span>
+                    </p>
+                    <hr>
+                    <p class="d-flex justify-content-between">
+                        <span>Total Amount:</span>
+                        <span class="fw-bold" id="totalAmount">$<?php echo number_format($total_amount, 2); ?></span>
+                    </p>
+                    <a href="checkout.php" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn">Proceed to Checkout</a>
+                <?php else : ?>
                     <button type="button" class="btn btn-primary btn-block mt-4 rounded-0 usr-carosuel-btn" disabled>Proceed to Checkout</button>
                 <?php endif; ?>
             </div>

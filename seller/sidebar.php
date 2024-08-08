@@ -6,9 +6,8 @@
         <span>Dashboard</span>
       </a>
     </li>
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_products.php') !== false) ? 'active' : ''; ?>">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'slr_products.php') !== false || strpos($_SERVER['REQUEST_URI'], 'ad_products.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="slr_products.php">
-        <!-- <i class='bx bx-box'></i> -->
         <i class='bx bx-closet'></i>
         <span>Products</span>
       </a>
@@ -25,7 +24,7 @@
         <span>Revenue</span>
       </a>
     </li>
-    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], '/seller/slr_profile.php') !== false) ? 'active' : ''; ?>">
+    <li class="nav-item <?php echo (strpos($_SERVER['REQUEST_URI'], 'slr_profile.php') !== false || strpos($_SERVER['REQUEST_URI'], 'change_password.php') !== false) ? 'active' : ''; ?>">
       <a class="nav-link" href="slr_profile.php">
         <i class="bx bxs-user-detail fs-5"></i>
         <span>Proile</span>
@@ -37,11 +36,5 @@
         <span>Announcements</span>
       </a>
     </li>
-    <!-- <li class="nav-item">
-      <a class="nav-link" href="#">
-        <i class="bx bxs-bank fs-5"></i>
-        <span>Payments</span>
-      </a>
-    </li> -->
   </ul>
 </aside>

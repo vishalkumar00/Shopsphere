@@ -1,8 +1,7 @@
 <?php
-session_start();
-include '../database/conn.php';
-
+include 'header.php';
 include 'sidebar.php';
+include '../database/conn.php';
 
 // Fetch seller information if not a form submission
 if ($_SERVER["REQUEST_METHOD"] != "POST" && isset($_SESSION['seller_id'])) {
@@ -74,7 +73,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
             $stmt->bind_param("sssssi", $address, $city, $province, $postalCode, $contactNumber, $sellerId);
             if ($stmt->execute()) {
                 // Redirect to the profile page after update
-                header("Location: slr_profile.php");
+                // header("Location: slr_profile.php");
+                echo '<script>window.location.href = "slr_profile.php";</script>';
                 exit();
             } else {
                 echo "Error: " . $stmt->error;
@@ -86,7 +86,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_profile'])) {
     }
 }
 
-include 'header.php';
 ?>
 
 <main id="main-admin" class="main-admin">

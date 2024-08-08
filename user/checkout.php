@@ -62,7 +62,7 @@ if ($user_id) {
 
 <main class="container-fluid my-5">
     <form action="process_checkout.php" method="POST">
-        <input type="hidden" id="discountApplied" value="false"> 
+        <input type="hidden" id="discountApplied" value="false">
         <div class="row">
             <h2 class="fw-bold mb-4 shop-pg-search-title">Checkout</h2>
             <?php if ($user_id && !empty($cart_items)) : ?>
@@ -193,7 +193,6 @@ if ($user_id) {
     </form>
 </main>
 
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
@@ -243,6 +242,4 @@ if ($user_id) {
     });
 </script>
 
-<?php
-include 'footer.php';
-?>
+<?php include 'footer.php'; ?>

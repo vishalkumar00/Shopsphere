@@ -30,6 +30,6 @@ $stmt_delete_orders->execute();
 $stmt_delete_orders->close();
 
 // Redirect to cancellation confirmation page or return a JSON response
-header("Location: checkout.php");  // Or echo a JSON response if this is an API
+header("Location: checkout.php");  
 exit();
 ?>

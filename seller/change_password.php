@@ -1,9 +1,7 @@
 <?php
-session_start();
-include '../database/conn.php';
-
-include 'sidebar.php';
 include 'header.php';
+include 'sidebar.php';
+include '../database/conn.php';
 
 $current_password = $new_password = $confirm_password = "";
 $current_passwordErr = $new_passwordErr = $confirm_passwordErr = "";
@@ -64,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
 ?>
 
 <main id="main-admin" class="main-admin">
-    <div class="container mt-5">
+    <div class="container mt-3">
         <section class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card">
@@ -92,8 +90,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['change_password'])) {
                                 <input type="text" class="form-control" id="confirm_password" name="confirm_password" value="<?php echo htmlspecialchars($confirm_password); ?>" required>
                                 <span class="text-danger"><?php echo $confirm_passwordErr; ?></span>
                             </div>
-                            <div class="mb-3">
+                            <div class="text-center mb-2">
                                 <button type="submit" class="btn btn-primary" name="change_password">Change Password</button>
+                                <a href="slr_profile.php" class="btn btn-secondary">Back to Profile</a>
                             </div>
                         </form>
                     </div>

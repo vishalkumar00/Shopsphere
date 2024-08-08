@@ -1,5 +1,4 @@
 <?php
-
 include 'header.php';
 include 'sidebar.php';
 include '../database/conn.php';
@@ -18,7 +17,6 @@ $query = "SELECT
               LEFT JOIN sizes sz ON v.size_id = sz.size_id";
 
 $stmt = $conn->prepare($query);
-// $stmt->bind_param("i", $sellerId);
 $stmt->execute();
 $result = $stmt->get_result();
 $stmt->close();
@@ -50,7 +48,6 @@ $stmt->close();
                                     <th scope="col">Quantity</th>
                                     <th scope="col">Size</th>
                                     <th scope="col">Dimensions</th>
-                                    <!-- <th scope="col">Actions</th> -->
                                 </tr>
                             </thead>
                             <tbody>

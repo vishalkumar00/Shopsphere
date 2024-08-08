@@ -1,5 +1,6 @@
 <?php
-session_start();
+include 'header.php';
+include 'sidebar.php';
 include '../database/conn.php';
 
 // Initialize variables to hold form data and errors
@@ -90,7 +91,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         } elseif (!ctype_digit((string) $quantity) || $quantity < 0 || $quantity > 9999) {
             $errors['productQuantity'][$key] = 'Quantity must be between 0 and 9,999';
         }
-    }    
+    }
 
     // If no errors, proceed with database insertion
     if (empty($errors)) {
@@ -117,7 +118,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
 
         $stmt->close();
-        header("Location: slr_products.php?created=1");
+        echo '<script>window.location.href = "slr_products.php?created=1";</script>';
         exit();
     }
 }
@@ -142,8 +143,7 @@ if (empty($productColors)) {
     $productQuantities[] = '';
 }
 
-include 'header.php';
-include 'sidebar.php';
+
 ?>
 
 <main id="main-admin" class="main-admin">

@@ -28,7 +28,7 @@ $query = "SELECT
           LEFT JOIN sizes sz ON v.size_id = sz.size_id
           LEFT JOIN users u ON o.user_id = u.user_id
           LEFT JOIN sellers s ON p.seller_id = s.seller_id";
-          
+
 if ($selected_status != '') {
     $query .= " WHERE o.shipping_status = ?";
 }
@@ -70,21 +70,21 @@ $colorIndex = 0;
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
-                <div class="col-lg-12 d-flex justify-content-between align-items-center">
-                    <h5 class="card-title category-card-title">Placed Orders</h5>
-                    <form method="GET" action="ad_orders.php" class="form-inline">
-                        <div class="d-flex">
-                    <label for="shipping_status">Filter by Status</label>
-                    <select name="shipping_status" class="form-control" onchange="this.form.submit()">
-                        <option value="">All Statuses</option>
-                        <option value="Pending" <?php if ($selected_status == 'Pending') echo 'selected'; ?>>Pending</option>
-                        <option value="Unshipped" <?php if ($selected_status == 'Unshipped') echo 'selected'; ?>>Unshipped</option>
-                        <option value="Shipped" <?php if ($selected_status == 'Shipped') echo 'selected'; ?>>Shipped</option>
-                        <option value="Delivered" <?php if ($selected_status == 'Delivered') echo 'selected'; ?>>Delivered</option>
-                    </select>
+                    <div class="col-lg-12 d-flex justify-content-between align-items-center">
+                        <h5 class="card-title category-card-title">Placed Orders</h5>
+                        <form method="GET" action="ad_orders.php" class="form-inline">
+                            <div class="d-flex">
+                                <label for="shipping_status">Filter by Status</label>
+                                <select name="shipping_status" class="form-control" onchange="this.form.submit()">
+                                    <option value="">All Statuses</option>
+                                    <option value="Pending" <?php if ($selected_status == 'Pending') echo 'selected'; ?>>Pending</option>
+                                    <option value="Unshipped" <?php if ($selected_status == 'Unshipped') echo 'selected'; ?>>Unshipped</option>
+                                    <option value="Shipped" <?php if ($selected_status == 'Shipped') echo 'selected'; ?>>Shipped</option>
+                                    <option value="Delivered" <?php if ($selected_status == 'Delivered') echo 'selected'; ?>>Delivered</option>
+                                </select>
+                            </div>
+                        </form>
                     </div>
-                </form>
-                </div> 
                     <div class="table-responsive">
                         <table class="table datatable">
                             <thead>
@@ -138,7 +138,7 @@ $colorIndex = 0;
                         </table>
                     </div>
                 </div>
-            </div>  
+            </div>
         </div>
     </div>
 </main>

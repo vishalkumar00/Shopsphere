@@ -100,9 +100,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
     <link href="../assets/css/style.css" rel="stylesheet">
 
 </head>
+
 <body>
 
-<div class="container-fluid">
+    <div class="container-fluid">
         <section class="min-vh-100 register-min-height">
             <div class="container py-4">
                 <div class="row d-flex justify-content-center align-items-center">
@@ -219,7 +220,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['register'])) {
             }
         }
     </script>
-
-
 </body>
 </hmtl>
