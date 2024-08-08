@@ -11,6 +11,6 @@ setcookie('business_email', '', time() - 3600, "/");
 setcookie('store_name', '', time() - 3600, "/");
 
 // Redirect to the login page
-header("Location: index.php");
+header("Location: ../index.php");
 exit;
 ?>

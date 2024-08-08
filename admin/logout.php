@@ -13,6 +13,6 @@ if (isset($_COOKIE['remember_admin'])) {
 }
 
 // Redirect to login page
-header("Location: index.php");
+header("Location: ../index.php");
 exit();
 ?>

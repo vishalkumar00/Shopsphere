@@ -10,6 +10,6 @@ setcookie('user_id', '', time() - 3600, "/");
 setcookie('email', '', time() - 3600, "/");
 
 // Redirect to the login page
-header("Location: index.php");
+header("Location: ../index.php");
 exit;
 ?>
